@@ -36,8 +36,8 @@
                         echo "<tr class=\"tit\"><td class=\"dcha\">Mes</td><td>Tm&aacutex</td><td>Tm&iacuten</td></tr>";
                         foreach ($meses as $mes) {
                             echo "<tr><td class=\"dcha\">$mes</td>";
-                            foreach ($temps as $temp) {
-                                echo "<td><input type=\"text\" class=\"lil\"name=\"temp[$ciudad][$mes][$temp]\"></td>";
+                            foreach ($temps as $temperaturas) {
+                                echo "<td><input type=\"text\" class=\"lil\"name=\"temp[$ciudad][$mes][$temperaturas]\"></td>";
                             }
                             echo "</tr>";
                         }
