@@ -27,13 +27,13 @@
         <?php
         $ciudades = ["Madrid", "Barcelona", "Sevilla", "Bilbao"];
         $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        $temps = ["TMax", "TMín"];
+        $temps = ["TMax", "TMin"];
         ?>
         <form action="php/temperaturas.php" method="POST">
             <?php
                     foreach ($ciudades as $ciudad) {
                         echo "<table><tr><th colspan=3>$ciudad</th></tr>";
-                        echo "<tr class=\"tit\"><td class=\"dcha\">Mes</td><td>Tm&aacutex</td><td>Tm&iacuten</td></tr>";
+                        echo "<tr class=\"tit\"><td class=\"dcha\">Mes</td><td>Tmax</td><td>Tmin</td></tr>";
                         foreach ($meses as $mes) {
                             echo "<tr><td class=\"dcha\">$mes</td>";
                             foreach ($temps as $temperaturas) {

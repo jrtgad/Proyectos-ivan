@@ -3,18 +3,22 @@
         
     </head>
     <body>
+        <table><tr>
+
 <?php
 
 $datos = $_POST['datos'];
 
 foreach ($datos as $ciudad => $meses) {
+    echo "<td>$ciudad</td>";
     foreach ($meses as $mes => $temperaturas) {
+        echo "<td>$mes</td>";
         foreach ($temperaturas as $temp => $valor){
-            echo "$valor";
+            echo "<td>$temp</td>";
         }
     }
 }
 ?>
-
-            </body>
+        </table>
+    </body>
 </html>
