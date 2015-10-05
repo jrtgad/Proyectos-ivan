@@ -27,7 +27,7 @@
         <?php
         $ciudades = ["Madrid", "Barcelona", "Sevilla", "Bilbao"];
         $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        $temps = ["TempMax", "TempMín"];
+        $temps = ["TMax", "TMín"];
         ?>
         <form action="php/temperaturas.php" method="POST">
             <?php
