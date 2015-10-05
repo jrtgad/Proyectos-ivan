@@ -5,9 +5,9 @@
     <body>
 <?php
 
-$datos = $_POST['temp'];
+$datos = $_POST['datos'];
 
-foreach ($temps as $ciudad => $meses) {
+foreach ($datos as $ciudad => $meses) {
     foreach ($meses as $mes => $temperaturas) {
         foreach ($temperaturas as $temp => $valor){
             echo "$valor";
