@@ -27,7 +27,9 @@
 <?php
 
 $datos = $_POST['datos'];
+
 echo "<th>Ciudad</th><th>Max</th><th>Min</th><th>med</th></tr>";
+
 foreach ($datos as $ciudad => $meses) {
     
     echo "<tr><td>$ciudad</td>";
