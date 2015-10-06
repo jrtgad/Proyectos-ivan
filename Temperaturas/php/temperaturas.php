@@ -10,13 +10,13 @@
 $datos = $_POST['datos'];
 
 foreach ($datos as $ciudad => $meses) {
-    echo "<td>$ciudad</td>";
-    foreach ($meses as $mes => $temperaturas) {
+    echo "<th>Ciudad</th><th>Max</th><th>Min</th><th>med</th></tr>";
+    echo "<tr><td>$ciudad</td>";
+    foreach ($meses as $mes => $temperaturas) {        
         foreach ($temperaturas as $temp => $valor){
-            echo "<td>$valor</td>";
+            echo "<td>$valor</td><td></td><td></td></tr>";
         }
     }
-    echo "</tr>";
 }
 ?>
         </table>

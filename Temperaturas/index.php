@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,7 +48,6 @@
         </form>
     </body>
 </html>
-=======
 <!DOCTYPE html>
 <html>
     <head>
@@ -97,4 +95,3 @@
         </form>
     </body>
 </html>
->>>>>>> Secondary
