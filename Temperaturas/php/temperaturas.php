@@ -33,14 +33,13 @@ foreach ($datos as $ciudad => $meses) {
     echo "<tr><td>$ciudad</td>";
     $max[$ciudad] = max(array_column($meses, 'TMax'));
     $min[$ciudad] = min(array_column($meses, 'TMin'));
-    $med[$ciudad] = (array_sum(array_column($meses, 'TMax')) + array_sum(array_column($meses, 'TMin'))) / 24;
+    $sumaMax = array_sum(array_column($meses, 'TMax'));
+    $sumaMin = array_sum(array_column($meses, 'TMin'));
+    $med[$ciudad] = ($sumaMax + $sumaMin) / 24;
     
-    /*foreach ($meses as $mes => $temperaturas) {        
-        foreach ($temperaturas as $temp => $valor){*/
-            echo "<td>$max[$ciudad]</td><td>$min[$ciudad]</td><td>$med[$ciudad]</td>";
-        //}
-    //}
-    echo "</tr>";
+    array_multisort($max, $min, $med, $datos);    
+    
+    echo "<td>$max[$ciudad]</td><td>$min[$ciudad]</td><td>$med[$ciudad]</td></tr>";
 }
 ?>
         </table>
