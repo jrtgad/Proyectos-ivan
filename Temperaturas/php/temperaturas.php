@@ -18,6 +18,7 @@
                         clear: both;}
             
             .lil{width: 35px;}
+            
         </style>
     </head>
     <body>
