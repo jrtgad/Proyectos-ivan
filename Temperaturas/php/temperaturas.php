@@ -27,18 +27,19 @@
 <?php
 
 $datos = $_POST['datos'];
-
+echo "<th>Ciudad</th><th>Max</th><th>Min</th><th>med</th></tr>";
 foreach ($datos as $ciudad => $meses) {
-    echo "<th>Ciudad</th><th>Max</th><th>Min</th><th>med</th></tr>";
+    
     echo "<tr><td>$ciudad</td>";
-    $max = max(array_column($datos[$ciudad][$mes]['Tmax'], $meses));
-    $min = min(array_column($datos[$ciudad][$mes]['Tmin'], $meses));
-    $med = (array_sum(array_column($datos[$ciudad][$mes]['Tmax'], $meses)) + array_sum(array_column($datos[$ciudad][$mes]['Tmin'], $meses))) / 24;
-    foreach ($meses as $mes => $temperaturas) {        
-        foreach ($temperaturas as $temp => $valor){
-            echo "<td>$max</td><td>$min</td><td>$med</td>";
-        }
-    }
+    $max[$ciudad] = max(array_column($meses, 'TMax'));
+    $min[$ciudad] = min(array_column($meses, 'TMin'));
+    $med[$ciudad] = (array_sum(array_column($meses, 'TMax')) + array_sum(array_column($meses, 'TMin'))) / 24;
+    
+    /*foreach ($meses as $mes => $temperaturas) {        
+        foreach ($temperaturas as $temp => $valor){*/
+            echo "<td>$max[$ciudad]</td><td>$min[$ciudad]</td><td>$med[$ciudad]</td>";
+        //}
+    //}
     echo "</tr>";
 }
 ?>
