@@ -5,10 +5,10 @@
         </style>
     </head>
     <body>
-
+        <div class="centrado">
 <?php
 
-function checkDaysUntilNextMonth($day, $month, $year) {
+function daysPerMonth($month, $year) {
     switch ($month) {
         case "01": case "03": case "05": 
         case "07": case "08": case "10": 
@@ -19,12 +19,22 @@ function checkDaysUntilNextMonth($day, $month, $year) {
         
         case "02" : leapYear($year) ? $numberOfDaysPerMonth = "29" : $numberOfDaysPerMonth = "28";            break;
     }
-    return ($numberOfDaysPerMonth - $day);
+    return $numberOfDaysPerMonth;
+}
+
+function checkDaysUntilNextMonth($day, $month, $year) {
+    return daysPerMonth($month, $year) - $day;
+}
+
+function countDaysUntilNextYear($day, $month, $year) {
+    for($i = $month + 1; $i <= 12; $i++) {
+        $totalDays += daysPerMonth($month, $year);
+    }
 }
 
 function leapYear($year) {
     $bis;
-    if($anio % 4 === 0 &&($anio % 100 !== 0 || $anio % 400 === 0)) {
+    if($year % 4 === 0 &&($year % 100 !== 0 || $year % 400 === 0)) {
     $bis = true;
     } else {
         $bis = false;
@@ -34,26 +44,24 @@ function leapYear($year) {
 
 $fecha = $_POST['fecha'];
 
-
 $fechaArray = explode("/", $fecha);
+
+$day = $fechaArray[0];
+$month = $fechaArray[1];
+$year = $fechaArray[2];
+$numberOfDaysPerMonth;
+$totalDays = 0;
+
 $incorrectDate = "La fecha introducida no es correcta";
 
 if(checkdate($month, $day, $year)) {
-    $day = $fechaArray[0];
-    $month = $fechaArray[1];
-    $year = $fechaArray[2];
-
-    $numberOfDaysPerMonth;
-    $totalDays = 0;
-
     $totalDays += checkDaysUntilNextMonth($day, $month, $year);
-
-    checkDaysUntilNextMonth($day, $month, $year);
+    
 } else {
     echo $incorrectDate;
 }
 
-
 ?>
+        </div>
     </body>
 </html>
