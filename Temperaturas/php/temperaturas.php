@@ -39,7 +39,7 @@ foreach ($datos as $ciudad => $meses) {
     $sumaMin = array_sum(array_column($meses, 'TMin'));
     $med[$ciudad] = ($sumaMax + $sumaMin) / 24;
     
-    array_multisort($max, $min, $med, $datos);    
+    array_multisort($max, $med);
     
     echo "<td>$max[$ciudad]</td><td>$min[$ciudad]</td><td>$med[$ciudad]</td></tr>";
 }
