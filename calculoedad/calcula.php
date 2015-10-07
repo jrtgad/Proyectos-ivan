@@ -28,7 +28,7 @@ function checkDaysUntilNextMonth($day, $month, $year) {
 
 function countDaysUntilNextYear($day, $month, $year) {
     for($i = $month + 1; $i <= 12; $i++) {
-        $totalDays += daysPerMonth($month, $year);
+        $totalDays += daysPerMonth($i, $year);
     }
 }
 
@@ -55,7 +55,7 @@ $totalDays = 0;
 $incorrectDate = "La fecha introducida no es correcta";
 
 if(checkdate($month, $day, $year)) {
-    $totalDays += checkDaysUntilNextMonth($day, $month, $year);
+    $totalDays += (checkDaysUntilNextMonth($day, $month, $year) + countDaysUntilNextYear($day, $month, $year));
     
 } else {
     echo $incorrectDate;
