@@ -3,8 +3,7 @@
         <title>Temperaturas</title>
         <style>
             table{text-align: center;
-                    float: left;
-                    margin: 20px;
+                    margin: auto;
                     border: 1px solid goldenrod;}
             
             tr{border: 1px solid goldenrod;}
