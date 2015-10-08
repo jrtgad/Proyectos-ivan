@@ -53,7 +53,7 @@ array_multisort($max, SORT_NUMERIC, $min, SORT_NUMERIC, $med, SORT_NUMERIC, $dat
 
 //Una vez ordenado el array, podemos mostrar los datos de cada ciudad
 foreach ($datos as $ciudad => $meses) {
-    echo "<tr><td>$ciudad</td>";    
+    echo "<tr><td>" . ucwords($ciudad) . "</td>";    
     echo "<td>$max[$ciudad]</td><td>$min[$ciudad]</td><td>$med[$ciudad]</td></tr>";
 }
 ?>
