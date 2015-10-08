@@ -55,7 +55,8 @@ $totalDays = 0;
 $incorrectDate = "La fecha introducida no es correcta";
 
 if(checkdate($month, $day, $year)) {
-    $totalDays += (checkDaysUntilNextMonth($day, $month, $year) + countDaysUntilNextYear($day, $month, $year));
+    $totalDays += (checkDaysUntilNextMonth($day, $month, $year) + 
+                    countDaysUntilNextYear($day, $month, $year));
     
 } else {
     echo $incorrectDate;
