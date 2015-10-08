@@ -3,7 +3,8 @@
         <title>Temperaturas</title>
         <style>
             table{text-align: center;
-                    margin: auto;
+                    float: left;
+                    margin: 20px;
                     border: 1px solid goldenrod;}
             
             tr{border: 1px solid goldenrod;}
@@ -29,8 +30,6 @@ $datos = $_POST['datos'];
 
 echo "<th>Ciudad</th><th>Max</th><th>Min</th><th>Med</th></tr>";
 
-$ciudades = [];
-
 foreach ($datos as $ciudad => $meses) {
     //Para cada ciudad, sacamos la temp max, min y med
     $max[$ciudad] = max(array_column($meses, 'TMax'));
@@ -38,23 +37,18 @@ foreach ($datos as $ciudad => $meses) {
     $sumaMax = array_sum(array_column($meses, 'TMax'));
     $sumaMin = array_sum(array_column($meses, 'TMin'));
     $med[$ciudad] = ($sumaMax + $sumaMin) / 24;
-    
-    //Metemos solo las ciudades al array $ciu[0] = Madrid...
-    array_push($ciudades, $ciudad);
 }
-
-//Ordenamos por nombre de ciudad
-sort($ciudades);
 
 //Ordenamos el array según lo que queramos
 //Ordena primero por max, en caso de igualarse ordena por min, 
 //y en caso de igualarse, por med
-//array_multisort($max, SORT_NUMERIC, $min, SORT_NUMERIC, $med, SORT_NUMERIC, $datos);
+array_multisort($max,SORT_NUMERIC,SORT_ASC, $min, SORT_NUMERIC, SORT_ASC, $med, SORT_NUMERIC, $datos);
+
 
 //Una vez ordenado el array, podemos mostrar los datos de cada ciudad
-foreach ($ciudades as $ciudad) {
+foreach ($datos as $ciudad => $meses) {
     echo "<tr><td>$ciudad</td>";    
-    echo "<td>$max[$ciudad]</td><td>$min[$ciudad]</td><td>$med[$ciudad]</td></tr>";
+    echo "<td>$max[$ciudad]º</td><td>$min[$ciudad]º</td><td>$med[$ciudad]º</td></tr>";
 }
 ?>
         </table>
