@@ -112,9 +112,12 @@ $year  = $fecha[2];
 
 $maxDays = daysPerMonth($month, $year);
 
-if ($day > $maxDays || $day <= 0) {
+if ($day > $maxDays) {
     echo "La fecha es incorrecta, " . monthName($month) . " tiene " . $maxDays . " d&iacuteas";
-} else {
+} elseif ($day <= 0) {
+    echo "La fecha es incorrecta, los meses tienen d&iacuteas";
+    } else {
+    
     $actual = getdate();
 
     $today = $actual['mday'];
