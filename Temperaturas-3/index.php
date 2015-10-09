@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <title>Temperaturas</title>
         <style>
-            form{text-align: center;
-                    float: both;
-                    margin: 20px;}
+            table{text-align: center;
+                    float: left;
+                    margin: 20px;
+                    border: 1px solid goldenrod;}
             
             tr{border: 1px solid goldenrod;}
             
@@ -19,20 +20,30 @@
                         clear: both;}
             
             .lil{width: 35px;}
-            
-            h1{text-align: center;}
                         
         </style>
     </head>
     <body>
         <?php
+        $ciudades = ["Madrid", "Barcelona", "Sevilla", "Bilbao"];
         $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $temps = ["TMax", "TMin"];
         ?>
-        <h1>Introduzca el nombre de las ciudades separadas por coma</h1>
-        <form action="index2.php" method="POST">
-            <input type="text" name="ciu"/>
+        <form action="php/temperaturas.php" method="POST">
+            <?php
+                    foreach ($ciudades as $ciudad) {
+                        echo "<table><tr><th colspan=3>$ciudad</th></tr>";
+                        echo "<tr class=\"tit\"><td class=\"dcha\">Mes</td><td>Tmax</td><td>Tmin</td></tr>";
+                        foreach ($meses as $mes) {
+                            echo "<tr><td class=\"dcha\">$mes</td>";
+                            foreach ($temps as $temperaturas) {
+                                echo "<td><input type=\"text\" class=\"lil\"name=\"datos[$ciudad][$mes][$temperaturas]\"></td>";
+                            }
+                            echo "</tr>";
+                        }
+                        echo "</table>";
+                    }
+            ?>
             <div class="centrado"><input type="SUBMIT" value="Enviar" class="centrado"></div>
-        </form>
     </body>
 </html>
