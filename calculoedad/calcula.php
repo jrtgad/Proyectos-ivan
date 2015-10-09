@@ -10,25 +10,37 @@
 
 function daysPerMonth($month, $year) {
     switch ($month) {
-        case "01": case "03": case "05": 
-        case "07": case "08": case "10": 
-        case "12": $numberOfDaysPerMonth = "31";            break;
+        case "01": 
+        case "03": 
+        case "05": 
+        case "07": 
+        case "08": 
+        case "10": 
+        case "12": 
+            $numberOfDaysPerMonth = "31";            
+            break;
         
-        case "04": case "06": 
-        case "09": case "11": $numberOfDaysPerMonth = "30"; break;
+        case "04": 
+        case "06": 
+        case "09": 
+        case "11": 
+            $numberOfDaysPerMonth = "30"; 
+            break;
         
-        case "02" : leapYear($year) ? $numberOfDaysPerMonth = "29" : $numberOfDaysPerMonth = "28";            break;
+        case "02" : 
+            leapYear($year) ? $numberOfDaysPerMonth = "29" : $numberOfDaysPerMonth = "28";
+            break;
     }
     return $numberOfDaysPerMonth;
 }
 
-function checkDaysUntilNextMonth($day, $month, $year) {
+function daysUntilNextMonth($day, $month, $year) {
     return daysPerMonth($month, $year) - $day;
 }
 
 function countDaysUntilNextYear($day, $month, $year) {
     for($i = $month + 1; $i <= 12; $i++) {
-        $totalDays += daysPerMonth($i, $year);
+        $totalDays += daysPerMonth($i, $year) + daysUntilNextMonth($day, $month, $year);
     }
 }
 
@@ -55,7 +67,7 @@ $totalDays = 0;
 $incorrectDate = "La fecha introducida no es correcta";
 
 if(checkdate($month, $day, $year)) {
-    $totalDays += (checkDaysUntilNextMonth($day, $month, $year) + 
+    $totalDays += (daysUntilNextMonth($day, $month, $year) + 
                     countDaysUntilNextYear($day, $month, $year));
     
 } else {
