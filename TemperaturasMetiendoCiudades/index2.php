@@ -28,6 +28,7 @@
         $ciu = $_POST['ciu'];
         
         $ciudades = explode(",", $ciu);
+        sort($ciudades);
         $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $temps = ["TMax", "TMin"];
         ?>
