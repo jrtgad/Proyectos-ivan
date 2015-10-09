@@ -38,7 +38,7 @@ foreach ($datos as $ciudad => $meses) {
     $min[$ciudad] = min(array_column($meses, 'TMin'));
     $sumaMax = array_sum(array_column($meses, 'TMax'));
     $sumaMin = array_sum(array_column($meses, 'TMin'));
-    $med[$ciudad] = ($sumaMax + $sumaMin) / 24;
+    $med[$ciudad] = round((($sumaMax + $sumaMin) / 24),2);
     array_push($ciudades, $ciudad);
 }
 

@@ -8,6 +8,16 @@
         <div class="centrado">
 <?php
 
+function leapYear($year) {
+    $bis;
+    if($year % 4 === 0 &&($year % 100 !== 0 || $year % 400 === 0)) {
+    $bis = true;
+    } else {
+        $bis = false;
+    }
+    return $bis;
+}
+
 function daysPerMonth($month, $year) {
     switch ($month) {
         case "01": 
@@ -44,15 +54,7 @@ function countDaysUntilNextYear($day, $month, $year) {
     }
 }
 
-function leapYear($year) {
-    $bis;
-    if($year % 4 === 0 &&($year % 100 !== 0 || $year % 400 === 0)) {
-    $bis = true;
-    } else {
-        $bis = false;
-    }
-    return $bis;
-}
+
 
 $fecha = $_POST['fecha'];
 
