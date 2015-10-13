@@ -45,6 +45,5 @@
                     }
             ?>
             <div class="centrado"><input type="SUBMIT" value="Enviar" class="centrado"></div>
-        </form>
     </body>
 </html>
