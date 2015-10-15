@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <title>Champions</title>
         <style>
-            form, form > * {text-align: center;}
+            form{text-align: center;
+                   display: block;}
         </style>
     </head>
     <body>
@@ -17,8 +18,70 @@
                     <td>Visitante</td>
                 </tr>
                 <tr>
-            <?php
-            ?>
+                    <td name="datos[local]">
+                        Real Madrid
+                    </td>
+                    <td>
+                        <input $type="text" $name="datos[resultado]">
+                    </td>
+                    <td name="datos[visitante]">
+                        Manchester United
+                    </td>
+                </tr>
+                <tr>
+                    <td name="datos[local]">
+                        Real Madrid
+                    </td>
+                    <td>
+                        <input $type="text" $name="datos[resultado]">
+                    </td>
+                    <td $name="datos[visitante]">
+                        AC Milan
+                    </td>
+                </tr>
+                <tr>
+                    <td name="datos[local]">
+                        Manchester United
+                    </td>
+                    <td>
+                        <input $type="text" $name="datos[resultado]">
+                    </td>
+                    <td name="datos[visitante]">
+                        Real Madrid
+                    </td>
+                </tr>
+                <tr>
+                    <td name="datos[local]">
+                        Manchester United
+                    </td>
+                    <td>
+                        <input $type="text" $name="datos[resultado]">
+                    </td>
+                    <td name="">
+                        Ac Milan
+                    </td>
+                </tr>
+                <tr>
+                    <td name="datos[local]">
+                        Ac Milan
+                    </td>
+                    <td>
+                        <input $type="text" $name="datos[resultado]">
+                    </td>
+                    <td name="datos[visitante]">
+                        Manchester United
+                    </td>
+                </tr>
+                <tr>
+                    <td name="datos[local]">
+                        Ac Milan
+                    </td>
+                    <td>
+                        <input $type="text" $name="datos[resultado]">
+                    </td>
+                    <td name="datos[visitante]">
+                        Real Madrid
+                    </td>
                 </tr>
             </table>
         </form>
