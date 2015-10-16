@@ -9,7 +9,7 @@
 
             table   {border: solid 3px red;
                     border-collapse: collapse;
-                    text-align: center;}
+                    margin: 0px auto;}
 
             th      {text-align: center;
                     font: normal bold 2em/1.5 sans-serif;}
@@ -32,68 +32,80 @@
                         <th>Visitante</th>
                     </tr>
                     <tr>
-                        <td name="datos[local]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Real Madrid">
                             Real Madrid
                         </td>
                         <td>
                             <input type="text" name="datos[resultado]">
                         </td>
-                        <td name="datos[visitante]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Manchester United">
                             Manchester United
                         </td>
                     </tr>
                     <tr>
-                        <td name="datos[local]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Real Madrid">
                             Real Madrid
                         </td>
                         <td>
                             <input type="text" name="datos[resultado]">
                         </td>
-                        <td name="datos[visitante]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Ac Milan">
                             AC Milan
                         </td>
                     </tr>
                     <tr>
-                        <td name="datos[local]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Manchester United">
                             Manchester United
                         </td>
                         <td>
                             <input type="text" name="datos[resultado]">
                         </td>
-                        <td name="datos[visitante]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Real Madrid">
                             Real Madrid
                         </td>
                     </tr>
                     <tr>
-                        <td name="datos[local]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Manchester United">
                             Manchester United
                         </td>
                         <td>
                             <input type="text" name="datos[resultado]">
                         </td>
-                        <td name="datos[visitante]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Ac Milan">
                             Ac Milan
                         </td>
                     </tr>
                     <tr>
-                        <td name="datos[local]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Ac Milan">
                             Ac Milan
                         </td>
                         <td>
                             <input type="text" name="datos[resultado]">
                         </td>
-                        <td name="datos[visitante]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Manchester United">
                             Manchester United
                         </td>
                     </tr>
                     <tr>
-                        <td name="datos[local]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Ac Milan">
                             Ac Milan
                         </td>
                         <td>
                             <input type="text" name="datos[resultado]">
                         </td>
-                        <td name="datos[visitante]">
+                        <td>
+                            <input type="hidden" name="datos[visitante]" value="Real Madrid">
                             Real Madrid
                         </td>
                     </tr>
