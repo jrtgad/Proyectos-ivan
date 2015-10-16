@@ -27,16 +27,22 @@
                 <h1>Liga de campeones</h1>
                 
                     <?php
+                    $contadorPartidos = 0;
                     $equiposLocales = ["Real Madrid", "Manchester United", "AC Milan"];
                     $equiposVisitantes = ["Real Madrid", "Manchester United", "AC Milan"];
-                    echo "<table><tr><th colspan=3>Resultado</th></tr>";
+                    echo "<table><tr><th colspan=4>Resultado</th></tr>";
                     foreach ($equiposLocales as $equipoLoc) {
                         foreach ($equiposVisitantes as $equipoVis) {
                             if ($equipoLoc !== $equipoVis) {
                                 echo "<tr><td>" . $equipoLoc . "</td>";
+                                echo "<input type=hidden value=\"" . $equipoLoc . "\" name=\"datos[" . $contadorPartidos . "]['eqLoc']\">";
                                 echo "<td><input type=text "
-                                . "name=datos[" . $equipoLoc . "][" . $equipoVis . "][resultado] value=\"1-1\"></td>";
+                                . "name=\"datos[" . $contadorPartidos . "][golL]\"></td>";
+                                echo "<td><input type=text "
+                                . "name=\"datos[" . $contadorPartidos . "][golV]\"></td>";
                                 echo "<td>" . $equipoVis . "</td></tr>";
+                                echo "<input type=hidden value=\"" . $equipoVis . "\" name=\"datos[" . $contadorPartidos . "]['eqVis']\">";
+                                $contadorPartidos += 1;
                             }
                         }
                     }
