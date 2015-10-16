@@ -17,7 +17,7 @@ for ($i = 0; $i < count($datos); $i++) {
 foreach ($datos as $partido) {
     foreach ($partido as $key => $valor) {
         if ($key === "golL" && $valor === $maxGolesLocal) {
-            echo $valor . " goles";
+            echo $datos[$i][eqLoc] . " - " . $valor . " goles";
         }
     }
 }
