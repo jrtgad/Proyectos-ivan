@@ -33,7 +33,7 @@ $ciudades = [];
 echo "<th>Ciudad</th><th>Max</th><th>Min</th><th>Med</th></tr>";
 
 foreach ($datos as $ciudad => $meses) {
-    //Para cada ciudad, sacamos la temp max, min y med
+    //Para cada ciudad, sacamos la temp max, min y med de cada mes
     $max[$ciudad] = max(array_column($meses, 'TMax'));
     $min[$ciudad] = min(array_column($meses, 'TMin'));
     $sumaMax = array_sum(array_column($meses, 'TMax'));

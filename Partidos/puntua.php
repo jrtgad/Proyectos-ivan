@@ -1,13 +1,27 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
 <?php 
 
 $datos = $_POST['datos'];
+$maxGolesLocal = "0";
 
-$local = $datos['local'];
-$visitante = $datos['visitante'];
-$resultadoLargo = $datos['resultado'];
+for ($i = 0; $i < count($datos); $i++) {
+    if($datos[$i]['golL'] > $maxGolesLocal) {
+        $maxGolesLocal = $datos[$i]['golL'];
+    }
+}
 
-$goles = explode("-", $resultadoLargo);
+foreach ($datos as $partido) {
+    foreach ($partido as $key => $valor) {
+        if ($key === "golL" && $valor === $maxGolesLocal) {
+            echo $valor . " goles";
+        }
+    }
+}
 
-$golesLocal = $goles[0];
-$golesVisitante = $goles[1];
 ?>
+    </body>
+</html>
