@@ -3,23 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Champions</title>
-        <style>
-            form    {text-align: center;
-                    display: block;}
-
-            table   {border: solid 3px red;
-                    border-collapse: collapse;
-                    margin: 0px auto;}
-
-            th      {text-align: center;
-                    font: normal bold 2em/1.5 sans-serif;}
-
-            td      {border-top: solid 1px;
-                    border-bottom: solid 1px;}
-
-            input   {text-align: center;}
-
-        </style>
+        <link rel="stylesheet" href="styles/estilos.css">
     </head>
     <body>
         <div class="centrado">
@@ -35,7 +19,7 @@
                         foreach ($equiposVisitantes as $equipoVis) {
                             if ($equipoLoc !== $equipoVis) {
                                 echo "<tr><td>" . $equipoLoc . "</td>";
-                                echo "<input type=hidden value=\"" . $equipoLoc . "\" name=\"datos[" . $contadorPartidos . "]['eqLoc']\">";
+                                echo "<input type=hidden value=\"" . $equipoLoc . "\" name=\"datos[" . $contadorPartidos . "][eqLoc]\">";
                                 echo "<td><input type=text "
                                 . "name=\"datos[" . $contadorPartidos . "][golL]\"></td>";
                                 echo "<td><input type=text "
