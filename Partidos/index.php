@@ -31,72 +31,20 @@
                         <th>Resultado</th>
                         <th>Visitante</th>
                     </tr>
-                    <tr>
-                        <td name="datos[local]">
-                            Real Madrid
-                        </td>
-                        <td>
-                            <input type="text" name="datos[resultado]">
-                        </td>
-                        <td name="datos[visitante]">
-                            Manchester United
-                        </td>
-                    </tr>
-                    <tr>
-                        <td name="datos[local]">
-                            Real Madrid
-                        </td>
-                        <td>
-                            <input type="text" name="datos[resultado]">
-                        </td>
-                        <td name="datos[visitante]">
-                            AC Milan
-                        </td>
-                    </tr>
-                    <tr>
-                        <td name="datos[local]">
-                            Manchester United
-                        </td>
-                        <td>
-                            <input type="text" name="datos[resultado]">
-                        </td>
-                        <td name="datos[visitante]">
-                            Real Madrid
-                        </td>
-                    </tr>
-                    <tr>
-                        <td name="datos[local]">
-                            Manchester United
-                        </td>
-                        <td>
-                            <input type="text" name="datos[resultado]">
-                        </td>
-                        <td name="datos[visitante]">
-                            Ac Milan
-                        </td>
-                    </tr>
-                    <tr>
-                        <td name="datos[local]">
-                            Ac Milan
-                        </td>
-                        <td>
-                            <input type="text" name="datos[resultado]">
-                        </td>
-                        <td name="datos[visitante]">
-                            Manchester United
-                        </td>
-                    </tr>
-                    <tr>
-                        <td name="datos[local]">
-                            Ac Milan
-                        </td>
-                        <td>
-                            <input type="text" name="datos[resultado]">
-                        </td>
-                        <td name="datos[visitante]">
-                            Real Madrid
-                        </td>
-                    </tr>
+                    <?php
+                    $equiposLocales = ["Real Madrid", "Manchester United", "AC Milan"];
+                    $equiposVisitantes = ["Real Madrid", "Manchester United", "AC Milan"];
+                    
+                    foreach ($equiposLocales as $equipo) {
+                        echo "<tr><td>" . $equipo . "</td>";
+                        echo "<td><input type=text name=resultado></td>";
+                        foreach ($equiposVisitantes as $equipoVis) {
+                            while ($equipoVis !== $equipo) {
+                                echo "<td>" . $equipoVis . "</td></tr>";
+                            }
+                        }
+                    }
+                    ?>
                 </table>
                 <input type="submit" value="Enviar" name="">
             </form>
