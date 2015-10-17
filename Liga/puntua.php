@@ -28,6 +28,7 @@
 $datos = $_POST['datos'];
 $equipo = [];
 
+//$partido es cada partido(OBVIAMENTE)
 foreach ($datos as $partido) {
     if (!(in_array($partido['eqLoc'], $equipo))) {
             $equipo[$partido['eqLoc']] = ["puntos" => 0,"golesF" => 0,"golesC" => 0, "average" => 0];
@@ -72,12 +73,16 @@ foreach ($datos as $partido) {
 }
 
 //$key3 es cada nombre de equipo
+//y eq el average golesF
 foreach ($equipo as $key3 => $eq) {
     $equipo[$key3]['average'] = $equipo[$key3]["golesF"] - $equipo[$key3]["golesC"];
 }
 
 array_multisort(array_column($equipo, 'puntos'), SORT_NUMERIC, SORT_DESC, array_column($equipo, 'average'),SORT_NUMERIC, SORT_DESC, array_keys($equipo), SORT_STRING, $equipo);
 
+//$key es el nombre de equipo
+//$eq es puntos, golesF, golesC, average
+//$value es cada valor de $eq(puntos golesF golesC average)
 foreach ($equipo as $key => $eq) {
     echo "<tr><td>" . $key . "</td>";
     foreach ($eq as $value) {
