@@ -15,8 +15,10 @@ function multiExplode($splitters, $text) {
     
 $equipos = $_POST['equipos'];
 
+$equipos = str_replace(" ", "_", $equipos);
+
 //Separamos los equipos según estos caracteres
-$splitters = [",", ".", "\\", "/", ";", ":", "-", "_"];
+$splitters = [",", ".", "\\", "/", ";", ":", "-"];
 $equipos = multiExplode($splitters, $equipos);
 
 //$equipos = explode(",", $equipos);
@@ -37,13 +39,13 @@ foreach ($equipos as $local) {
     foreach ($equiposVisitantes as $visitante) {
         //Un equipo no puede jugar contra sí mismo
         if ($local !== $visitante) {
-            echo "<tr><td>" . $local . "</td>";
+            echo "<tr><td>" . str_replace("_", " ", $local) . "</td>";
             //contadorPartidos será el número de partidos, empezando desde 0
             echo "<input type=hidden value=" . $local . " name=datos[" . $contadorPartidos . "][eqLoc]>";
             echo "<td><input type=text name=datos[" . $contadorPartidos . "][golL]></td>";
             echo "<td><input type=text name=datos[" . $contadorPartidos . "][golV]></td>";
-            echo "<td>" . $visitante . "</td></tr>";
-            echo "<input type=hidden value=" . $visitante . " name=datos[" . $contadorPartidos . "][eqVis]>";
+            echo "<td>" . str_replace("_", " ", $visitante) . "</td></tr>";
+            echo "<input type=hidden value=" . str_replace("_", " ", $visitante) . " name=datos[" . $contadorPartidos . "][eqVis]>";
             $contadorPartidos += 1;
         }   
     }

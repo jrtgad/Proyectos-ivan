@@ -20,7 +20,7 @@ for ($i = 0; $i < count($datos); $i++) {
 
 for ($i = 0; $i < count($datos); $i++) {
     if ($datos[$i]['golL'] === $maxGolesLocal) {
-        echo "<tr><td>" . $datos[$i]['eqLoc'] . " - " . $datos[$i]['golL'] . " goles</td></tr>";
+        echo "<tr><td>" . str_replace("_", " ", $datos[$i]['eqLoc']) . " - " . $datos[$i]['golL'] . " goles</td></tr>";
     }
 }
 ?>
