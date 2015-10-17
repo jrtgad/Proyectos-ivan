@@ -2,11 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Champions</title>
+        <link rel="stylesheet" href="styles/estilos.css">
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+        <h1>Introduzca los equipos que quiera separados por comas</h1>
+        <form action="vistas/separa.php" method="POST">
+            <input type="text" name="equipos">
+            <input type="SUBMIT" name="Enviar" value="Enviar">
+        </form>
     </body>
 </html>
