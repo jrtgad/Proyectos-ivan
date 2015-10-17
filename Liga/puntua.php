@@ -5,54 +5,86 @@
     </head>
     <body>
         <h1>Máximos goleadores en casa</h1>
-        <table>
-            
+            <table>
+                <tr>
+                    <th>
+                        Equipo
+                    </th>
+                    <th>
+                        Puntos
+                    </th>
+                    <th>
+                        Goles Favor
+                    </th>
+                    <th>
+                        Goles Contra
+                    </th>
+                    <th>
+                        Gol Average
+                    </th>
+                </tr>
 <?php 
 
 $datos = $_POST['datos'];
-
 $equipo = [];
 
-for ($i = 0; $i < count($datos); $i++) {
-    $datos = str_replace("_", " ", $datos);
-    $equipo[$equipoLocal] = $datos[$i]['eqLoc'];
-    $equipo[$equipoVisitante] = $datos[$i]['eqVis'];
+foreach ($datos as $partido) {
+    if (!(in_array($partido['eqLoc'], $equipo))) {
+            $equipo[$partido['eqLoc']] = ["puntos" => 0,"golesF" => 0,"golesC" => 0, "average" => 0];
+    }
+    if (!(in_array($partido['eqVis'], $equipo))) {
+        $equipo[$partido['eqVis']] = ["puntos" => 0,"golesF" => 0,"golesC" => 0, "average" => 0];
+    }
 }
 
-for ($i = 0; $i < count($datos); $i++) {
-    $equipoLocal = $datos[$i]['eqLoc'];
-    $equipo[equipoLocal]['golF']     += $datos[$i]['golL'];
-    $equipo[$equipoLocal]['golC']     += $datos[$i]['golV'];
-    
-    if ($equipo[$equipoLocal]['golF'] > $equipo[$equipoLocal]['golC']) {
-        $equipo[$equipoLocal]['puntos'] += 3;
-    } elseif ($equipo[$equipoLocal]['golF'] < $equipo[$equipoLocal]['golC']) {
-        $equipo[$equipoLocal]['puntos'] += 0;
+function puntua($golL, $golV) {
+    if ($golL > $golV) {
+        $puntos = 1;
+    } else if ($golL < $golV) {
+        $puntos = -1;
     } else {
-        $equipo[$equipoLocal]['puntos'] += 1;
-    };
-    
-    
-    
-    $equipo[$equipoVisitante] = $datos[$i]['eqVis'];
-    $equipo[$equipoVisitante]['golF']      += $datos[$i]['golV'];
-    $equipo[$equipoVisitante]['golC']     += $datos[$i]['golL'];
-    
-    if ($equipo[$equipoVisitante]['golF'] > $equipo[$equipoVisitante]['golC']) {
-        $equipo[$equipoVisitante]['puntos'] += 3;
-    } elseif ($equipo[$equipoVisitante]['golF'] < $equipo[$equipoVisitante]['golC']) {
-        $equipo[$equipoVisitante]['puntos'] += 0;
-    } else {
-        $equipo[$equipoVisitante]['puntos'] += 1;
-    };
+        $puntos = 0;
+    }
+    return $puntos;
 }
 
-for ($i = 0; $i < count($equipo); $i++) {
-        echo "<tr><td>" . str_replace("_", " ", $datos[$i]['eqLoc']) . "</td><td>" . $golesFavor[$equipoVisitante] . " goles</td></tr>";
+//Para cada partido
+foreach ($datos as $partido) {
+    //Sacamos la key para comparar
+        
+    $ganador = puntua($partido['golL'], $partido['golV']);
+    
+    $equipo[$partido['eqVis']]["golesF"] += $partido['golV'];
+    $equipo[$partido['eqVis']]["golesC"] += $partido['golL'];
+    $equipo[$partido['eqLoc']]["golesF"] += $partido['golL'];
+    $equipo[$partido['eqLoc']]["golesC"] += $partido['golV'];
+    
+    if($ganador < 0) {
+        $equipo[$partido['eqVis']]["puntos"] += 3;
+    } else {
+        if ($ganador === 0) {
+            $equipo[$partido['eqVis']]["puntos"] += 1;
+            $equipo[$partido['eqLoc']]["puntos"] += 1;
+        } else {
+            $equipo[$partido['eqLoc']]["puntos"] += 3;
+        }
+    }
 }
+
+//$key3 es cada nombre de equipo
+foreach ($equipo as $key3 => $eq) {
+    $equipo[$key3]['average'] = $equipo[$key3]["golesF"] - $equipo[$key3]["golesC"];
+}
+
+array_multisort(array_column($equipo, 'puntos'), SORT_NUMERIC, SORT_DESC, array_column($equipo, 'average'),SORT_NUMERIC, SORT_DESC, array_keys($equipo), SORT_STRING, $equipo);
+
+foreach ($equipo as $key => $eq) {
+    echo "<tr><td>" . $key . "</td>";
+    foreach ($eq as $value) {
+        echo "<td>" . $value . "</td>";
+    }
+}    
 ?>
-                </td>
-            </tr>
         </table>
     </body>
 </html>

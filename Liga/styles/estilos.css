@@ -6,10 +6,11 @@ table   {border: solid 3px red;
         margin: 0px auto;}
 
 th      {text-align: center;
-        font: normal bold 2em/1.5 sans-serif;}
+        font: normal bold 1.5em/1.5 sans-serif;
+        padding: 15px;}
 
-td      {border-top: solid 1px;
-        border-bottom: solid 1px;}
+td      {border: solid 1px;        
+        text-align: center;}
 
 input   {text-align: center;}
 
