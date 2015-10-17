@@ -25,7 +25,7 @@
                                 echo "<td><input type=text "
                                 . "name=\"datos[" . $contadorPartidos . "][golV]\"></td>";
                                 echo "<td>" . $equipoVis . "</td></tr>";
-                                echo "<input type=hidden value=\"" . $equipoVis . "\" name=\"datos[" . $contadorPartidos . "]['eqVis']\">";
+                                echo "<input type=hidden value=\"" . $equipoVis . "\" name=\"datos[" . $contadorPartidos . "][eqVis]\">";
                                 $contadorPartidos += 1;
                             }
                         }

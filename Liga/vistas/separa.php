@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="../styles/estilos.css">
     </head>
     <body>
-        <form action="../puntua.php" method="POST">
+        <form action="../puntua_1.php" method="POST">
         <table>
 <?php
 
