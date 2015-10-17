@@ -19,6 +19,8 @@ $equipos = $_POST['equipos'];
 $splitters = [",", ".", "\\", "/", ";", ":", "-", "_"];
 $equipos = multiExplode($splitters, $equipos);
 
+//$equipos = explode(",", $equipos);
+
 //Ponemos todas las iniciales en mayúscula para hacerlo bonito :P
 for ($i = 0; $i < count($equipos); $i++) {
     $equipos[$i] = ucwords($equipos[$i]);
