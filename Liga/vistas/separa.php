@@ -23,7 +23,7 @@ $equipos = multiExplode($splitters, $equipos);
 
 //Ponemos todas las iniciales en mayúscula para hacerlo bonito :P
 for ($i = 0; $i < count($equipos); $i++) {
-    $equipos[$i] = ucwords($equipos[$i]);
+    $equipos[$i] = ucwords(trim($equipos[$i]));
 }
 
 //Sacamos una lista de visitantes, que serán los mismos que locales
@@ -39,11 +39,11 @@ foreach ($equipos as $local) {
         if ($local !== $visitante) {
             echo "<tr><td>" . $local . "</td>";
             //contadorPartidos será el número de partidos, empezando desde 0
-            echo "<input type=hidden value=" . $local . " name=datos[" . $contadorPartidos . "][eqLoc]>";
+            echo "<input type=hidden value=" . trim($local) . " name=datos[" . $contadorPartidos . "][eqLoc]>";
             echo "<td><input type=text name=datos[" . $contadorPartidos . "][golL]></td>";
             echo "<td><input type=text name=datos[" . $contadorPartidos . "][golV]></td>";
             echo "<td>" . $visitante . "</td></tr>";
-            echo "<input type=hidden value=" . $visitante. " name=datos[" . $contadorPartidos . "][eqVis]>";
+            echo "<input type=hidden value=" . trim($visitante) . " name=datos[" . $contadorPartidos . "][eqVis]>";
             $contadorPartidos += 1;
         }   
     }

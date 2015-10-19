@@ -30,15 +30,23 @@ $equipo = [];
 
 //$partido es cada partido(OBVIAMENTE)
 foreach ($datos as $partido) {
+    //Si el equipo no ha sido incluido en el array, lo incluye,
+    // si ya estaba lo desestima
     if (!(in_array($partido['eqLoc'], $equipo))) {
+            //$equipo['Real Madrid']['puntos']...
+            //Creamos el array que nos permitirá asignar los datos de cada equipo
             $equipo[$partido['eqLoc']] = ["puntos" => 0,"golesF" => 0,"golesC" => 0, "average" => 0];
     }
+    
+    //Lo hacemos tanto para el equipo local como el visitante,
+    // ya que hay que calcular los datos para ambos
     if (!(in_array($partido['eqVis'], $equipo))) {
         $equipo[$partido['eqVis']] = ["puntos" => 0,"golesF" => 0,"golesC" => 0, "average" => 0];
     }
 }
 
-function puntua($golL, $golV) {
+//Función que reparte los puntos según la diferencia de goles
+function puntuar($golL, $golV) {
     if ($golL > $golV) {
         $puntos = 1;
     } else if ($golL < $golV) {
@@ -51,9 +59,8 @@ function puntua($golL, $golV) {
 
 //Para cada partido
 foreach ($datos as $partido) {
-    //Sacamos la key para comparar
-        
-    $ganador = puntua($partido['golL'], $partido['golV']);
+    //Comparamos los goles para ver el ganador y asignar los puntos
+    $ganador = puntuar($partido['golL'], $partido['golV']);
     
     $equipo[$partido['eqVis']]["golesF"] += $partido['golV'];
     $equipo[$partido['eqVis']]["golesC"] += $partido['golL'];
