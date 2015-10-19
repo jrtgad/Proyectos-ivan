@@ -1,0 +1,10 @@
+table   {margin: auto;
+        empty-cells: show;}
+
+td      {text-align: center;
+        margin: auto;
+        border: 1px solid;
+        width: 100px;
+        height: 100px;}
+
+h1      {text-align: center;}
