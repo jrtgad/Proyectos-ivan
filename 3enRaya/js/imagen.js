@@ -1,12 +1,12 @@
-imgCPU = "<img src=\"../img/CPU.png\" alt=\"x\"/>";
-imgUSER = "<img src=\"../img/USER.png\" alt=\"o\"/>";
+var imgCPU = "<img src=\"../img/CPU.png\" alt=\"x\"/>";
+var imgUSER = "<img src=\"../img/USER.png\" alt=\"o\"/>";
 
-imagen = true;
+var imagen = true;
 
 function ponerImagen(celda) {    
     if(imagen) {
         if (celda.childElementCount < 2)  {
-            celda.innerHTML = imgUSER;
+            celda.innerHTML = imgUSER + "<input type=\"hidden\" name=\"jugada[" + celda.getAttribute('id') + "]\">";
             imagen = false;
         } else {
             celda.innerHTML = "";
