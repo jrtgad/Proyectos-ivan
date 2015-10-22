@@ -3,11 +3,16 @@
 function checkWinner($jugada) {
     $aux = "0";
     
-    /*for($i = 0; $i < 9; $i++) {
-        if((($jugada[$i] === ($jugada[$i])+1) && ($jugada[$i] === ($jugada[$i])+2))) {
+    for($i = 0; $i < 9; $i += 3) {
+        if (isset($jugada[$i]) && 
+            isset($jugada[$i + 1]) &&
+            isset($jugada[$i + 2])) {
             
+            if($jugada[$i] === $jugada[$i + 1] && $jugada[$i] === $jugada[$i + 2]) {
+            $aux = $jugada[$i];
+            }
         }
-    }*/
+    }
     
     return $aux;
 }
