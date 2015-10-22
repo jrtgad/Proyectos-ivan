@@ -5,12 +5,12 @@ var imagen = true;
 
 function ponerImagen(celda) {    
     if(imagen) {
-        if (celda.childElementCount < 2)  {
             celda.innerHTML = imgUSER + "<input type=\"hidden\" name=\"jugada[" + celda.getAttribute('id') + "]\">";
             imagen = false;
-        } else {
-            celda.innerHTML = "";
-            imagen = true;
-        }
+    } else {
+        if (celda.childElementCount === 2) {
+                celda.innerHTML = "";
+                imagen = true;
+            }
     }
 }
