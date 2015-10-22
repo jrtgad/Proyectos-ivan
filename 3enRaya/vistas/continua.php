@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Elija una posición</h1>
-        <form action="jugada.php" method="POST">
+        <form action="../jugada.php" method="POST">
             <?php
                 include "vistas/tablero.php";
             ?>
