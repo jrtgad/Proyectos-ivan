@@ -1,8 +1,16 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../css/style.css">
+        <title>Enhorabuena!</title>
+    </head>
+    <body>
+        <h1>Enhorabuena! Ha ganado a la CPU (aunque tampoco era muy dificil.... :P)</h1>
+        <form action="../index.php" method="POST">
+            <?php 
+                include "tablero.php";
+            ?>
+            <input type="SUBMIT" value="Volver a jugar" name="botonreset">
+        </form>
+    </body>
+</html>
