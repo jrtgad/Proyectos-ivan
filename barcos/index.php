@@ -7,6 +7,7 @@
         <script src="js/imagen.js"></script>
     </head>
     <body>
+        <h1>Elija posiciones para torpedos</h1>
         <form action="compruebaTirada.php" method="POST">
             <table>
         <?php
