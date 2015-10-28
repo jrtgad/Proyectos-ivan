@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-        <?php
-            $jugada = [];
-            include "vistas/bienvenida.php";
-        ?>
+    <?php
+        $jugada = [];
+        include "vistas/bienvenida.php";
+    ?>

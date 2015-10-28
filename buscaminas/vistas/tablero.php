@@ -4,9 +4,9 @@
         echo "<tr>";
         for ($j = 0; $j < 10; $j++) {
             $pos = $i . $j;
-            echo "<td name=$pos></td>";
+            echo "<td name=\"tirada[$pos]\" onclick=\"setImage(this)\"></td>";
         }
-        echo "</td>";
+        echo "</tr>";
     }
 ?>
 </table>
