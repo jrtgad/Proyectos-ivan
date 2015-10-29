@@ -10,7 +10,7 @@ function setImage(celda) {
         } else {
             celda.innerHTML = 
                 imgUSER + "<input type=\"hidden\"\n\
-                name=\"tirada[" + celda.getAttribute('id') + "] value=\"1\">";
+                name=\"" + celda.getAttribute('id') + "\" value=\"1\">";
             imagen++;
         } 
     }

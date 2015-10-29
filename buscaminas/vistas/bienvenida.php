@@ -12,6 +12,7 @@
                     include "vistas/tablero.php";
                 ?>
             </table>
+            <br>
             <input type="SUBMIT" name="botonenvio">
         </form>
     </body>
