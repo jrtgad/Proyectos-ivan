@@ -1,21 +1,22 @@
 <?php
-function checkMines($minas, $i,$j) {
-    $haymina;
+function checkMines($minas, $i, $j) {
+    $haymina = false;
     for ($x = $i - 1; $x <= $i + 1; $x++) {
-        for ($j = $minas[$j - 11]; $j <= $minas[$j + 11]; $j++) {
-        if (isset($minas[$j])) {
-            if ($minas[$j] !== "2") {
-                $haymina = true;
-                $j = 250;
-            } else {
-                $haymina = false;
+        if($x >= 0) {
+            for ($y = $minas[$x][$j - 1]; $y <= $minas[$x][$j + 1]; $y++) {
+                if ([$j] >= 0) {
+                    if ($minas[$x][$y] !== "2") {
+                        $haymina = true;
+                        $y = 250;
+                    } else {
+                        $haymina = false;
+                    }
+                } else {
+                    $haymina = false;
+                }
             }
-        } else {
-            $haymina = false;
         }
     }
-    }
-    
     return $haymina;
 }
 
@@ -30,7 +31,6 @@ function generaMinas($minas) {
             $minas[$i][$j] = "2";
         }
     }
-    
 }
 
 $tiradas = $_POST['tirada'];
