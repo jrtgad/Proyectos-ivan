@@ -15,7 +15,7 @@
                 echo "<tr>";
                 for ($j = 0; $j < 10; $j++){
                     $pos = $i . $j;
-                    echo "<td id=\"$pos\" onclick=\"ponerImagen(this)\" value=\"0\"></td>";
+                    echo "<td id=\"tiradas[$pos]\" onclick=\"setImage(this)\"></td>";
                 }
                 echo "</tr>";
             }
