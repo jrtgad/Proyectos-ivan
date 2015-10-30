@@ -30,6 +30,7 @@ function genBarcos($size, $dir, $barcos) {
             
             //Comprueba el nº de casillas del barco(3, 2 o 1)
             // para ver si hay barco en esas celdas generadas
+            //$i * 10 para que recorra las columnas
             for ($i = 0; $i < $size; $i++) {
                 if (isset($barco[$primera - ($i * 10)])) {
                     $i = 10;
