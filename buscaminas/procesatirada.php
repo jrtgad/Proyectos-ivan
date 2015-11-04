@@ -1,4 +1,27 @@
 <?php
+<<<<<<< HEAD
+function checkMines($minas, $i, $j) {
+    $haymina = false;
+    for ($x = $i - 1; $x <= $i + 1; $x++) {
+        if(isset($minas[$x])) {
+            for ($y = $minas[$x][$j - 1]; $y <= $minas[$x][$j + 1]; $y++) {
+                if (isset($minas[$x][$y])) {
+                    if ($minas[$x][$y] === "2") {
+                        $haymina = true;
+                        $y = 250;
+                    } else {
+                        $haymina = false;
+                    }
+                } else {
+                    $haymina = false;
+                }
+            }
+        }
+    }
+    return $haymina;
+}
+=======
+>>>>>>> edea2cadc70a18dcef47717f5ca4532653b8ffc7
 
 function generaMinas($minas) {
     $hayMina = true;
@@ -6,7 +29,12 @@ function generaMinas($minas) {
     while ($cont < 10) {
         $i = rand(0, 9);
         $j = rand(0, 9);
+<<<<<<< HEAD
+        
+        if (!checkMines($minas, $i, $j) && (count($minas) < 10)) {
+=======
         if (!checkMines($minas, $i, $j) && $cont < 10) {
+>>>>>>> edea2cadc70a18dcef47717f5ca4532653b8ffc7
             $minas[$i][$j] = "2";
             $cont++;
         }

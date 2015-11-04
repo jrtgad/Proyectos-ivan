@@ -2,16 +2,22 @@
 function checkWinner($jugada) {
     $aux = "0";
     
+    //Recorremos las casillas por filas ($i = 0, $i = 1, $i = 2),
+    //comprobando si tienen el mismo valor
     for($i = 0; $i < 7; $i += 3) {
         if (isset($jugada[$i]) && isset($jugada[$i + 1]) && isset($jugada[$i + 2])) {
             if ($jugada[$i] === $jugada[$i + 1] && $jugada[$i] === $jugada[$i + 2]) {
                 $aux = $jugada[$i];
                 $i = 11;
+                
+                //Comprobamos también las verticales
             } else if (isset($jugada[$i]) && isset($jugada[$i + 3]) && isset($jugada[$i + 6])){
                     if ($jugada[$i] === $jugada[$i + 3] && $jugada[$i] === $jugada[$i + 6]) {
                 $aux = $jugada[$i];
                 $i = 11;
                     }
+                    
+                    //y por último las diagonales
                 } else if(isset($jugada[2]) && isset($jugada[4]) && isset($jugada[6])) {
                 if ($jugada[2] === $jugada[4] && $jugada[2] === $jugada[6]) {
                     $aux = $jugada[2];
