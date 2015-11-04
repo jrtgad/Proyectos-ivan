@@ -46,8 +46,7 @@
         }
     } while (!$valida);
  
-
-    
+    $arrayTablero = generaArray($elegidas, $posiciones);
     var_dump($posiciones);
     var_dump($elegidas);
     include "vistas/bienvenida.php";

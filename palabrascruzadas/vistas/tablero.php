@@ -1,23 +1,19 @@
 <table>
     <?php
-        /*for ($i = 0; $i < (strlen($elegidas[0]) + strlen($elegidas[2])); $i += 1) {
-            echo "<tr>";
-            for ($j = 0; $j < (strlen($elegidas[1]) + strlen($elegidas[3])); $j += 1) {
-                echo "<td>"; 
-                if ($j === $posiciones[1][1]) {
-                    
-                }
-                echo "</td>";
+        function generaArray($palabras, $pos) {
+            $arrayTab = [];
+            
+            for($i = 0; $i < 4; $i++) {
+                $x = $pos[$i][2];
+                $y = $pos[$i][1];
+                
+                for($y = $pos[$i][1]; $y < strlen($palabras[$i]); $y++) {
+                    $arrayTab[$y][$x] = $elegidas[$i][$y];
+                } 
             }
-            echo "</tr>";
-        }*/
-    
-//        echo "<tr>";
-//        for ( $i = 0; $i < $posiciones[1][1]; $i += 1) {
-//            echo "<td></td>";
-//        }
-//        
-//        echo "</tr>";
+            
+            return $arrayTab;
+        }
     
     
     $huecos = [];
