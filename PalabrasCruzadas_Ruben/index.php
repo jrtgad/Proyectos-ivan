@@ -1,54 +1,58 @@
 <?php
-function calculaCruces($palabra, $nuevaPalabra) {
-    $vocal = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
+function calculaCruces($pal1,$pal2){
+    $vocales=array("a","e","i","o","u");
     $cruces = [];
-    for ($i = 0; $i < strlen($palabra); $i++) {
-        for ($j = 0; $j < strlen($nuevaPalabra); $j++) {
-            if (!in_array($palabra[$i], $vocal)) {
-                if ($palabra[$i] === $nuevaPalabra[$j]) {
-                    array_push($cruces, [$i, $j]);
-                }
+    $i=0;
+    while($i<strlen($pal1)){
+        $j=0;
+        while($j<strlen($pal2)){
+            if(($pal1[$i]===$pal2[$j]) && !in_array($pal1[$i], $vocales)){
+                array_push($cruces, [$i,$j]);
             }
-        }
+            $j++;
+        } 
+        $i++;
     }
     return $cruces;
 }
 
-function compruebaPalabra($tablero, $nuevaPalabra, $filaInicio, $columnaInicio, $direccion) {
-    $count = 0;
-    $aux = true;
-    
-        if ($direccion === 0) {
-            for ($i = 0; $i < strlen($nuevaPalabra); $i++) {
-                if ($tablero[$filaInicio][$columnaInicio + $i] !== "") {
-                    $count++;
-                }
-            }
-        } else {
-            for ($i = 0; $i < strlen($nuevaPalabra); $i++) {
-                if ($tablero[$filaInicio + $i][$columnaInicio] !== "") {
-                    $count++;
-                }
+function compruebaPalabra ($tablero, $nuevaPalabra, $filaInicio, $columnaInicio, $direccion){
+    $ok=true;
+    $count=0;
+    if($direccion==0){
+        for($i=0;$i<strlen($nuevaPalabra);$i++){
+            if($tablero[$filaInicio][$columnaInicio+$i]!==""){
+                $count++;
             }
         }
-    if ($count > 1) {
-        $aux = false;
     }
-    return $aux;
-}
-
-function colocaPalabra(&$tablero, $nuevaPalabra, $filaInicio, $columnaInicio, $direccion) {
-    if ($direccion === 0) {
-        for ($i = 0; $i < strlen($nuevaPalabra); $i++) {
-                $tablero[$filaInicio][$columnaInicio + $i] = $nuevaPalabra[$i];
-        }
-    } else {
-        for ($i = 0; $i < strlen($nuevaPalabra); $i++) {
-                $tablero[$filaInicio + $i][$columnaInicio] = $nuevaPalabra[$i];
+    else{
+        for($i=0;$i<strlen($nuevaPalabra);$i++){
+            if($tablero[$filaInicio+$i][$columnaInicio]!==""){
+                $count++;
+            }
         }
     }
+    if($count>1){
+        $ok=false;
+    }
+    return $ok;
 }
 
+function colocaPalabra (&$tablero, $nuevaPalabra, $filaInicio, $columnaInicio, $direccion){
+    if($direccion==0){
+        for($i=0;$i<strlen($nuevaPalabra);$i++){
+            $tablero[$filaInicio][$columnaInicio+$i]=
+                    $nuevaPalabra[$i];
+        }
+    }
+    else{
+        for($i=0;$i<strlen($nuevaPalabra);$i++){
+            $tablero[$filaInicio+$i][$columnaInicio]=
+                    $nuevaPalabra[$i];
+        }
+    }
+}
 
 // Lista de palabras
 $palabras = ['mesa', 'sarten', 'pescado', 'cartero', 'pintor', 'medico', 'ciempies', 'sotana', 'pan', 'cantero', 'sol', 'luna', 'mapa', 'puerta', 'noticia', 'limon', 'carpa', 'cama'];
@@ -130,6 +134,8 @@ while ($numPalabras < NUMPALABRAS && $intentos < MAXINTENTOS) {
     $intentos++;
 }
 
+
+    
 // El tablero está listo. Crea la vista para enviar al jugador
 include "vistas/juego.php";
 ?>
