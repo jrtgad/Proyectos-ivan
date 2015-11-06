@@ -20,7 +20,7 @@
                 $col = rand(0,2);
                 $col = $col +(3 * $j);
                 $fila = $fila + (3* $i);
-                if($tablero[$fila][$col] = "") {
+                if($tablero[$fila][$col] === "") {
                     $veces++;
                 } else {
                     $tablero[$fila][$col] = "";
