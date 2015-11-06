@@ -1,0 +1,13 @@
+.verde {
+    color: green;
+}
+
+.rojo {
+    color: red;
+}
+
+td {
+    width: 35px;
+    border: 1px solid;
+    text-align: center;
+}
