@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        // put your code here
-        ?>
-    </body>
-</html>
+<?php
+    if (isset($_SESSION['user'])) {
+        if (isset($_POST['logout'])) {
+            session_unset();
+            session_destroy();
+        } else {
+            $view = "content";
+            include "vistas/content.php";
+        }
+    
+    } else if (isset ($_POST['login'])) {
+        session_start();
+        $_SESSION['user'] = $_POST['user'];
+        $_SESSION['pass'] = $_POST['pass'];
+        $view = "content";
+        include "vistas/content.php";
+    } else {
+        $view = "login";
+        include "vistas/login.php";
+    }
+?>
