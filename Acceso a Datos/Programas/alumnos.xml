@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alumnos>
+    <alumno>
+        <dni>45678903</dni>
+        <nombre>Juan</nombre>
+        <apellido1>Perez</apellido1>
+        <apellido2>Rodriguez</apellido2>
+        <fnac>1994-01-30</fnac>
+        <repetidor>Si</repetidor>
+    </alumno>
+    <alumno>
+        <dni>12345678</dni>
+        <nombre>Luisa</nombre>
+        <apellido1>Perez</apellido1>
+        <apellido2>Garcia</apellido2>
+        <fnac>1990-05-10</fnac>
+        <repetidor>No</repetidor>
+    </alumno>
+</alumnos>
