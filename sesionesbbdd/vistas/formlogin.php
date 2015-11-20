@@ -5,6 +5,11 @@
     </head>
     <body>
         <form action="/" method="POST">
+            <?php
+                if(isset($msg)) {
+                    echo "<h1>" . $msg . "</h1>";
+                }
+            ?>
             <label for="user">Introduzca su nombre de usuario</label>
             <input type="text" name="user">
             <label for="pass">Introduzca su contraseña</label>

@@ -1,18 +1,17 @@
 <?php
     session_start();
     if(isset($_SESSION['user'])) {
-        if(isset($_POST['logout'])) {
+        if(isset($_POST['botonlogout'])) {
             session_unset();
             session_destroy();
             $view = "login";
             include "vistas/formlogin.php";
         } else {
-            if ($credencialesOk) {
-                $_SESSION['user'] = $_POST['user'];
-                $view = "content";
-            } else {
-                $msg = "Credenciales no válidas";
-                include "vistas/login.php";
+            if (isset($_POST['botonbaja'])) {
+                session_unset();
+                session_destroy();
+                $view = "login";
+                include "vistas/formlogin.php";
             }
         }
     } else {
@@ -20,8 +19,14 @@
             $view = "login";
             include "vistas/formlogin.php";
         } else {
-            $_SESSION['user'] = $_POST['user'];
+            $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
+            if ($user) {
+                $_SESSION['user'] = $user;
+            } else {
+                $msg = "Credenciales incorrectas";
+                $view = "login";
+                include "vistas/formlogin.php";
+            }
         }
-        
     }
 ?>

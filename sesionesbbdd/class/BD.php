@@ -2,9 +2,9 @@
 
 class BD {
 
-    private $basedatos = 'gestionusuarios';
-    private $usuario = 'root';
-    private $contrasenya = '';
+    private $basedatos = 'login';
+    private $usuario = 'admin';
+    private $contrasenya = 'admin';
     private $equipo = 'localhost';
     
     protected static $bd = null;

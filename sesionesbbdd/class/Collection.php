@@ -1,24 +1,20 @@
 <?php
 
-
 class Collection
 {
-
     protected $objects; // array
     protected $deletedObjects; // array
     protected $resetFlag;
     protected $numObjects;
     protected $iterateNum;
 
-
     public function __construct()
     {
         $this->resetIterator();
         $this->numObjects        = 0;
-        $this->objects            = array();
+        $this->objects           = array();
         $this->deletedObjects    = array();
     }
-
 
     public function add($obj)
     {
