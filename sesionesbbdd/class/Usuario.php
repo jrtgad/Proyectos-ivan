@@ -13,7 +13,7 @@
             $query = "SELECT * from usuarios where user=:user AND pass=:pass";
             $prepara = $conexion->prepare($query);
             $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
-            $prepara->execute(array(":user"=>$this->user, ":pass"=>$this->pass));
+            $prepara->execute(array(":user"=>$user, ":pass"=>$pass));
             $usuario = $prepara->fetch();
             return $usuario;
         }
@@ -23,7 +23,7 @@
             $this->user = $user;
             $this->pass = $pass;
             $this->mail = $mail;
-            $this->pintor = $pintor;
+            $this->pintor_fk = $pintor;
         }
         
         public function getId() {
@@ -51,7 +51,7 @@
             $this -> mail = $mail;
         }
         public function getPintor() {
-            return $this -> pintor;
+            return $this -> pintor_fk;
         }
         public function setPintor($pintor) {
             $this -> pintor = $pintor;
