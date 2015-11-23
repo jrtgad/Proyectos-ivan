@@ -53,8 +53,31 @@
         public function getPintor() {
             return $this -> pintor_fk;
         }
+        public function getNombrePintor() {
+            $conexion = BD::getConexion();
+            $query = "SELECT nombre FROM pintores where id=:pintor";
+            $prepara = $conexion->prepare($query);
+            $prepara->setFetchMode(PDO::FETCH_ASSOC);
+            $prepara->execute(array(":pintor"=> $this->getPintor()));
+            $pintor = $prepara->fetch();
+            return $pintor['nombre'];
+        }
         public function setPintor($pintor) {
             $this -> pintor = $pintor;
+        }
+        
+        public function registerUser() {
+            $conexion = BD::getConexion();
+            $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
+                   . "VALUES(:user, :pass, :mail, :pintor_fk)";
+            $inserta = $conexion->prepare($query);
+            $inserta->setFetchMode(PDO::FETCH_ASSOC);
+            $inserta->execute(array(":user" => $this->getUser(), 
+                                    ":pass" => $this.getPass(),
+                                    ":mail" => $this->getMail(),
+                                    ":pintor_fk"=>  $this->getPintor()));
+            $resumen = $prepara->fetch();
+                return $resumen;
         }
     }
 ?>

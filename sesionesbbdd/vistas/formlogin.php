@@ -15,6 +15,7 @@
             <label for="pass">Introduzca su contraseña</label>
             <input type="password" name="pass">
             <input type="SUBMIT" name="botonlogin" value="Log in">
+            <input type="SUBMIT" name="botonregistro" value="Registrarse">
         </form>
     </body>
 </html>

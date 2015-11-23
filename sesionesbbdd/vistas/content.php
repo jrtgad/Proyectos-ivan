@@ -15,7 +15,7 @@
                     <input type="SUBMIT" name="botonbaja" value="Darse de baja">
 
                     <?php
-                        echo "{$user->getPintor()}";
+                        echo "{$user->getNombrePintor()}";
                     ?>
 
                 </form>

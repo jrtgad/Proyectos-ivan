@@ -21,19 +21,29 @@
             }
         }
     } else {
-        if(!isset($_POST['botonlogin'])){
-            $view = "login";
-            include "vistas/formlogin.php";
+        if (isset($_POST['botonregistro'])) {
+            $view = "registro";
+            include "vistas/registro.php";
         } else {
-            $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-            if ($user) {
-                $_SESSION['user'] = $user;
-                $view = "content";
-                include "vistas/content.php";
+            if (isset($_POST['botonRegistrado'])) {
+                $user = new Usuario($_POST['userReg'], $_POST['mailReg'], $_POST['passReg'], $_POST['pintores']);
+                $user->registerUser();
             } else {
-                $msg = "Credenciales incorrectas";
-                $view = "login";
-                include "vistas/formlogin.php";
+                if (isset($_POST['botonlogin'])) {
+                    $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
+                    if ($user) {
+                        $_SESSION['user'] = $user;
+                        $view = "content";
+                        include "vistas/content.php";
+                    } else {
+                        $msg = "Credenciales incorrectas";
+                        $view = "login";
+                        include "vistas/formlogin.php";
+                    }
+                } else {
+                    $view = "login";
+                    include "vistas/formlogin.php";
+                }
             }
         }
     }
