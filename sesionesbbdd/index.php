@@ -1,5 +1,6 @@
 <?php
     require_once 'class/Usuario.php';
+    require_once 'class/Pintor.php';
     session_start();
         
     if(isset($_SESSION['user'])) {
@@ -10,6 +11,8 @@
             include "vistas/formlogin.php";
         } else {
             if (isset($_POST['botonbaja'])) {
+                $user = $_SESSION['user'];
+                $user->deleteUser();
                 session_unset();
                 session_destroy();
                 $view = "login";
@@ -25,9 +28,19 @@
             $view = "registro";
             include "vistas/registro.php";
         } else {
-            if (isset($_POST['botonRegistrado'])) {
+            if (isset($_POST['botonRegistrarse'])) {
                 $user = new Usuario($_POST['userReg'], $_POST['mailReg'], $_POST['passReg'], $_POST['pintores']);
-                $user->registerUser();
+                if ($user->registerUser()) {
+                    $msg = "Usuario registrado";
+                    $_SESSION['user'] = $user;
+                    $view = "content";
+                    include "vistas/content.php";
+                } else {
+                    $msg = "Ha habido un fallo al registrar usuario";
+                    $view = "login";
+                    include "vistas/formlogin.php";
+                }
+                
             } else {
                 if (isset($_POST['botonlogin'])) {
                     $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);

@@ -2,6 +2,7 @@
     if ($view !== "registro") {
         header("Location: /");
     } else {
+        
 ?>
         <!DOCTYPE html>
         <html>
@@ -12,21 +13,32 @@
             </head>
             <body>
                 <form action="index.php" method="POST">
-                    <label for="userReg" value="Usuario">
+                    <label for="userReg">Usuario</label><br>
                     <input type="text" name="userReg">
-                    <label for="mailReg" value="E-mail">
+                    <br>
+                    <label for="mailReg">E-mail</label><br>
                     <input type="email" name="mailReg">
-                    <label for="passReg" value="Contraseña">
+                    <br>
+                    <label for="passReg">Contraseña</label><br>
                     <input type="password" name="passReg">
-                    <label for="pintores" value="Elija su pintor favorito">
+                    <br>
+                    <label for="pintores">Elija su pintor favorito</label><br>
                     <select name="pintores">
+                    <?php
+                        $pintores = Pintor::getPintor();
+                        foreach ($pintores as $pintor) {
+                            echo "<option>" . $pintor['nombre'] . "</option>";
+                        }
+                    ?>
+                    <!--
                         <option value="1">Boticceli</option>
                         <option value="2">Durero</option>
                         <option value="3">Da Vinci</option>
                         <option value="4">Miguel Angel</option>
                         <option value="5">Van Eyck</option>
+                    -->
                     </select>
-                    <input type="SUBMIT" value="Registrarse" name="botonRegistrado">
+                    <input type="SUBMIT" value="Registrarse" name="botonRegistrarse">
                 </form>
             </body>
         </html>

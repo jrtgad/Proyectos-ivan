@@ -7,7 +7,7 @@
         <form action="/" method="POST">
             <?php
                 if(isset($msg)) {
-                    echo "<h1>" . $msg . "</h1>";
+                    echo "<h2>" . $msg . "</h2>";
                 }
             ?>
             <label for="user">Introduzca su nombre de usuario</label>

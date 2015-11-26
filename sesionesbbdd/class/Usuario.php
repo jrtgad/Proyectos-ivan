@@ -18,11 +18,11 @@
             return $usuario;
         }
 
-        public function __construct($id = null, $user = null, $pass = null, $mail = null, $pintor = null) {
+        public function __construct($user = null, $mail = null, $pass = null, $pintor = null, $id = null) {
             $this->id = $id;
             $this->user = $user;
-            $this->pass = $pass;
             $this->mail = $mail;
+            $this->pass = $pass;
             $this->pintor_fk = $pintor;
         }
         
@@ -45,7 +45,7 @@
             $this -> pass = $pass;
         }
         public function getMail() {
-            return $this -> $mail;
+            return $this -> mail;
         }
         public function setMail($mail) {
             $this -> mail = $mail;
@@ -71,13 +71,25 @@
             $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
                    . "VALUES(:user, :pass, :mail, :pintor_fk)";
             $inserta = $conexion->prepare($query);
+            
+            //ASSOC trae array asociativo, 
+            //(por defecto numérico y asociativo)
             $inserta->setFetchMode(PDO::FETCH_ASSOC);
-            $inserta->execute(array(":user" => $this->getUser(), 
-                                    ":pass" => $this.getPass(),
+            
+            //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
+            return $inserta->execute(array(":user" => $this->getUser(), 
+                                    ":pass" => $this->getPass(),
                                     ":mail" => $this->getMail(),
                                     ":pintor_fk"=>  $this->getPintor()));
-            $resumen = $prepara->fetch();
-                return $resumen;
+        }
+        
+        //FETCH es para sacar valores
+        
+        public function deleteUser($user) {
+            $conexion = BD::getConexion();
+            $query = "DELETE FROM usuarios where id=:id";
+            $prepara = $conexion->prepare($query);
+            $prepara->execute(array(":id"=>$this->getId()));
         }
     }
 ?>
