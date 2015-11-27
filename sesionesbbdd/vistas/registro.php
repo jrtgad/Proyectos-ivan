@@ -25,12 +25,12 @@
                     <label for="pintores">Elija su pintor favorito</label><br>
                     <select name="pintores">
                     <?php
-                        $pintores = Pintor::getPintor();
-                        foreach ($pintores as $pintor) {
-                            echo "<option>" . $pintor['nombre'] . "</option>";
+                        $pintores = Pintor::getPintores();
+                        foreach ($pintores as $num => $pintor) {
+                            echo "<option value=\"" . $pintor[0] . "\">" . $pintor[1] . "</option>";
                         }
                     ?>
-                    <!--
+                    <!-- Lo fácil
                         <option value="1">Boticceli</option>
                         <option value="2">Durero</option>
                         <option value="3">Da Vinci</option>

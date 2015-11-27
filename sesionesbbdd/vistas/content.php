@@ -15,7 +15,7 @@
                     <input type="SUBMIT" name="botonbaja" value="Darse de baja">
 
                     <?php
-                        echo "{$user->getNombrePintor()}";
+                        echo "<img src=\"img/" . $user->getPintor()->getCuadroAleatorio()->getCuadroAleatorio() . ".jpg\"</img>";
                     ?>
 
                 </form>

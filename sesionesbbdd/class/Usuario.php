@@ -6,7 +6,7 @@
         private $user;
         private $pass;
         private $mail;
-        private $pintor;
+        private $pintor_fk;
         
         public static function getUsuario($user, $pass) {
             $conexion = BD::getConexion();
@@ -15,6 +15,7 @@
             $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
             $prepara->execute(array(":user"=>$user, ":pass"=>$pass));
             $usuario = $prepara->fetch();
+            $usuario->setPintor(Pintor::creaPintor($usuario->getPintor()));
             return $usuario;
         }
 
@@ -53,17 +54,18 @@
         public function getPintor() {
             return $this -> pintor_fk;
         }
-        public function getNombrePintor() {
-            $conexion = BD::getConexion();
-            $query = "SELECT nombre FROM pintores where id=:pintor";
-            $prepara = $conexion->prepare($query);
-            $prepara->setFetchMode(PDO::FETCH_ASSOC);
-            $prepara->execute(array(":pintor"=> $this->getPintor()));
-            $pintor = $prepara->fetch();
-            return $pintor['nombre'];
-        }
+//        public function getNombrePintor() {
+//            $conexion = BD::getConexion();
+//            $query = "SELECT nombre FROM pintores where id=:pintor";
+//            $prepara = $conexion->prepare($query);
+//            $prepara->setFetchMode(PDO::FETCH_ASSOC);
+//            $prepara->execute(array(":pintor"=> $this->getPintor()));
+//            $pintor = $prepara->fetch();
+//            return $pintor['nombre'];
+//        }
+        
         public function setPintor($pintor) {
-            $this -> pintor = $pintor;
+            $this -> pintor_fk = $pintor;
         }
         
         public function registerUser() {
@@ -81,11 +83,12 @@
                                     ":pass" => $this->getPass(),
                                     ":mail" => $this->getMail(),
                                     ":pintor_fk"=>  $this->getPintor()));
+                        $this->id = (int) $bd->lastInsertId();
         }
         
         //FETCH es para sacar valores
         
-        public function deleteUser($user) {
+        public function deleteUser() {
             $conexion = BD::getConexion();
             $query = "DELETE FROM usuarios where id=:id";
             $prepara = $conexion->prepare($query);
