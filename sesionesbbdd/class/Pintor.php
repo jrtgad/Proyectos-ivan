@@ -1,5 +1,7 @@
 <?php
     require_once 'BD.php';
+    require_once 'Cuadros.php';
+    require_once 'Collection.php';
 
     class Pintor {
         private $id;
@@ -28,22 +30,42 @@
             $prepara = $conexion->prepare($query);
             
             //No hace falta porque lo voy a recoger todo
-            /*$prepara->setFetchMode(PDO::FETCH_ASSOC | PDO::FETCH_PROPS_LATE, "Pintor");*/
+            $prepara->setFetchMode(PDO::FETCH_ASSOC | PDO::FETCH_PROPS_LATE, "Pintor");
                                 //No hace falta porque no hemos metido variables
-            $prepara->execute(/*array[]":pintor"=>$pintor, ":pass"=>$pass)*/);
+            $prepara->execute(array(":pintor"=>$pintor, ":pass"=>$pass));
             $pintor = $prepara->fetchAll();
             return $pintor;
         }
         
-        public static function getCuadroAleatorio($idPintor) {
+        public static function getCuadros() {
             $conexion = BD::getConexion();
-            $query = "SELECT imagen from cuadros where pintor_fk = $idPintor";
+            $query = "SELECT * from cuadros where pintor_fk = $this->getId()";
             $prepara = $conexion->prepare($query);
             
             //No hace falta porque lo voy a recoger todo
-            $prepara->setFetchMode(PDO::FETCH_ASSOC);
+            /*$prepara->setFetchMode(PDO::FETCH_CLASS, "Cuadros");*/
                                 //No hace falta porque no hemos metido variables
-            $prepara->execute(array(/*":pintores.id"=>$idPintor*/));
+            $prepara->execute(/*array[]":pintor"=>$pintor, ":pass"=>$pass)*/);
+            $cuadro = $prepara->fetchAll();
+            
+            //Obj coleccion vacio
+            $cuadros = new Collection();
+            foreach ($cuadro as $c) {
+                //Ira metiendo a la coleccion $cuadros cada fila de la tabla cuadros
+                $cuadros->add($c);
+            }
+            return $cuadros;
+        }
+        
+        public function getCuadroAleatorio() {
+            $conexion = BD::getConexion();
+            $query = "SELECT imagen from cuadros where pintor_fk = :pintorId";
+            $prepara = $conexion->prepare($query);
+            
+            //No hace falta porque lo voy a recoger todo
+            /*$prepara->setFetchMode(PDO::FETCH_ASSOC);*/
+                                //No hace falta porque no hemos metido variables
+            $prepara->execute(array(":pintorId"=>$this->getId()));
             $cuadro = $prepara->fetchAll();
             return $cuadro[rand(0, count($cuadro) - 1)]['imagen'];
         }
