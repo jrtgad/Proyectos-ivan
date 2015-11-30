@@ -22,19 +22,16 @@ class Collection
         $this->numObjects++;
     }
 
-
     public function next()
     {
         $num = ($this->currentObjIsLast()) ? 0 : $this->iterateNum + 1;
         $this->iterateNum = $num;
     }
 
-
     public function isOdd()
     {
         return $this->iterateNum%2==1;
     }
-
 
     public function isEven()
     {
@@ -250,24 +247,20 @@ class Collection
         $this->objects = $newObjects;
     }
 
-
     public function isEmpty()
     {
         return ($this->numObjects == 0);
     }
-
 
     public function getCurrent()
     {
         return $this->objects[$this->iterateNum];
     }
 
-
     public function setCurrent($obj)
     {
         $this->objects[$this->iterateNum] = $obj;
     }
-
 
     public function getObjectByIterateNum($iterateNum)
     {
@@ -277,7 +270,6 @@ class Collection
             : false
         );
     }
-
 
     public function iterate()
     {

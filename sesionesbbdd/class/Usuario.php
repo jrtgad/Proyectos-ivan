@@ -31,13 +31,13 @@
             return $this -> id;
         }
         public function setId($id) {
-            $this -> $id = $id;
+            $this -> id = $id;
         }
         public function getUser() {
             return $this -> user;
         }
         public function setUser($user) {
-            $this -> $user = $user;
+            $this -> user = $user;
         }
         public function getPass() {
             return $this -> pass;
@@ -68,22 +68,41 @@
             $this -> pintor_fk = $pintor;
         }
         
-        public function registerUser() {
-            $conexion = BD::getConexion();
-            $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
-                   . "VALUES(:user, :pass, :mail, :pintor_fk)";
-            $inserta = $conexion->prepare($query);
+        public function persist() {
+            if($this->id !== null) {
+                $conexion = BD::getConexion();
+                $query = "UPDATE usuarios (user, pass, mail,pintor_fk) "
+                       . "VALUES(:user, :pass, :mail, :pintor_fk) WHERE id = :user_id";
+                $inserta = $conexion->prepare($query);
+
+                //ASSOC trae array asociativo, 
+                //(por defecto numérico y asociativo)
+                $inserta->setFetchMode(PDO::FETCH_ASSOC);
             
-            //ASSOC trae array asociativo, 
-            //(por defecto numérico y asociativo)
-            $inserta->setFetchMode(PDO::FETCH_ASSOC);
+                //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
+                return $inserta->execute(array(":user" => $this->getUser(), 
+                                    ":pass" => $this->getPass(),
+                                    ":mail" => $this->getMail(),
+                                    ":pintor_fk"=> $this->getPintor(),
+                                    ":user_id" => $this->getId()));
+            } else {
+                $conexion = BD::getConexion();
+                $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
+                       . "VALUES(:user, :pass, :mail, :pintor_fk)";
+                $inserta = $conexion->prepare($query);
+
+                //ASSOC trae array asociativo, 
+                //(por defecto numérico y asociativo)
+                $inserta->setFetchMode(PDO::FETCH_ASSOC);
             
-            //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            return $inserta->execute(array(":user" => $this->getUser(), 
+                //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
+                return $inserta->execute(array(":user" => $this->getUser(), 
                                     ":pass" => $this->getPass(),
                                     ":mail" => $this->getMail(),
                                     ":pintor_fk"=>  $this->getPintor()));
                         $this->id = (int) $bd->lastInsertId();
+            }
+            
         }
         
         //FETCH es para sacar valores

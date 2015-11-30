@@ -18,9 +18,30 @@
                 $view = "login";
                 include "vistas/formlogin.php";
             } else {
-                $user = $_SESSION['user'];
-                $view = "content";
-                include 'vistas/content.php';
+                if(isset($_POST['botonmodifica'])) {
+                    $user = $_SESSION['user'];
+                    $view = "modificaciones";
+                    include "vistas/modificaciones.php";
+                } else {
+                    if(isset($_POST['modificado'])) {
+                        $user = $_SESSION['user'];
+                        
+                        $user->setUser($_POST['nuevoNom']);
+                        $user->setPass($_POST['nuevaPass']);
+                        $user->setMail($_POST['nuevoMail']);
+                        $user->setPintor($_POST['pintores']);
+                        
+                        $user->persist();
+                        $_SESSION['user'] = $user;
+                        $msg = "Perfil modificado";
+                        $view = "content";
+                        include "vistas/content.php";
+                    } else {
+                        $user = $_SESSION['user'];
+                        $view = "content";
+                        include 'vistas/content.php';
+                    }
+                }
             }
         }
     } else {
