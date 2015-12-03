@@ -71,8 +71,7 @@
         public function persist() {
             if($this->id !== null) {
                 $conexion = BD::getConexion();
-                $query = "UPDATE usuarios (user, pass, mail,pintor_fk) "
-                       . "VALUES(:user, :pass, :mail, :pintor_fk) WHERE id = :user_id";
+                $query = "UPDATE usuarios SET user=:user, pass=:pass, mail=:mail, pintor_fk=:pintor_fk WHERE id = :user_id";
                 $inserta = $conexion->prepare($query);
 
                 //ASSOC trae array asociativo, 
@@ -80,11 +79,13 @@
                 $inserta->setFetchMode(PDO::FETCH_ASSOC);
             
                 //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-                return $inserta->execute(array(":user" => $this->getUser(), 
+                $check = $inserta->execute(array(":user" => $this->getUser(), 
                                     ":pass" => $this->getPass(),
                                     ":mail" => $this->getMail(),
                                     ":pintor_fk"=> $this->getPintor(),
                                     ":user_id" => $this->getId()));
+                $this->setPintor(Pintor::creaPintor($this->getPintor()));
+                return $check;
             } else {
                 $conexion = BD::getConexion();
                 $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
