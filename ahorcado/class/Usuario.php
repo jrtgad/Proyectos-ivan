@@ -22,7 +22,7 @@ class Usuario {
         $this->id = $id;
         $this->user = $user;
         $this->pass = $pass;
-        $this->partidas = $pintor;
+        $this->partidas = $partidas;
         $this->rol = $rol;
     }
 
@@ -54,7 +54,7 @@ class Usuario {
                 $inserta->setFetchMode(PDO::FETCH_ASSOC);
 
                 //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-                return $inserta->execute(array(":user" => $this->getUser(),
+                $inserta->execute(array(":user" => $this->getUser(),
                                     ":pass" => $this->getPass(),
                                     ":mail" => $this->getMail(),
                                     ":pintor_fk"=>  $this->getPintor()));
