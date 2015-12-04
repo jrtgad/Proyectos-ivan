@@ -44,14 +44,14 @@ if (isset($_SESSION['user'])) {
         } else {
             if (isset($_POST['botonlogin'])) {
                 $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-                if ($user) {
-                    $_SESSION['user'] = $user;
-                    $view = "content";
-                    include "vistas/content.php";
-                } else {
+                if (!$user) {
                     $msg = "Credenciales incorrectas";
                     $view = "login";
                     include "vistas/formlogin.php";
+                } else {
+                    $_SESSION['user'] = $user;
+                    $view = "content";
+                    include "vistas/content.php";
                 }
             } else {
                 $view = "login";

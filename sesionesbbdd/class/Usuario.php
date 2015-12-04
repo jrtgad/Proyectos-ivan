@@ -18,7 +18,9 @@ class Usuario {
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
         $prepara->execute(array(":user" => $user, ":pass" => $pass));
         $usuario = $prepara->fetch();
-        $usuario->setPintor(Pintor::creaPintor($usuario->getPintor()));
+        if($usuario !== 0) {
+            $usuario->setPintor(Pintor::creaPintor($usuario->getPintor()));
+        }
         return $usuario;
     }
 
