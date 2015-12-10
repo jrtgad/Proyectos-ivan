@@ -1,4 +1,6 @@
 <?php
+require_once 'BD.php';
+require_once 'Partidas.php';
 
 class Usuario {
 
@@ -18,7 +20,7 @@ class Usuario {
         return $usuario;
     }
 
-    public function __construct($user = null, $pass = null, $partidas = null, $rol = null, $id = null) {
+    public function __construct($user = null, $pass = null, $partidas = null, $id = null, $rol = null) {
         $this->id = $id;
         $this->user = $user;
         $this->pass = $pass;
@@ -27,40 +29,40 @@ class Usuario {
     }
 
     public function persist() {
-            if($this->id !== null) {
-                $conexion = BD::getConexion();
-                $query = "UPDATE usuarios SET user=:user, pass=:pass, partidas=:partidas, rol=:rol WHERE id = :user_id";
-                $update = $conexion->prepare($query);
+        if ($this->id !== null) {
+            $conexion = BD::getConexion();
+            $query = "UPDATE usuarios SET user=:user, pass=:pass, partidas=:partidas, rol=:rol WHERE id = :user_id";
+            $update = $conexion->prepare($query);
 
-                //ASSOC trae array asociativo,
-                //(por defecto numérico y asociativo)
-                $update->setFetchMode(PDO::FETCH_ASSOC);
+            //ASSOC trae array asociativo,
+            //(por defecto numérico y asociativo)
+            $update->setFetchMode(PDO::FETCH_ASSOC);
 
-                //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-                $check = $update->execute(array(":user" => $this->getUser(),
-                                    ":pass" => $this->getPass(),
-                                    ":partidas" => $this->getPartidas(),
-                                    ":rol"=> $this->getRol(),
-                                    ":user_id" => $this->getId()));
-                return $check;
-            } else {
-                $conexion = BD::getConexion();
-                $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
-                       . "VALUES(:user, :pass, :mail, :pintor_fk)";
-                $inserta = $conexion->prepare($query);
+            //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
+            $check = $update->execute(array(":user" => $this->getUser(),
+                ":pass" => $this->getPass(),
+                ":partidas" => $this->getPartidas(),
+                ":rol" => $this->getRol(),
+                ":user_id" => $this->getId()));
+            return $check;
+        } else {
+            $conexion = BD::getConexion();
+            $query = "INSERT INTO usuarios (user, pass, id,rol) "
+                    . "VALUES(:user, :pass, :id, :rol)";
+            $inserta = $conexion->prepare($query);
 
-                //ASSOC trae array asociativo,
-                //(por defecto numérico y asociativo)
-                $inserta->setFetchMode(PDO::FETCH_ASSOC);
+            //ASSOC trae array asociativo,
+            //(por defecto numérico y asociativo)
+            $inserta->setFetchMode(PDO::FETCH_ASSOC);
 
-                //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-                $inserta->execute(array(":user" => $this->getUser(),
-                                    ":pass" => $this->getPass(),
-                                    ":mail" => $this->getMail(),
-                                    ":pintor_fk"=>  $this->getPintor()));
-                        $this->id = (int) $bd->lastInsertId();
-            }
+            //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
+            $inserta->execute(array(":user" => $this->getUser(),
+                ":pass" => $this->getPass(),
+                ":rol" => $this->getRol(),
+                ":partidas" => $this->getPartidas()));
+            $this->id = (int) $bd->lastInsertId();
         }
+    }
 
     function getId() {
         return $this->id;

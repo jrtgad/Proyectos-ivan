@@ -1,6 +1,7 @@
 <?php
+
 require_once "class/Usuario.php";
-require_once "class/BD.php";
+
 session_start();
 
 if (isset($_SESSION['user'])) {
@@ -16,18 +17,20 @@ if (isset($_SESSION['user'])) {
         if (isset($_POST['botonlogout'])) {
             session_unset();
             session_destroy();
-            $view = "login";
             include "vistas/formlogin.php";
         } else {
+            //formulario de añadir usuario
             if (isset($_POST['alta'])) {
                 $user = $_SESSION['user'];
                 $view = "alta";
                 include "vistas/alta.php";
             } else {
+                //Añadir usuario a la bbdd
                 if (isset($_POST['altauser'])) {
                     $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
                     if (!$user) {
-                        User::createUser($_POST['user'], $_POST['pass']);
+                        $newUser = new Usuario($_POST['user'], $_POST['pass'],null,null,"usuario");
+                        $newUser->persist();
                         $view = "admin";
                         include "vistas/admin.php";
                     } else {
@@ -78,7 +81,6 @@ if (isset($_SESSION['user'])) {
                 }
             } else {
                 $msg = "Credenciales incorrectas";
-                $view = "login";
                 include "vistas/formlogin.php";
             }
         } else {
@@ -90,11 +92,9 @@ if (isset($_SESSION['user'])) {
                     include "vistas/lista.php";
                 } else {
                     $msg = "Credenciales incorrectas";
-                    $view = "login";
                     include "vistas/formlogin.php";
                 }
             } else {
-                $view = "login";
                 include "vistas/formlogin.php";
             }
         }

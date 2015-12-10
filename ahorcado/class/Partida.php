@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Jugada.php';
+
 class Partida {
 
     private $id;

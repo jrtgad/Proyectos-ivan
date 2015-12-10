@@ -22,10 +22,10 @@ if ($view !== "alta") {
                 <input type="text" name="user"><br>
                 <label for="pass">Contraseña:</label><br>
                 <input type="text" name="pass"><br>
-                <select id="rolusuario">
+                <!--<select id="rolusuario" name="rol">
                     <option value="usuario">Usuario</option>
                     <option value="admin">Administrador</option>
-                </select>
+                </select>-->
 
                 <input type="SUBMIT" value="Dar de alta" name="altauser">
             </form>
