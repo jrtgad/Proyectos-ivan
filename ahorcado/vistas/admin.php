@@ -6,7 +6,7 @@ if ($view !== "admin") {
     <!DOCTYPE html>
     <html>
         <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <meta charset="utf-8">
             <title>Administración aplicación</title>
             <link rel="stylesheet" href="../css/styles.css">
         </head>
@@ -17,7 +17,7 @@ if ($view !== "admin") {
                 <?php if (isset($msg)) {
                     echo $msg;
                 } ?>
-                <input type="SUBMIT" name="botonlogout" value="Log out">
+                <input type="SUBMIT" name="logout" value="Log out">
                 <input type="SUBMIT" name="alta" value="Nuevo usuario">
             </form>
             <!--</div>-->

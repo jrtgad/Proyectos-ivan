@@ -25,7 +25,7 @@ class Usuario {
         $this->id_user = $id;
         $this->user = $user;
         $this->pass = $pass;
-        $this->partidas = new Collection();
+        $this->partidas = [];
         $this->rol = $rol;
     }
 

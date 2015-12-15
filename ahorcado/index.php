@@ -14,14 +14,18 @@ if (isset($_SESSION['user'])) {
         include "vistas/formlogin.php";
     } else {
         if ($user->getRol() === "admin") {
+
             //ADMIN
             //formulario de añadir usuario
+
             if (isset($_POST['alta'])) {
                 $user = $_SESSION['user'];
                 $view = "alta";
                 include "vistas/alta.php";
             } else {
+
                 //Añadir usuario a la bbdd
+
                 if (isset($_POST['altauser'])) {
                     $newUser = Usuario::getUsuario($_POST['user'], $_POST['pass']);
                     if (!$newUser) {
@@ -41,10 +45,13 @@ if (isset($_SESSION['user'])) {
                 }
             }
         } else {
+
             //NO ES ADMIN
+
             $_SESSION['user'] = $user;
             if (isset($_POST['nuevaPartida'])) {
                 /* QUE HAGA LO QUE TENGA QUE HACER */
+                
                 $view = "partida";
                 include 'vistas/partida.php';
             } else {

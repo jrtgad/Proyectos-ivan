@@ -6,7 +6,7 @@ if ($view !== "lista") {
     <!DOCTYPE html>
     <html>
         <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <meta charset="utf-8">
             <title></title>
             <link rel="stylesheet" href="../css/styles.css">
         </head>
