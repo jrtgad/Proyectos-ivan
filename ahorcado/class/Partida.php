@@ -4,7 +4,7 @@ require_once 'Jugada.php';
 
 class Partida {
 
-    private $id;
+    private $id_partida;
     private $palabrasecreta;
     private $letrasusadas;
     private $palabradescubierta;
@@ -15,16 +15,16 @@ class Partida {
 
     public static function getPartida($user) {
         $conexion = BD::getConexion();
-        $query = "SELECT * from partidas where id_user_fk=:id_user_fk AND id=:id";
+        $query = "SELECT * from partidas where id_user_fk=:id_user_fk";
         $prepara = $conexion->prepare($query);
-        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
+        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
         $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
-        $usuario = $prepara->fetch();
-        return $usuario;
+        $partida = $prepara->fetchAll();
+        return $partida;
     }
 
     public function persist() {
-        if ($this->id !== null) {
+        if ($this->id_partida !== null) {
             $conexion = BD::getConexion();
             $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
                     . " letrasusadas=:letrasusadas,"
@@ -46,7 +46,8 @@ class Partida {
                 ":intentos" => $this->getIntentos(),
                 ":fallos" => $this->getFallos(),
                 ":finalizada" => $this->getFinalizada(),
-                ":id_partida" => $this->getId_user_fk()));
+                ":id_user_fk" => $this->getId_user_fk(),
+                ":id_partida" => $this->getId_Partida()));
             return $check;
         } else {
             $conexion = BD::getConexion();
@@ -71,12 +72,12 @@ class Partida {
                         ":fallos" => $this->getFallos(),
                         ":finalizada" => $this->getFinalizada(),
                         ":id_partida" => $this->getId_user_fk()));
-            $this->id = (int) $conexion->lastInsertId();
+            $this->id_partida = (int) $conexion->lastInsertId();
         }
     }
 
-    function getId() {
-        return $this->id;
+    function get_IdPartida() {
+        return $this->id_partida;
     }
 
     function getPalabrasecreta() {
@@ -107,8 +108,8 @@ class Partida {
         return $this->id_user_fk;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function setId_Partida($id) {
+        $this->id_partida = $id;
     }
 
     function setPalabrasecreta($palabrasecreta) {
