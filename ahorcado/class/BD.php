@@ -6,15 +6,12 @@ class BD {
     private $usuario = 'admin';
     private $contrasenya = 'admin';
     private $equipo = 'localhost';
-
     protected static $bd = null;
+
     private function __construct() {
         try {
             self::$bd = new PDO("mysql:host=$this->equipo;"
-                              . "dbname=$this->basedatos",
-                                $this->usuario,
-                                $this->contrasenya);
-
+                    . "dbname=$this->basedatos", $this->usuario, $this->contrasenya);
         } catch (PDOException $e) {
             echo "Connection Error: " . $e->getMessage();
             die();

@@ -1,7 +1,7 @@
 <?php
 
 require_once 'BD.php';
-require_once 'Partidas.php';
+require_once 'Partida.php';
 
 class Usuario {
 
@@ -61,7 +61,7 @@ class Usuario {
                 ":pass" => $this->getPass(),
                 ":rol" => $this->getRol(),
                 ":partidas" => $this->getPartidas()));
-            $this->id = (int) $bd->lastInsertId();
+            $this->id = (int) $conexion->lastInsertId();
         }
     }
 

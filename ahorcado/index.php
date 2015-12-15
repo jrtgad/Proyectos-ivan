@@ -31,6 +31,7 @@ if (isset($_SESSION['user'])) {
                     if (!$user) {
                         $newUser = new Usuario($_POST['user'], $_POST['pass'],null,null,"usuario");
                         $newUser->persist();
+                        $msg = "Usuario creado";
                         $view = "admin";
                         include "vistas/admin.php";
                     } else {
