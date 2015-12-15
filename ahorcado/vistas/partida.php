@@ -1,8 +1,19 @@
 <?php
+    if($view !== "newPartida") {
+        header("Location: /");
+    } else {
+?>
+<DOCTYPE html>
+    <HTML>
+        <HEAD>
+            <title>Nueva partida</title>
+            <LINK rel="stylesheet" href="../css/styles.css">
+        </HEAD>
+        <BODY>
+            
+        </BODY>
+    </HTML>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<?php
+    }
+?>

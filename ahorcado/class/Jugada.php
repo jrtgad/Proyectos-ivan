@@ -24,7 +24,7 @@ class Jugada {
     public function persist() {
         if ($this->id !== null) {
             $conexion = BD::getConexion();
-            $query = "UPDATE jugada SET user=:user, pass=:pass, partidas=:partidas, rol=:rol WHERE id = :user_id";
+            $query = "UPDATE jugada SET user=:user, pass=:pass, partidas=:partidas, rol=:rol WHERE id = :id_user";
             $update = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -36,7 +36,7 @@ class Jugada {
                 ":pass" => $this->getPass(),
                 ":partidas" => $this->getPartidas(),
                 ":rol" => $this->getRol(),
-                ":user_id" => $this->getId()));
+                ":id_user" => $this->getId()));
             return $check;
         } else {
             $conexion = BD::getConexion();
@@ -53,7 +53,7 @@ class Jugada {
                         ":pass" => $this->getPass(),
                         ":mail" => $this->getMail(),
                         ":pintor_fk" => $this->getPintor()));
-            $this->id = (int) $bd->lastInsertId();
+            $this->id = (int) $conexion->lastInsertId();
         }
     }
 

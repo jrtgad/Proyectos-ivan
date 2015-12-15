@@ -15,10 +15,10 @@ class Partida {
 
     public static function getPartida($user) {
         $conexion = BD::getConexion();
-        $query = "SELECT * from partidas where user_id_fk=:user_id_fk AND id=:id";
+        $query = "SELECT * from partidas where id_user_fk=:id_user_fk AND id=:id";
         $prepara = $conexion->prepare($query);
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
-        $prepara->execute(array(":user_id_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
+        $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
         $usuario = $prepara->fetch();
         return $usuario;
     }
@@ -32,7 +32,7 @@ class Partida {
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
-                    . " WHERE id = :partidas_id";
+                    . " WHERE id = :id_partida";
             $update = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -46,7 +46,7 @@ class Partida {
                 ":intentos" => $this->getIntentos(),
                 ":fallos" => $this->getFallos(),
                 ":finalizada" => $this->getFinalizada(),
-                ":partidas_id" => $this->getId_user_fk()));
+                ":id_partida" => $this->getId_user_fk()));
             return $check;
         } else {
             $conexion = BD::getConexion();
@@ -56,7 +56,7 @@ class Partida {
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
-                    . " WHERE id = :partidas_id";
+                    . " WHERE id = :id_partida";
             $inserta = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -70,7 +70,7 @@ class Partida {
                         ":intentos" => $this->getIntentos(),
                         ":fallos" => $this->getFallos(),
                         ":finalizada" => $this->getFinalizada(),
-                        ":partidas_id" => $this->getId_user_fk()));
+                        ":id_partida" => $this->getId_user_fk()));
             $this->id = (int) $conexion->lastInsertId();
         }
     }
