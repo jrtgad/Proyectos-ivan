@@ -15,7 +15,7 @@ if ($view !== "lista") {
                 <input type="submit" name="logout" value="Log out">
                 <input type="submit" name="newPartida" value="Nueva partida">
                 <?php
-                echo "<h1>Hola " . $user . "</h1>";
+                echo "<h1>Hola " . $_SESSION['user'] . "</h1>";
                 $user->recuperaPartidas();
                 ?>
 
