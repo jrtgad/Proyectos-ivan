@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Jugada.php';
+require_once 'Collection.php';
 
 class Partida {
 
@@ -20,7 +21,13 @@ class Partida {
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
         $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
         $partida = $prepara->fetchAll();
-        return $partida;
+        $partidas = new Collection();
+        if($partida) {
+            foreach ($partida as $game) {
+                $partidas->add($game);
+            }
+        }
+        return $partidas;
     }
 
     public function persist() {

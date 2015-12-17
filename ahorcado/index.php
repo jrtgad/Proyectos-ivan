@@ -51,7 +51,6 @@ if (isset($_SESSION['user'])) {
             $_SESSION['user'] = $user;
             if (isset($_POST['nuevaPartida'])) {
                 /* QUE HAGA LO QUE TENGA QUE HACER */
-                
                 $view = "partida";
                 include 'vistas/partida.php';
             } else {
