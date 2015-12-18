@@ -49,41 +49,45 @@ if (isset($_SESSION['user'])) {
             //NO ES ADMIN
 
             $_SESSION['user'] = $user;
-            if (isset($_POST['nuevaPartida'])) {
-                /* QUE HAGA LO QUE TENGA QUE HACER */
-                
+            if (isset($_POST['newPartida'])) {
+                $partida = $user->nuevaPartida();
+                $partida->persist();
                 $view = "partida";
                 include 'vistas/partida.php';
-            } else {
-                if (isset($_POST['recupera'])) {
+            } else {/*
+                if (isset($_POST['recupera'])) {*/
                     /* QUE HAGA LO QUE TENGA QUE HACER */
-                    $view = "partida";
+                    /*$view = "partida";
                     include 'vistas/partida';
-                } else {
-                    if (isset($_POST['stop'])) {
-                        /* QUE HAGA LO QUE TENGA QUE HACER */
-                        $view = "lista";
-                        include 'vistas/lista.php';
-                    } else {
+//                } else {
+//                    if (isset($_POST['stop'])) {
+//                        /* QUE HAGA LO QUE TENGA QUE HACER */
+//                        $view = "lista";
+//                        include 'vistas/lista.php';
+                    /*} else {*/
                         if (isset($_POST['enviaLetra'])) {
-                            /* QUE HAGA LO QUE TENGA QUE HACER */
-                            include 'vistas/partida.php';
-                        } else {
-                            if ($_POST['generaLista']) {
-
+                            if(!isset($_POST['letra'])) {
+                                $msg = "Introduzca una letra";
                             } else {
-                                if ($_POST['volver']) {
-                                    $view = "lista";
-                                    include 'vistas/lista.php';
-                                }
+                                $partida->compruebaJugada($_POST['letra']);
                             }
-                        }
-                    }
-                }
+                            include 'vistas/partida.php';
+//                        } else {
+//                            if ($_POST['generaLista']) {
+//
+//                            } else {
+//                                if ($_POST['volver']) {
+//                                    $view = "lista";
+//                                    include 'vistas/lista.php';
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
-} else {
+/*} else {
 
 //NO REGISTRADO
 
@@ -125,5 +129,5 @@ if (isset($_SESSION['user'])) {
             }
         }
     }
-}
+}*/
 ?>

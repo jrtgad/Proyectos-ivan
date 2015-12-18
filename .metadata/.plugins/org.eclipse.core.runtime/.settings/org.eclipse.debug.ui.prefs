@@ -2,7 +2,7 @@ Console.highWaterMark=88000
 StringVariablePreferencePage=382,319,318,254,
 eclipse.preferences.version=1
 org.eclipse.debug.ui.PREF_CHANGED_VALUE_BACKGROUND=74,65,13
-org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<launchPerspectives/>\n
+org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<launchPerspectives>\n<launchPerspective configurationType\="org.eclipse.php.debug.core.launching.webPageLaunch" delegate\="org.eclipse.php.debug.core.launching.webPageLaunch" mode\="run" perspective\="org.eclipse.php.perspective"/>\n<launchPerspective configurationType\="com.aptana.php.debug.core.launching.PHPExeLaunchConfigurationType" delegate\="com.aptana.php.debug.core.launching.PHPExeLaunchConfigurationType" mode\="run" perspective\="org.eclipse.php.perspective"/>\n</launchPerspectives>\n
 org.eclipse.debug.ui.consoleBackground=29,31,33
 org.eclipse.debug.ui.errorColor=255,0,0
 org.eclipse.debug.ui.inColor=95,175,176

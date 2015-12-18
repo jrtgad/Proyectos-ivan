@@ -18,6 +18,10 @@ class Usuario {
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
         $prepara->execute(array(":user" => $user, ":pass" => $pass));
         $usuario = $prepara->fetch();
+        if($usuario) {
+            //$partidas = Partida::getPartidas($usuario->getId());
+            //$usuario->setPartidas($partidas);
+        }
         return $usuario;
     }
 
@@ -27,6 +31,12 @@ class Usuario {
         $this->pass = $pass;
         $this->partidas = new Collection();
         $this->rol = $rol;
+    }
+
+    public function nuevaPartida() {
+        $partida = new Partida();
+
+        $this->partidas->add($partida);
     }
 
     public function persist() {

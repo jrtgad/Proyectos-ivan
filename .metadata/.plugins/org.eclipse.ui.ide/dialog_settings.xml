@@ -6,6 +6,8 @@
 		<item value="com.aptana.feature:3.6.2.1413590556-B07o89BabgaJTVkGD9833355984B"/>
 		<item value="com.aptana.php.feature:3.6.1.201410171731-7J7E-7ISDejnREiH"/>
 		<item value="com.aptana.pydev.feature:3.0.0.201410171802-7v--7uVyx2EKHY"/>
+		<item value="org.eclipse.dltk.core.index:5.0.0.201306060709"/>
+		<item value="org.eclipse.dltk.core:5.0.0.201306060709"/>
 		<item value="org.eclipse.emf.common:2.9.2.v20131212-0545"/>
 		<item value="org.eclipse.emf.ecore:2.9.2.v20131212-0545"/>
 		<item value="org.eclipse.help:2.0.2.v20140221-1700"/>
