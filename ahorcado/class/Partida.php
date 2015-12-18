@@ -2,6 +2,7 @@
 
 require_once 'Jugada.php';
 require_once 'Collection.php';
+require_once 'AlmacenPalabras.php';
 
 class Partida {
 
@@ -22,12 +23,25 @@ class Partida {
         $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
         $partida = $prepara->fetchAll();
         $partidas = new Collection();
-        if($partida) {
+        if ($partida) {
             foreach ($partida as $game) {
                 $partidas->add($game);
             }
         }
         return $partidas;
+    }
+
+    function __construct($letrasusadas = null, $palabradescubierta = null, $intentos = null, $fallos = null, $finalizada = null, $id_user_fk = null, $palabrasecreta = null, $id_partida = null) {
+
+
+        $this->letrasusadas = "";
+        $this->palabradescubierta = "";
+        $this->intentos = 0;
+        $this->fallos = 0;
+        $this->finalizada = false;
+        $this->id_user_fk = $id_user_fk;
+        $this->palabrasecreta = AlmacenPalabras::getInstance()->getPalabraAleatoria();
+        $this->id_partida = $id_partida;
     }
 
     public function persist() {
@@ -81,6 +95,22 @@ class Partida {
                         ":id_partida" => $this->getId_user_fk()));
             $this->id_partida = (int) $conexion->lastInsertId();
         }
+    }
+
+//    function compruebaJugada($letra) {
+//        $copiaSecreta = $this->getPalabrasecreta();
+//        while (strpos($copiaSecreta, $letra)) {
+//            str_replace(strpos($copiaSecreta, $letra), $letra, $copiaSecreta);
+//            $this->setPalabrasecreta() = str_replace(strpos($copiaSecreta, $letra), $letra, $this->getPalabrasecreta());
+//        }
+//    }
+
+    function generaGuiones($palabra) {
+        $result;
+        for ($i = 0; $i < $palabra . length; $i++) {
+            $result += "_";
+        }
+        return $result;
     }
 
     function get_IdPartida() {
