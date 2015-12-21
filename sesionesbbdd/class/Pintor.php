@@ -98,8 +98,7 @@ class Pintor {
     }
 
 }
-
-=======
+/*
 <?php
     require_once 'BD.php';
     require_once 'Cuadros.php';
@@ -147,8 +146,8 @@ class Pintor {
             //No hace falta porque lo voy a recoger todo
             /*$prepara->setFetchMode(PDO::FETCH_CLASS, "Cuadros");*/
                                 //No hace falta porque no hemos metido variables
-            $prepara->execute(/*array[]":pintor"=>$pintor, ":pass"=>$pass)*/);
-            $cuadro = $prepara->fetchAll();
+           // $prepara->execute(/*array[]":pintor"=>$pintor, ":pass"=>$pass)*/);
+            /*$cuadro = $prepara->fetchAll();
             
             //Obj coleccion vacio
             $cuadros = new Collection();
@@ -167,7 +166,7 @@ class Pintor {
             //No hace falta porque lo voy a recoger todo
             /*$prepara->setFetchMode(PDO::FETCH_ASSOC);*/
                                 //No hace falta porque no hemos metido variables
-            $prepara->execute(array(":pintorId"=>$this->getId()));
+            /*$prepara->execute(array(":pintorId"=>$this->getId()));
             $cuadro = $prepara->fetchAll();
             return $cuadro[rand(0, count($cuadro) - 1)]['imagen'];
         }
@@ -190,6 +189,5 @@ class Pintor {
         function setColection($colection) {
             $this->colection = $colection;
         }
-    }        
->>>>>>> a7545e86a97e016a592b91b535e33f7de3dc9133
+    }*/        
 ?>
