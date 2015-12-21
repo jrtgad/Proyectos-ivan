@@ -1,10 +1,12 @@
 <?php
 
 require_once 'Jugada.php';
+require_once 'Collection.php';
+require_once 'AlmacenPalabras.php';
 
 class Partida {
 
-    private $id;
+    private $id_partida;
     private $palabrasecreta;
     private $letrasusadas;
     private $palabradescubierta;
@@ -15,16 +17,35 @@ class Partida {
 
     public static function getPartida($user) {
         $conexion = BD::getConexion();
-        $query = "SELECT * from partidas where user_id_fk=:user_id_fk AND id=:id";
+        $query = "SELECT * from partidas where id_user_fk=:id_user_fk";
         $prepara = $conexion->prepare($query);
-        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
-        $prepara->execute(array(":user_id_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
-        $usuario = $prepara->fetch();
-        return $usuario;
+        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
+        $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
+        $partida = $prepara->fetchAll();
+        $partidas = new Collection();
+        if ($partida) {
+            foreach ($partida as $game) {
+                $partidas->add($game);
+            }
+        }
+        return $partidas;
+    }
+
+    function __construct($letrasusadas = null, $palabradescubierta = null, $intentos = null, $fallos = null, $finalizada = null, $id_user_fk = null, $palabrasecreta = null, $id_partida = null) {
+
+
+        $this->letrasusadas = "";
+        $this->palabradescubierta = "";
+        $this->intentos = 0;
+        $this->fallos = 0;
+        $this->finalizada = false;
+        $this->id_user_fk = $id_user_fk;
+        $this->palabrasecreta = AlmacenPalabras::getInstance()->getPalabraAleatoria();
+        $this->id_partida = $id_partida;
     }
 
     public function persist() {
-        if ($this->id !== null) {
+        if ($this->id_partida !== null) {
             $conexion = BD::getConexion();
             $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
                     . " letrasusadas=:letrasusadas,"
@@ -32,7 +53,7 @@ class Partida {
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
-                    . " WHERE id = :partidas_id";
+                    . " WHERE id = :id_partida";
             $update = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -46,7 +67,8 @@ class Partida {
                 ":intentos" => $this->getIntentos(),
                 ":fallos" => $this->getFallos(),
                 ":finalizada" => $this->getFinalizada(),
-                ":partidas_id" => $this->getId_user_fk()));
+                ":id_user_fk" => $this->getId_user_fk(),
+                ":id_partida" => $this->getId_Partida()));
             return $check;
         } else {
             $conexion = BD::getConexion();
@@ -56,7 +78,7 @@ class Partida {
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
-                    . " WHERE id = :partidas_id";
+                    . " WHERE id = :id_partida";
             $inserta = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -70,13 +92,29 @@ class Partida {
                         ":intentos" => $this->getIntentos(),
                         ":fallos" => $this->getFallos(),
                         ":finalizada" => $this->getFinalizada(),
-                        ":partidas_id" => $this->getId_user_fk()));
-            $this->id = (int) $conexion->lastInsertId();
+                        ":id_partida" => $this->getId_user_fk()));
+            $this->id_partida = (int) $conexion->lastInsertId();
         }
     }
 
-    function getId() {
-        return $this->id;
+//    function compruebaJugada($letra) {
+//        $copiaSecreta = $this->getPalabrasecreta();
+//        while (strpos($copiaSecreta, $letra)) {
+//            str_replace(strpos($copiaSecreta, $letra), $letra, $copiaSecreta);
+//            $this->setPalabrasecreta() = str_replace(strpos($copiaSecreta, $letra), $letra, $this->getPalabrasecreta());
+//        }
+//    }
+
+    function generaGuiones($palabra) {
+        $result;
+        for ($i = 0; $i < $palabra . length; $i++) {
+            $result += "_";
+        }
+        return $result;
+    }
+
+    function get_IdPartida() {
+        return $this->id_partida;
     }
 
     function getPalabrasecreta() {
@@ -107,8 +145,8 @@ class Partida {
         return $this->id_user_fk;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function setId_Partida($id) {
+        $this->id_partida = $id;
     }
 
     function setPalabrasecreta($palabrasecreta) {

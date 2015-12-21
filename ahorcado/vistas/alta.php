@@ -6,6 +6,7 @@ if ($view !== "alta") {
     <!DOCTYPE html>
     <html>
         <head>
+            <meta charset="utf-8">
             <title>Inserción de nuevo usuario</title>
             <link rel="stylesheet" href="../css/styles.css">
         </head>
