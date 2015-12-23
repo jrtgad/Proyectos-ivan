@@ -1,0 +1,16 @@
+form    {text-align: center;
+        display: block;}
+
+table   {border: solid 3px red;
+        border-collapse: collapse;
+        margin: 0px auto;}
+
+th      {text-align: center;
+        font: normal bold 2em/1.5 sans-serif;}
+
+td      {border-top: solid 1px;
+        border-bottom: solid 1px;}
+
+input   {text-align: center;}
+
+h1      {text-align: center;}

@@ -1,0 +1,27 @@
+table {
+    text-align: center;
+    margin: 0 auto;    
+}
+
+h1 {
+    text-align: center;
+}
+
+td {
+    border: solid 1px;
+    border-collapse: collapse;
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+    margin: 0px;
+}
+
+form {
+    text-align: center;
+    margin: 0 auto;
+}
+
+form > input{
+    text-align: center;
+    margin: 0 auto;
+}
