@@ -18,7 +18,7 @@ class Usuario {
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
         $prepara->execute(array(":user" => $user, ":pass" => $pass));
         $usuario = $prepara->fetch();
-        if($usuario) {
+        if ($usuario) {
             //$partidas = Partida::getPartidas($usuario->getId());
             //$usuario->setPartidas($partidas);
         }
@@ -35,7 +35,7 @@ class Usuario {
 
     public function nuevaPartida() {
         $partida = new Partida();
-
+        $partida->persist();
         $this->partidas->add($partida);
     }
 

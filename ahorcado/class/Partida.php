@@ -72,13 +72,20 @@ class Partida {
             return $check;
         } else {
             $conexion = BD::getConexion();
-            $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
-                    . " letrasusadas=:letrasusadas,"
-                    . " palabradescubierta=:palabradescubierta,"
-                    . " intentos=:intentos, "
-                    . " fallos=:fallos, "
-                    . " finalizada=:finalizada, "
-                    . " WHERE id = :id_partida";
+            $query = "INSERT INTO partidas (palabrasecreta,"
+                    . "                     letrasusadas,"
+                    . "                     palabradescubierta,"
+                    . "                     intentos,"
+                    . "                     id_user_fk,"
+                    . "                     fallos,"
+                    . "                     finalizada)"
+                    . "  VALUES(:palabrasecreta,"
+                    . "         :letrasusadas,"
+                    . "         :palabradescubierta,"
+                    . "         :intentos,"
+                    . "         :id_user_fk,"
+                    . "         :fallos, "
+                    . "         :finalizada)";
             $inserta = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -90,6 +97,7 @@ class Partida {
                         ":letrasusadas" => $this->getLetrasusadas(),
                         ":palabradescubierta" => $this->getPalabradescubierta(),
                         ":intentos" => $this->getIntentos(),
+                        ":id_user_fk" => $_SESSION['user']->getId(),
                         ":fallos" => $this->getFallos(),
                         ":finalizada" => $this->getFinalizada(),
                         ":id_partida" => $this->getId_user_fk()));
@@ -97,13 +105,13 @@ class Partida {
         }
     }
 
-//    function compruebaJugada($letra) {
-//        $copiaSecreta = $this->getPalabrasecreta();
-//        while (strpos($copiaSecreta, $letra)) {
-//            str_replace(strpos($copiaSecreta, $letra), $letra, $copiaSecreta);
-//            $this->setPalabrasecreta() = str_replace(strpos($copiaSecreta, $letra), $letra, $this->getPalabrasecreta());
-//        }
-//    }
+    /* function compruebaJugada($letra) {
+      $copiaSecreta = $this->getPalabrasecreta();
+      while (strpos($copiaSecreta, $letra)) {
+      str_replace(strpos($copiaSecreta, $letra), $letra, $copiaSecreta);
+      $this->setPalabrasecreta() = str_replace(strpos($copiaSecreta, $letra), $letra, $this->getPalabrasecreta());
+      }
+      } */
 
     function generaGuiones($palabra) {
         $result;

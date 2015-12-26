@@ -1,5 +1,5 @@
 <?php
-if ($view !== "newPartida") {
+if ($view !== "partida") {
     header("Location: /");
 } else {
     ?>
@@ -17,23 +17,23 @@ if ($view !== "newPartida") {
                 <input type="submit" name="volver" value="Volver">
 
                 <?php
-                    if(isset($msg)) {
-                        echo "<h2>" . $msg . "</h2>";
-                    }
-                    $secreta = $user->getPartidas()->getPalabrasecreta();
-                    echo $partida->generaGuiones($secreta);
+                if (isset($msg)) {
+                    echo "<h2>" . $msg . "</h2>";
+                }
+                $secreta = $user->getPartidas()->getPalabrasecreta();
+                echo $partida->generaGuiones($secreta);
                 ?>
                 <input type="text" name="letra">
                 <input type="submit" name="enviaLetra" value="Enviar">
                 <DIV>
                     <H2>Letras usadas</H2>
                     <?php
-                        echo $partida->getLetrasusadas();
+                    echo $partida->getLetrasusadas();
                     ?>
 
                     <H2>Intentos</H2>
                     <?php
-                        echo $partida->getIntentos();
+                    echo $partida->getIntentos();
                     ?>
 
                 </DIV>
