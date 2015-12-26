@@ -1,122 +1,79 @@
 <?php
 
-    require_once "class/Usuario.php";
+require_once "class/Usuario.php";
 
-    session_start();
+session_start();
 
-<<<<<<< HEAD
 if (isset($_SESSION["user"])) {
-    //REGISTRADO
-    $user = $_SESSION["user"];
 
-    if (isset($_POST["logout"])) {
+    $user = $_SESSION['user'];
+
+    if (isset($_POST['logout'])) {
         session_unset();
         session_destroy();
         include "vistas/formlogin.php";
     } else {
-        if ($user->getRol() === "admin") {
-=======
-    if (isset($_SESSION['user'])) {
-        //REGISTRADO
-        $user = $_SESSION['user'];
+        if ($user -> getRol() === "admin") {
 
-        if (isset($_POST['logout'])) {
-            session_unset();
-            session_destroy();
-            include "vistas/formlogin.php";
-        } else {
-            if ($user->getRol() === "admin") {
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479
+//ADMIN
+//formulario de añadir usuario
 
-                //ADMIN
-                //formulario de añadir usuario
-
-<<<<<<< HEAD
             if (isset($_POST["alta"])) {
                 $user = $_SESSION["user"];
                 $view = "alta";
                 include "vistas/alta.php";
             } else {
-=======
-                if (isset($_POST['alta'])) {
-                    $user = $_SESSION['user'];
-                    $view = "alta";
-                    include "vistas/alta.php";
-                } else {
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479
-
-                    //Añadir usuario a la bbdd
-
-<<<<<<< HEAD
-                if (isset($_POST["altauser"])) {
-                    $newUser = Usuario::getUsuario($_POST["user"], $_POST["pass"]);
+//Añadir usuario a la bbdd
+                if (isset($_POST['altauser'])) {
+                    $newUser = Usuario::getUsuario($_POST['user'], $_POST['pass']);
                     if (!$newUser) {
-                        $newUser = new Usuario($_POST["user"], $_POST["pass"], "usuario");
-                        $newUser->persist();
+                        $newUser = new Usuario($_POST['user'], $_POST['pass'], "usuario");
+                        $newUser -> persist();
                         $msg = "Usuario creado";
                         $view = "admin";
                         include "vistas/admin.php";
-=======
-                    if (isset($_POST['altauser'])) {
-                        $newUser = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-                        if (!$newUser) {
-                            $newUser = new Usuario($_POST['user'], $_POST['pass'], "usuario");
-                            $newUser->persist();
-                            $msg = "Usuario creado";
-                            $view = "admin";
-                            include "vistas/admin.php";
-                        } else {
-                            $msg = "El usuario ya existe";
-                            $view = "admin";
-                            include "vistas/admin.php";
-                        }
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479
                     } else {
+                        $msg = "El usuario ya existe";
                         $view = "admin";
-                        include 'vistas/admin.php';
+                        include "vistas/admin.php";
                     }
-<<<<<<< HEAD
                 } else {
                     $view = "admin";
-                    include "vistas/admin.php";
-=======
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479
+                    include 'vistas/admin.php';
                 }
-            } else {
-
-                //NO ES ADMIN
-
-<<<<<<< HEAD
-            $_SESSION["user"] = $user;
-            if (isset($_POST["newPartida"])) {
-                $partida = $user->nuevaPartida();
+            }
+        } else {
+//NO ES ADMIN
+            if (isset($_POST['newPartida'])) {
+                $partida = $user -> nuevaPartida();
+                $_SESSION['partida'] = $partida;
                 $view = "partida";
-                include "vistas/partida.php";
-            } /*else {
-                if (isset($_POST["recupera"])) {
-                    //QUE HAGA LO QUE TENGA QUE HACER
+                include 'vistas/partida.php';
+            } else {
+                if (isset($_POST['recupera'])) {
+                    /* QUE HAGA LO QUE TENGA QUE HACER */
                     $view = "partida";
-                    include "vistas/partida";
+                    include 'vistas/partida';
                 } else {
-                    if (isset($_POST["stop"])) {
-                        //  QUE HAGA LO QUE TENGA QUE HACER
+                    if (isset($_POST['stop'])) {
+                        /* QUE HAGA LO QUE TENGA QUE HACER */
                         $view = "lista";
-                        include "vistas/lista.php";
+                        include 'vistas/lista.php';
                     } else {
-                        if (isset($_POST["enviaLetra"])) {
-                            if (!isset($_POST["letra"])) {
+                        if (isset($_POST['enviaLetra'])) {
+                            if (!isset($_POST['letra'])) {
                                 $msg = "Introduzca una letra";
                             } else {
-                                $partida->compruebaJugada($_POST["letra"]);
+                                $partida -> compruebaJugada($_POST['letra']);
                             }
-                            include "vistas/partida.php";
+                            include 'vistas/partida.php';
                         } else {
-                            if ($_POST["generaLista"]) {
+                            if ($_POST['generaLista']) {
                                 
                             } else {
-                                if ($_POST["volver"]) {
+                                if ($_POST['volver']) {
                                     $view = "lista";
-                                    include "vistas/lista.php";
+                                    include 'vistas/lista.php';
                                 }
                             }
                         }
@@ -125,70 +82,19 @@ if (isset($_SESSION["user"])) {
             }
         }
     }
-}*/ else {
-=======
-                $_SESSION['user'] = $user;
-                if (isset($_POST['newPartida'])) {
-                    $partida = $user->nuevaPartida();
-                    $partida->persist();
-                    $view = "partida";
-                    include 'vistas/partida.php';
-                } else {/*
-                  if (isset($_POST['recupera'])) { */
-                    /* QUE HAGA LO QUE TENGA QUE HACER */
-                    /* $view = "partida";
-                      include 'vistas/partida';
-                      //                } else {
-                      //                    if (isset($_POST['stop'])) {
-                      //                        /* QUE HAGA LO QUE TENGA QUE HACER */
-//                        $view = "lista";
-//                        include 'vistas/lista.php';
-                    /* } else { */
-                    if (isset($_POST['enviaLetra'])) {
-                        if (!isset($_POST['letra'])) {
-                            $msg = "Introduzca una letra";
-                        } else {
-                            $partida->compruebaJugada($_POST['letra']);
-                        }
-                        include 'vistas/partida.php';
-//                        } else {
-//                            if ($_POST['generaLista']) {
-//
-//                            } else {
-//                                if ($_POST['volver']) {
-//                                    $view = "lista";
-//                                    include 'vistas/lista.php';
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-                    }
-                }
-            }
-            /* } else {
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479
+} else {
+//NO REGISTRADO
 
-              //NO REGISTRADO
-
-<<<<<<< HEAD
     if (isset($_POST["formlogin"])) {
         include "vistas/formlogin.php";
     } else {
         if (isset($_POST["login"])) {
-=======
-              if (isset($_POST['formlogin'])) {
-              include "vistas/formlogin.php";
-              } else {
-              if (isset($_POST['login'])) {
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479
 
-              //INTENTO LOGIN
+//INTENTO LOGIN
 
-<<<<<<< HEAD
             $user = Usuario::getUsuario($_POST["user"], $_POST["pass"]);
             if ($user) {
-                if ($user->getRol() === "admin") {
+                if ($user -> getRol() === "admin") {
                     $_SESSION["user"] = $user;
                     $view = "admin";
                     include "vistas/admin.php";
@@ -217,41 +123,5 @@ if (isset($_SESSION["user"])) {
             }
         }
     }
-}}}}
+}
 ?>
-=======
-              $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-              if ($user) {
-              if ($user->getRol() === "admin") {
-              $_SESSION['user'] = $user;
-              $view = "admin";
-              include "vistas/admin.php";
-              } else {
-              $_SESSION['user'] = $user;
-              $view = "lista";
-              include "vistas/lista.php";
-              }
-              } else {
-              $msg = "Credenciales incorrectas";
-              include "vistas/formlogin.php";
-              }
-              } else {
-              if (isset($_POST['botonlogin'])) {
-              $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-              if ($user) {
-              $_SESSION['user'] = $user;
-              $view = "lista";
-              include "vistas/lista.php";
-              } else {
-              $msg = "Credenciales incorrectas";
-              include "vistas/formlogin.php";
-              }
-              } else {
-              include "vistas/formlogin.php";
-              }
-              }
-              }
-              } */
-        }
-    }
->>>>>>> 8d1012099c0daaee5a0d8cf9690bb7f76609a479

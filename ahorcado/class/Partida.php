@@ -18,14 +18,14 @@ class Partida {
     public static function getPartida($user) {
         $conexion = BD::getConexion();
         $query = "SELECT * from partidas where id_user_fk=:id_user_fk";
-        $prepara = $conexion->prepare($query);
-        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
-        $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
-        $partida = $prepara->fetchAll();
+        $prepara = $conexion -> prepare($query);
+        $prepara -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
+        $prepara -> execute(array(":id_user_fk" => $this -> getId_user_fk(), ":id" => $this -> getId()));
+        $partida = $prepara -> fetchAll();
         $partidas = new Collection();
         if ($partida) {
             foreach ($partida as $game) {
-                $partidas->add($game);
+                $partidas -> add($game);
             }
         }
         return $partidas;
@@ -34,18 +34,18 @@ class Partida {
     function __construct($letrasusadas = null, $palabradescubierta = null, $intentos = null, $fallos = null, $finalizada = null, $id_user_fk = null, $palabrasecreta = null, $id_partida = null) {
 
 
-        $this->letrasusadas = "";
-        $this->palabradescubierta = "";
-        $this->intentos = 0;
-        $this->fallos = 0;
-        $this->finalizada = false;
-        $this->id_user_fk = $id_user_fk;
-        $this->palabrasecreta = AlmacenPalabras::getInstance()->getPalabraAleatoria();
-        $this->id_partida = $id_partida;
+        $this -> letrasusadas = "";
+        $this -> palabradescubierta = "";
+        $this -> intentos = 0;
+        $this -> fallos = 0;
+        $this -> finalizada = false;
+        $this -> id_user_fk = $id_user_fk;
+        $this -> palabrasecreta = AlmacenPalabras::getInstance() -> getPalabraAleatoria();
+        $this -> id_partida = $id_partida;
     }
 
     public function persist() {
-        if ($this->id_partida !== null) {
+        if ($this -> id_partida !== null) {
             $conexion = BD::getConexion();
             $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
                     . " letrasusadas=:letrasusadas,"
@@ -54,21 +54,21 @@ class Partida {
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
                     . " WHERE id = :id_partida";
-            $update = $conexion->prepare($query);
+            $update = $conexion -> prepare($query);
 
             //ASSOC trae array asociativo,
             //(por defecto numérico y asociativo)
-            $update->setFetchMode(PDO::FETCH_ASSOC);
+            $update -> setFetchMode(PDO::FETCH_ASSOC);
 
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            $check = $update->execute(array(":palabrasecreta" => $this->getPalabrasecreta(),
-                ":letrasusadas" => $this->getLetrasusadas(),
-                ":palabradescubierta" => $this->getPalabradescubierta(),
-                ":intentos" => $this->getIntentos(),
-                ":fallos" => $this->getFallos(),
-                ":finalizada" => $this->getFinalizada(),
-                ":id_user_fk" => $this->getId_user_fk(),
-                ":id_partida" => $this->getId_Partida()));
+            $check = $update -> execute(array(":palabrasecreta" => $this -> getPalabrasecreta(),
+                ":letrasusadas" => $this -> getLetrasusadas(),
+                ":palabradescubierta" => $this -> getPalabradescubierta(),
+                ":intentos" => $this -> getIntentos(),
+                ":fallos" => $this -> getFallos(),
+                ":finalizada" => $this -> getFinalizada(),
+                ":id_user_fk" => $_SESSION['user'] -> getId(),
+                ":id_partida" => $this -> getId_Partida()));
             return $check;
         } else {
             $conexion = BD::getConexion();
@@ -86,22 +86,21 @@ class Partida {
                     . "         :id_user_fk,"
                     . "         :fallos, "
                     . "         :finalizada)";
-            $inserta = $conexion->prepare($query);
+            $inserta = $conexion -> prepare($query);
 
             //ASSOC trae array asociativo,
             //(por defecto numérico y asociativo)
-            $inserta->setFetchMode(PDO::FETCH_ASSOC);
+            $inserta -> setFetchMode(PDO::FETCH_ASSOC);
 
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            return $inserta->execute(array(":palabrasecreta" => $this->getPalabrasecreta(),
-                        ":letrasusadas" => $this->getLetrasusadas(),
-                        ":palabradescubierta" => $this->getPalabradescubierta(),
-                        ":intentos" => $this->getIntentos(),
-                        ":id_user_fk" => $_SESSION['user']->getId(),
-                        ":fallos" => $this->getFallos(),
-                        ":finalizada" => $this->getFinalizada(),
-                        ":id_partida" => $this->getId_user_fk()));
-            $this->id_partida = (int) $conexion->lastInsertId();
+            return $inserta -> execute(array(":palabrasecreta" => $this -> getPalabrasecreta(),
+                        ":letrasusadas" => $this -> getLetrasusadas(),
+                        ":palabradescubierta" => $this -> getPalabradescubierta(),
+                        ":intentos" => $this -> getIntentos(),
+                        ":id_user_fk" => $_SESSION['user'] -> getId(),
+                        ":fallos" => $this -> getFallos(),
+                        ":finalizada" => $this -> getFinalizada()));
+            $this -> id_partida = (int) $conexion -> lastInsertId();
         }
     }
 
@@ -122,67 +121,67 @@ class Partida {
     }
 
     function get_IdPartida() {
-        return $this->id_partida;
+        return $this -> id_partida;
     }
 
     function getPalabrasecreta() {
-        return $this->palabrasecreta;
+        return $this -> palabrasecreta;
     }
 
     function getLetrasusadas() {
-        return $this->letrasusadas;
+        return $this -> letrasusadas;
     }
 
     function getPalabradescubierta() {
-        return $this->palabradescubierta;
+        return $this -> palabradescubierta;
     }
 
     function getIntentos() {
-        return $this->intentos;
+        return $this -> intentos;
     }
 
     function getFallos() {
-        return $this->fallos;
+        return $this -> fallos;
     }
 
     function getFinalizada() {
-        return $this->finalizada;
+        return $this -> finalizada;
     }
 
     function getId_user_fk() {
-        return $this->id_user_fk;
+        return $this -> id_user_fk;
     }
 
     function setId_Partida($id) {
-        $this->id_partida = $id;
+        $this -> id_partida = $id;
     }
 
     function setPalabrasecreta($palabrasecreta) {
-        $this->palabrasecreta = $palabrasecreta;
+        $this -> palabrasecreta = $palabrasecreta;
     }
 
     function setLetrasusadas($letrasusadas) {
-        $this->letrasusadas = $letrasusadas;
+        $this -> letrasusadas = $letrasusadas;
     }
 
     function setPalabradescubierta($palabradescubierta) {
-        $this->palabradescubierta = $palabradescubierta;
+        $this -> palabradescubierta = $palabradescubierta;
     }
 
     function setIntentos($intentos) {
-        $this->intentos = $intentos;
+        $this -> intentos = $intentos;
     }
 
     function setFallos($fallos) {
-        $this->fallos = $fallos;
+        $this -> fallos = $fallos;
     }
 
     function setFinalizada($finalizada) {
-        $this->finalizada = $finalizada;
+        $this -> finalizada = $finalizada;
     }
 
     function setId_user_fk($id_user_fk) {
-        $this->id_user_fk = $id_user_fk;
+        $this -> id_user_fk = $id_user_fk;
     }
 
 }

@@ -14,10 +14,10 @@ class Usuario {
     public static function getUsuario($user, $pass) {
         $conexion = BD::getConexion();
         $query = "SELECT * from usuarios where user=:user AND pass=:pass";
-        $prepara = $conexion->prepare($query);
-        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
-        $prepara->execute(array(":user" => $user, ":pass" => $pass));
-        $usuario = $prepara->fetch();
+        $prepara = $conexion -> prepare($query);
+        $prepara -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
+        $prepara -> execute(array(":user" => $user, ":pass" => $pass));
+        $usuario = $prepara -> fetch();
         if ($usuario) {
             //$partidas = Partida::getPartidas($usuario->getId());
             //$usuario->setPartidas($partidas);
@@ -26,92 +26,107 @@ class Usuario {
     }
 
     public function __construct($user = null, $pass = null, $rol = null, $id = null) {
-        $this->id_user = $id;
-        $this->user = $user;
-        $this->pass = $pass;
-        $this->partidas = new Collection();
-        $this->rol = $rol;
+        $this -> id_user = $id;
+        $this -> user = $user;
+        $this -> pass = $pass;
+        $this -> partidas = new Collection();
+        $this -> rol = $rol;
     }
 
     public function nuevaPartida() {
         $partida = new Partida();
-        $partida->persist();
-        $this->partidas->add($partida);
+        $partida -> persist();
+        $_SESSION["partida"] = $partida;
+        $this -> partidas -> add($partida);
+    }
+
+    public function getPartidasAcabadas() {
+        $conexion = BD::getConexion();
+        $query = "SELECT * FROM partidas WHERE finalizada = \"si\"";
+        $select = $conexion -> prepare($query);
+
+        //ASSOC trae array asociativo,
+        //(por defecto numérico y asociativo)
+        $select -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
+
+        //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
+        $partidas = $select -> execute();
+        return $partidas;
     }
 
     public function persist() {
-        if ($this->id_user !== null) {
+        if ($this -> id_user !== null) {
             $conexion = BD::getConexion();
             $query = "UPDATE usuarios SET user=:user, pass=:pass, rol=:rol WHERE id_user = :id_user";
-            $update = $conexion->prepare($query);
+            $update = $conexion -> prepare($query);
 
             //ASSOC trae array asociativo,
             //(por defecto numérico y asociativo)
-            $update->setFetchMode(PDO::FETCH_ASSOC);
+            $update -> setFetchMode(PDO::FETCH_ASSOC);
 
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            $check = $update->execute(array(":user" => $this->getUser(),
-                ":pass" => $this->getPass(),
-                ":partidas" => $this->getPartidas(),
-                ":rol" => $this->getRol(),
-                ":id_user" => $this->getId()));
+            $check = $update -> execute(array(":user" => $this -> getUser(),
+                ":pass" => $this -> getPass(),
+                ":partidas" => $this -> getPartidas(),
+                ":rol" => $this -> getRol(),
+                ":id_user" => $this -> getId()));
             return $check;
         } else {
             $conexion = BD::getConexion();
             $query = "INSERT INTO usuarios (user, pass, rol) "
                     . "VALUES(:user, :pass, :rol)";
-            $inserta = $conexion->prepare($query);
+            $inserta = $conexion -> prepare($query);
 
             //ASSOC trae array asociativo,
             //(por defecto numérico y asociativo)
-            $inserta->setFetchMode(PDO::FETCH_ASSOC);
+            $inserta -> setFetchMode(PDO::FETCH_ASSOC);
 
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            $inserta->execute(array(":user" => $this->getUser(),
-                ":pass" => $this->getPass(),
-                ":rol" => $this->getRol()));
-            $this->id_user = (int) $conexion->lastInsertId();
+            $inserta -> execute(array(":user" => $this -> getUser(),
+                ":pass" => $this -> getPass(),
+                ":rol" => $this -> getRol()));
+            $this -> id_user = (int) $conexion -> lastInsertId();
         }
     }
 
     function getId() {
-        return $this->id_user;
+        return $this -> id_user;
     }
 
     function getUser() {
-        return $this->user;
+        return $this -> user;
     }
 
     function getPass() {
-        return $this->pass;
+        return $this -> pass;
     }
 
     function getPartidas() {
-        return $this->partidas;
+        return $this -> partidas;
     }
 
     function getRol() {
-        return $this->rol;
+        return $this -> rol;
     }
 
     function setRol($rol) {
-        $this->rol = $rol;
+        $this -> rol = $rol;
     }
 
     function setId($id_user) {
-        $this->id_user = $id_user;
+        $this -> id_user = $id_user;
     }
 
     function setUser($user) {
-        $this->user = $user;
+        $this -> user = $user;
     }
 
     function setPass($pass) {
-        $this->pass = $pass;
+        $this -> pass = $pass;
     }
 
     function setPartidas($partidas) {
-        $this->partidas = $partidas;
+        $this -> partidas = $partidas;
     }
 
 }
