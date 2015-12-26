@@ -15,8 +15,36 @@ if ($view !== "lista") {
                 <input type="submit" name="logout" value="Log out">
                 <input type="submit" name="newPartida" value="Nueva partida">
                 <?php
-                echo "<h1>Hola " . $_SESSION['user']->getUser() . "</h1>";
-                //$user->recuperaPartidas();
+                echo "<h1>Hola " . $_SESSION['user'] -> getUser() . "</h1>";
+                $juegos = $user -> getPartidas();
+
+                echo "<h2>Partidas sin acabar</h2>";
+
+                //$juegos -> sortByProperty("finalizada", 'n');
+                $actual = $juegos -> iterate();
+
+                while ($actual) {
+                    if ($actual -> getFinalizada() === "0") {
+                        echo "Partida " . $actual -> get_Idpartida();
+                        echo "<br>";
+                    }
+                    $actual = $juegos -> iterate();
+                }
+                $juegos->resetIterator();
+                
+                
+                $actual = $juegos -> iterate();
+                
+                echo "<h2>Partidas acabadas</h2>";
+                
+                while ($actual) {
+                    if ($actual -> getFinalizada() === "1") {
+                        echo "Partida " . $actual -> get_Idpartida();
+                        echo "<br>";
+                    }
+                    $actual = $juegos -> iterate();
+                }
+                
                 ?>
 
             </form>

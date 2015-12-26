@@ -1,6 +1,7 @@
 <?php
-if ($view !== "partida") {
-    header("Location: /");
+
+if($view !== "perdida"){
+    header("Location:/");
 } else {
     $partida = $_SESSION['partida'];
     ?>
@@ -8,14 +9,14 @@ if ($view !== "partida") {
     <HTML>
         <HEAD>
             <meta charset="utf-8">
-            <title>Nueva partida</title>
+            <title>Hah perdio</title>
             <LINK rel="stylesheet" href="../css/styles.css">
         </HEAD>
         <BODY>
             <form action="/" method="POST">
-                <H1>Ahorcado</H1>
+                <H1>Hah perdio</H1>
                 <input type="submit" name="logout" value="Log out">                
-
+                <input type="submit" name="newPartida" value="Nueva partida">
                 <?php
                 /* if (isset($msg)) {
                   echo "<h2>" . $msg . "</h2>";
@@ -23,8 +24,6 @@ if ($view !== "partida") {
                 $secreta = $partida -> getPalabrasecreta();
                 echo "<br><br><span id=\"palabra\">".$partida -> getPalabradescubierta()."</span><br><br>";
                 ?>
-                <input type="text" name="letra" maxlength="1" required="required" autofocus="autofocus">
-                <input type="submit" name="enviaLetra" value="Enviar"><br>
                 <DIV>
                     <H2>Letras usadas</H2>
                     <?php

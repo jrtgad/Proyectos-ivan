@@ -19,8 +19,8 @@ class Usuario {
         $prepara -> execute(array(":user" => $user, ":pass" => $pass));
         $usuario = $prepara -> fetch();
         if ($usuario) {
-            //$partidas = Partida::getPartidas($usuario->getId());
-            //$usuario->setPartidas($partidas);
+            $partidas = Partida::getPartida($usuario -> getId());
+            $usuario -> setPartidas($partidas);
         }
         return $usuario;
     }
@@ -31,27 +31,6 @@ class Usuario {
         $this -> pass = $pass;
         $this -> partidas = new Collection();
         $this -> rol = $rol;
-    }
-
-    public function nuevaPartida() {
-        $partida = new Partida();
-        $partida -> persist();
-        $_SESSION["partida"] = $partida;
-        $this -> partidas -> add($partida);
-    }
-
-    public function getPartidasAcabadas() {
-        $conexion = BD::getConexion();
-        $query = "SELECT * FROM partidas WHERE finalizada = \"si\"";
-        $select = $conexion -> prepare($query);
-
-        //ASSOC trae array asociativo,
-        //(por defecto numérico y asociativo)
-        $select -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
-
-        //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-        $partidas = $select -> execute();
-        return $partidas;
     }
 
     public function persist() {
