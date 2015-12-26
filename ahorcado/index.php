@@ -51,19 +51,23 @@ if (isset($_SESSION["user"])) {
                 $view = "partida";
                 include 'vistas/partida.php';
             } else {
-                $partida = $_SESSION['partida'];
                 if (isset($_POST['recupera'])) {
-                    /* QUE HAGA LO QUE TENGA QUE HACER */
+                    $partida = $user -> getPartidas() -> getByProperty("_IdPartida", $_POST['idPartida']);
+                    $_SESSION['partida'] = $partida;
                     $view = "partida";
-                    include 'vistas/partida';
+                    include 'vistas/partida.php';
                 } else {
-                    if (isset($_POST['stop'])) {
-                        /* QUE HAGA LO QUE TENGA QUE HACER */
+                    $partida = $_SESSION['partida'];
+                    if (isset($_POST['volver'])) {
+                        $partida -> persist();
                         $view = "lista";
                         include 'vistas/lista.php';
                     } else {
                         if (isset($_POST['enviaLetra'])) {
                             $partida -> compruebaJugada($_POST['letra']);
+                            $jugada = new Jugada($partida -> get_IdPartida(), $_POST["letra"]);
+                            $jugada -> persist();
+
                             if ($partida -> getFallos() > 10) {
                                 $partida -> setFinalizada("1");
                                 $partida -> persist();
@@ -81,13 +85,8 @@ if (isset($_SESSION["user"])) {
                                 }
                             }
                         } else {
-                            if (isset($_POST['volver'])) {
-                                $view = "lista";
-                                include 'vistas/lista.php';
-                            } else {
-                                $view = "lista";
-                                include 'vistas/lista.php';
-                            }
+                            $view = "lista";
+                            include 'vistas/lista.php';
                         }
                     }
                 }

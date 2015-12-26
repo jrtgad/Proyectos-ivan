@@ -25,18 +25,22 @@ if ($view !== "lista") {
 
                 while ($actual) {
                     if ($actual -> getFinalizada() === "0") {
+                        echo "<input type=\"radio\" name=\"idPartida\" value=\"" . $actual -> get_Idpartida() . "\">";
                         echo "Partida " . $actual -> get_Idpartida();
                         echo "<br>";
                     }
                     $actual = $juegos -> iterate();
                 }
-                $juegos->resetIterator();
                 
+                echo "<input type=\"SUBMIT\" name=\"recupera\" value=\"Continuar partida\">";
                 
+                $juegos -> resetIterator();
+
+
                 $actual = $juegos -> iterate();
-                
+
                 echo "<h2>Partidas acabadas</h2>";
-                
+
                 while ($actual) {
                     if ($actual -> getFinalizada() === "1") {
                         echo "Partida " . $actual -> get_Idpartida();
@@ -44,7 +48,6 @@ if ($view !== "lista") {
                     }
                     $actual = $juegos -> iterate();
                 }
-                
                 ?>
 
             </form>

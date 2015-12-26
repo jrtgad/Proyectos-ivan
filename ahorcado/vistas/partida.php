@@ -24,7 +24,9 @@ if ($view !== "partida") {
                 echo "<br><br><span id=\"palabra\">".$partida -> getPalabradescubierta()."</span><br><br>";
                 ?>
                 <input type="text" name="letra" maxlength="1" required="required" autofocus="autofocus">
+                
                 <input type="submit" name="enviaLetra" value="Enviar"><br>
+                
                 <DIV>
                     <H2>Letras usadas</H2>
                     <?php

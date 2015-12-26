@@ -12,6 +12,7 @@ class Partida {
     private $palabradescubierta;
     private $intentos;
     private $fallos;
+    private $jugadas;
     private $finalizada;
     private $id_user_fk;
 
@@ -25,7 +26,7 @@ class Partida {
         $partidas = new Collection();
         if ($partida) {
             foreach ($partida as $game) {
-                $partidas -> add($game);
+                $partidas -> add($game);        
             }
         }
         return $partidas;
@@ -37,6 +38,7 @@ class Partida {
         $this -> letrasusadas = "";
         $this -> intentos = 0;
         $this -> fallos = 0;
+        $this -> jugadas = new Collection();
         $this -> finalizada = 0;
         $this -> id_user_fk = $id_user_fk;
         $this -> palabrasecreta = AlmacenPalabras::getInstance() -> getPalabraAleatoria();
@@ -53,11 +55,10 @@ class Partida {
                     . " palabradescubierta=:palabradescubierta,"
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
-                    . " finalizada=:finalizada, "
-                    . " WHERE id = :id_partida";
+                    . " finalizada=:finalizada "
+                    . " WHERE id_partida = :id_partida";
             $update = $conexion -> prepare($query);
 
-            //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
             $check = $update -> execute(array(":palabrasecreta" => $this -> getPalabrasecreta(),
                 ":letrasusadas" => $this -> getLetrasusadas(),
                 ":palabradescubierta" => $this -> getPalabradescubierta(),
@@ -65,7 +66,6 @@ class Partida {
                 ":fallos" => $this -> getFallos(),
                 ":finalizada" => $this -> getFinalizada(),
                 ":id_partida" => $this -> get_IdPartida()));
-            return $check;
         } else {
             $conexion = BD::getConexion();
             $query = "INSERT INTO partidas (palabrasecreta,"
@@ -99,9 +99,9 @@ class Partida {
     function compruebaJugada($letra) {
 
         $copiaSecreta = $this -> getPalabrasecreta();
-        
+
         $posicion = strpos($copiaSecreta, $letra);
-        
+
         if ($posicion === false) {
             $this -> setFallos($this -> getFallos() + 1);
         }
@@ -111,9 +111,9 @@ class Partida {
             $posicion = strpos($copiaSecreta, $letra);
         }
         $this -> setIntentos($this -> getIntentos() + 1);
-        $this->setLetrasusadas($this->  getLetrasusadas() . " " . $letra);
+        $this -> setLetrasusadas($this -> getLetrasusadas() . " " . $letra);
     }
-    
+
     function get_IdPartida() {
         return $this -> id_partida;
     }
