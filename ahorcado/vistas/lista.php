@@ -24,7 +24,7 @@ if ($view !== "lista") {
                 $actual = $juegos -> iterate();
 
                 while ($actual) {
-                    if ($actual -> getFinalizada() === "0") {
+                    if ($actual -> getFinalizada() === 0 || $actual -> getFinalizada() === "0") {
                         echo "<input type=\"radio\" name=\"idPartida\" value=\"" . $actual -> get_Idpartida() . "\">";
                         echo "Partida " . $actual -> get_Idpartida();
                         echo "<br>";
@@ -36,18 +36,19 @@ if ($view !== "lista") {
                 
                 $juegos -> resetIterator();
 
-
                 $actual = $juegos -> iterate();
 
                 echo "<h2>Partidas acabadas</h2>";
 
                 while ($actual) {
-                    if ($actual -> getFinalizada() === "1") {
+                    if ($actual -> getFinalizada() === 1 || $actual -> getFinalizada() === "1") {
+                        echo "<input type=\"checkbox\" name=\"checkboxes[" . $actual -> get_Idpartida() . "]\" value=\"" . $actual -> get_Idpartida() . "\">";
                         echo "Partida " . $actual -> get_Idpartida();
                         echo "<br>";
                     }
                     $actual = $juegos -> iterate();
                 }
+                echo "<input type=\"SUBMIT\" name=\"recuperaXML\" value=\"Mostrar XML\">";
                 ?>
 
             </form>

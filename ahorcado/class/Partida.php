@@ -26,7 +26,8 @@ class Partida {
         $partidas = new Collection();
         if ($partida) {
             foreach ($partida as $game) {
-                $partidas -> add($game);        
+                $game->setJugadas(Jugada::getJugadas($game->get_IdPartida()));
+                $partidas -> add($game);
             }
         }
         return $partidas;
@@ -145,12 +146,20 @@ class Partida {
     function getId_user_fk() {
         return $this -> id_user_fk;
     }
+    
+    function getJugadas() {
+        return $this -> jugadas;
+    }
 
     function setId_Partida($id) {
         $this -> id_partida = $id;
     }
 
-    function setPalabrasecreta($palabrasecreta) {
+    function setJugadas($jugadas) {
+        $this -> jugadas = $jugadas;
+    }
+
+        function setPalabrasecreta($palabrasecreta) {
         $this -> palabrasecreta = $palabrasecreta;
     }
 

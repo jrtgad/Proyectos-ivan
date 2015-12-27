@@ -2,12 +2,12 @@
 
 class Jugada {
 
-    private $id;
+    private $id_jugada;
     private $letra;
     private $id_partida_fk;
 
     function __construct($id_partida_fk = null, $letra = null, $id = null) {
-        $this -> id = $id;
+        $this -> id_jugada = $id;
         $this -> letra = $letra;
         $this -> id_partida_fk = $id_partida_fk;
     }
@@ -22,12 +22,12 @@ class Jugada {
         $jugadas = new Collection();
         if ($jugada) {
             foreach ($jugada as $valor) {
-                $jugadas -> add($valor);        
+                $jugadas -> add($valor);
             }
         }
         return $jugadas;
     }
-    
+
     public function persist() {
         $conexion = BD::getConexion();
         $query = "INSERT INTO jugadas (id_partida,letra) "
@@ -37,19 +37,27 @@ class Jugada {
 //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
         $inserta -> execute(array(":id_partida" => $this -> getId_partida_fk(),
             ":letra" => $this -> getLetra()));
-        $this -> id = (int) $conexion -> lastInsertId();
+        $this -> id_jugada = (int) $conexion -> lastInsertId();
     }
 
     function getId() {
-        return $this -> id;
+        return $this -> id_jugada;
     }
 
     function getId_partida_fk() {
         return $this -> id_partida_fk;
     }
 
+    function getLetra() {
+        return $this -> letra;
+    }
+
+    function setLetra($letra) {
+        $this -> letra = $letra;
+    }
+
     function setId($id) {
-        $this -> id = $id;
+        $this -> id_jugada = $id;
     }
 
     function setId_partida_fk($id_partida_fk) {

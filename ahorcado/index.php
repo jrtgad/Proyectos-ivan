@@ -51,42 +51,48 @@ if (isset($_SESSION["user"])) {
                 $view = "partida";
                 include 'vistas/partida.php';
             } else {
-                if (isset($_POST['recupera'])) {
-                    $partida = $user -> getPartidas() -> getByProperty("_IdPartida", $_POST['idPartida']);
-                    $_SESSION['partida'] = $partida;
-                    $view = "partida";
-                    include 'vistas/partida.php';
+                if (isset($_POST['recuperaXML'])) {
+                    $arrayXml = $_POST['checkboxes'];
+                    $view = "xml";
+                    include 'vistas/xml.php';
                 } else {
-                    $partida = $_SESSION['partida'];
-                    if (isset($_POST['volver'])) {
-                        $partida -> persist();
-                        $view = "lista";
-                        include 'vistas/lista.php';
+                    if (isset($_POST['recupera'])) {
+                        $partida = $user -> getPartidas() -> getByProperty("_IdPartida", $_POST['idPartida']);
+                        $_SESSION['partida'] = $partida;
+                        $view = "partida";
+                        include 'vistas/partida.php';
                     } else {
-                        if (isset($_POST['enviaLetra'])) {
-                            $partida -> compruebaJugada($_POST['letra']);
-                            $jugada = new Jugada($partida -> get_IdPartida(), $_POST["letra"]);
-                            $jugada -> persist();
-
-                            if ($partida -> getFallos() > 10) {
-                                $partida -> setFinalizada("1");
-                                $partida -> persist();
-                                $view = "perdida";
-                                include 'vistas/perdida.php';
-                            } else {
-                                if ($partida -> getPalabradescubierta() === $partida -> getPalabrasecreta()) {
-                                    $partida -> setFinalizada("1");
-                                    $partida -> persist();
-                                    $view = "ganada";
-                                    include 'vistas/ganada.php';
-                                } else {
-                                    $view = "partida";
-                                    include 'vistas/partida.php';
-                                }
-                            }
-                        } else {
+                        $partida = $_SESSION['partida'];
+                        if (isset($_POST['volver'])) {
+                            $partida -> persist();
                             $view = "lista";
                             include 'vistas/lista.php';
+                        } else {
+                            if (isset($_POST['enviaLetra'])) {
+                                $partida -> compruebaJugada($_POST['letra']);
+                                $jugada = new Jugada($partida -> get_IdPartida(), $_POST["letra"]);
+                                $jugada -> persist();
+                                $partida -> getJugadas() -> add($jugada);
+                                if ($partida -> getFallos() > 10) {
+                                    $partida -> setFinalizada("1");
+                                    $partida -> persist();
+                                    $view = "perdida";
+                                    include 'vistas/perdida.php';
+                                } else {
+                                    if ($partida -> getPalabradescubierta() === $partida -> getPalabrasecreta()) {
+                                        $partida -> setFinalizada("1");
+                                        $partida -> persist();
+                                        $view = "ganada";
+                                        include 'vistas/ganada.php';
+                                    } else {
+                                        $view = "partida";
+                                        include 'vistas/partida.php';
+                                    }
+                                }
+                            } else {
+                                $view = "lista";
+                                include 'vistas/lista.php';
+                            }
                         }
                     }
                 }
