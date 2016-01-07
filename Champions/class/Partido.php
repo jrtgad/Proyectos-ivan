@@ -1,5 +1,7 @@
 <?php
 
+require_once 'BD.php';
+
 class Partido {
 
     private $id;
@@ -7,6 +9,7 @@ class Partido {
     private $equipoV;
     private $golL;
     private $golV;
+    private $id_jornada;
 
     public static function getPartidos($idJor) {
         $conexion = BD::getConexion();
@@ -23,12 +26,32 @@ class Partido {
         return $partidosCollection;
     }
 
-    function __construct($id, $equipoL, $equipoV, $golL, $golV) {
+    function persist() {
+        if ($this->id === null) {
+            $conexion = BD::getConexion();
+            $query = "INSERT INTO partidos (equipoL,equipoV,id_jornada) VALUES(:equipoL,:equipoV,:id_jornada)";
+            $prepara = $conexion->prepare($query);
+            $prepara->execute(array(":equipoL" => $this->equipoL,
+                ":equipoV" => $this->equipoV,
+                ":id_jornada" => $this->id_jornada));
+            $this->id = $conexion->lastInsertId();
+        } else {
+            $conexion = BD::getConexion();
+            $query = "UPDATE partidos SET golL = :golL, golV=:golV where id = :id";
+            $prepara = $conexion->prepare($query);
+            $prepara->execute(array(":golL" => $this->golL,
+                ":golV" => $this->golV,
+                ":id" => $this->id));
+        }
+    }
+
+    function __construct($id_jornada = null, $equipoL = null, $equipoV = null, $golL = null, $golV = null, $id = null) {
         $this->id = $id;
         $this->equipoL = $equipoL;
         $this->equipoV = $equipoV;
         $this->golL = $golL;
         $this->golV = $golV;
+        $this->id_jornada = $id_jornada;
     }
 
     function getId() {

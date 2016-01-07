@@ -1,5 +1,5 @@
 <?php
-if ($view !== "crear") {
+if ($view !== "creaLiga") {
     header("Location: /");
 } else {
     ?>
@@ -10,11 +10,11 @@ if ($view !== "crear") {
         </head>
         <body>
             <h1>Gestión liga</h1>
-            <form>
-                <input type = "submit" name = "logout">
+            <form action="index.php" method="POST">
+                <input type = "submit" name = "logout" value="Log out">
                 <div class = "creacion">
                     Nombre:<input type = "text" name = "nombreLiga"><br>
-                    Equipos:<input type = "submit" name = "equiposString"><br>
+                    Equipos:<input type = "text" name = "equiposString"><br>
 
                     <input type = "submit" name = "creaLiga" value = "Enviar">
 

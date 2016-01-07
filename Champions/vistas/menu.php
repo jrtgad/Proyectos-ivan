@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>Gestión liga</h1>
-        <form>
+        <form action="index.php" method="POST">
             <input type="submit" name="logout">
             <div class="botonera">
                 <input type="submit" name="clasificacion" value="Log out">

@@ -1,7 +1,6 @@
 <?php
 
 require_once 'BD.php';
-require_once 'Liga.php';
 
 class Usuario {
 
@@ -11,7 +10,7 @@ class Usuario {
 
     public static function getUsuario($user, $pass) {
         $conexion = BD::getConexion();
-        $query = "SELECT * from usuarios where user=:user AND pass=:pass";
+        $query = "SELECT * from usuarios where usuario=:user AND pass=:pass";
         $prepara = $conexion->prepare($query);
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
         $prepara->execute(array(":user" => $user, ":pass" => $pass));
@@ -30,7 +29,7 @@ class Usuario {
     public function persist() {
         if ($this->id_user !== null) {
             $conexion = BD::getConexion();
-            $query = "UPDATE usuarios SET user=:user, pass=:pass WHERE id = :id";
+            $query = "UPDATE usuarios SET usuario=:user, pass=:pass WHERE id = :id";
             $update = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,

@@ -3,8 +3,8 @@
 class BD {
 
     private $basedatos = 'champions';
-    private $usuario = 'admin';
-    private $contrasenya = 'admin';
+    private $usuario = 'root';
+    private $contrasenya = '';
     private $equipo = 'localhost';
     protected static $bd = null;
 
