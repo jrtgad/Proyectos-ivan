@@ -24,21 +24,21 @@ XML;
 
                 //todas las partidas
                 foreach ($arrayXml as $key => $partida) {
-                    $arrayPartidas = $xml -> addChild("partida");
+                    $arrayPartidas = $xml->addChild("partida");
                     //addLoQSea(Nombre, valor)
                     //id partida
-                    $arrayPartidas -> addAttribute("id", $key);
-                    $currentJugadas = $user -> getPartidas() -> getByProperty("_IdPartida", $key) -> getJugadas();
+                    $arrayPartidas->addAttribute("id", $key);
+                    $currentJugadas = $user->getPartidas()->getByProperty("_IdPartida", $key)->getJugadas();
 
 
                     //todas las jugadas
-                    $current = $currentJugadas -> iterate();
+                    $current = $currentJugadas->iterate();
                     while ($current) {
-                        $jug = $arrayPartidas -> addChild("jugada");
+                        $jug = $arrayPartidas->addChild("jugada");
                         //id jugada
-                        $jug -> addAttribute("id", $current -> getId());
-                        $jug -> addChild("letra", $current -> getLetra());
-                        $current = $currentJugadas -> iterate();
+                        $jug->addAttribute("id", $current->getId());
+                        $jug->addChild("letra", $current->getLetra());
+                        $current = $currentJugadas->iterate();
                     }
                 }
                 ?>
@@ -46,9 +46,12 @@ XML;
 
                     <!--Este es el que imprime-->
 
-                    
-                    
-                    <?php echo str_replace("&gt;", "&gt;&#xD;&#xA;",htmlspecialchars($xml -> asXML())) ?>
+
+
+                    <?php echo str_replace("&gt;", "&gt;&#xD;&#xA;", htmlspecialchars($xml->asXML())) ?>
+                    <form action="/" method="POST">
+                        <input type="submit" name="volver" value="Volver">
+                    </form>
                 </code>
             </div>
         </body>
