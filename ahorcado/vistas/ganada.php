@@ -14,26 +14,26 @@ if ($view !== "ganada") {
         <BODY>
             <form action="/" method="POST">
                 <H1>hah ganao!</H1>
-                <input type="submit" name="logout" value="Log out">                
+                <input type="submit" name="logout" value="Log out">
                 <input type="submit" name="newPartida" value="Nueva partida">
                 <?php
                 /* if (isset($msg)) {
                   echo "<h2>" . $msg . "</h2>";
                   } */
-                $secreta = $partida -> getPalabrasecreta();
-                echo "<br><br><span id=\"palabra\">" . $partida -> getPalabradescubierta() . "</span><br><br>";
+                $secreta = $partida->getPalabrasecreta();
+                echo "<br><br><span id=\"palabra\">" . $partida->getPalabradescubierta() . "</span><br><br>";
                 ?>
 
                 <DIV>
                     <H2>Letras usadas</H2>
-    <?php
-    echo $partida -> getLetrasusadas();
-    ?>
+                    <?php
+                    echo $partida->getLetrasusadas();
+                    ?>
 
                     <H2>Intentos</H2>
-    <?php
-    echo $partida -> getIntentos();
-    ?>
+                    <?php
+                    echo $partida->getIntentos();
+                    ?>
 
                 </DIV>
 

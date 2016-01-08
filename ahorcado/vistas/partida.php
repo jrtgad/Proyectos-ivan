@@ -14,28 +14,28 @@ if ($view !== "partida") {
         <BODY>
             <form action="/" method="POST">
                 <H1>Ahorcado</H1>
-                <input type="submit" name="logout" value="Log out">                
+                <input type="submit" name="logout" value="Log out">
 
                 <?php
                 /* if (isset($msg)) {
                   echo "<h2>" . $msg . "</h2>";
                   } */
-                $secreta = $partida -> getPalabrasecreta();
-                echo "<br><br><span id=\"palabra\">".$partida -> getPalabradescubierta()."</span><br><br>";
+                $secreta = $partida->getPalabrasecreta();
+                echo "<br><br><span id=\"palabra\">" . $partida->getPalabradescubierta() . "</span><br><br>";
                 ?>
                 <input type="text" name="letra" maxlength="1" required="required" autofocus="autofocus">
-                
+
                 <input type="submit" name="enviaLetra" value="Enviar"><br>
-                
+
                 <DIV>
                     <H2>Letras usadas</H2>
                     <?php
-                    echo $partida -> getLetrasusadas();
+                    echo $partida->getLetrasusadas();
                     ?>
 
                     <H2>Intentos</H2>
                     <?php
-                    echo $partida -> getIntentos();
+                    echo $partida->getIntentos();
                     ?>
 
                 </DIV>

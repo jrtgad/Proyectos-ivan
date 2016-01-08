@@ -50,6 +50,12 @@ XML;
 
                     <?php echo str_replace("&gt;", "&gt;&#xD;&#xA;", htmlspecialchars($xml->asXML())) ?>
                     <form action="/" method="POST">
+                        <?php
+                        $fp = fopen("../xml/partida.xml", "+w");
+                        fwrite($fp, $xml);
+                        fclose($fp);
+                        ?>
+                        <a href="../xml/partida.xml" target="blank">Descargar</a>
                         <input type="submit" name="volver" value="Volver">
                     </form>
                 </code>

@@ -12,7 +12,7 @@ if (isset($_SESSION["user"])) {
         session_destroy();
         include "vistas/formlogin.php";
     } else {
-        if ($user -> getRol() === "admin") {
+        if ($user->getRol() === "admin") {
 
 //ADMIN
 //formulario de añadir usuario
@@ -27,7 +27,7 @@ if (isset($_SESSION["user"])) {
                     $newUser = Usuario::getUsuario($_POST['user'], $_POST['pass']);
                     if (!$newUser) {
                         $newUser = new Usuario($_POST['user'], $_POST['pass'], "usuario");
-                        $newUser -> persist();
+                        $newUser->persist();
                         $msg = "Usuario creado";
                         $view = "admin";
                         include "vistas/admin.php";
@@ -44,9 +44,9 @@ if (isset($_SESSION["user"])) {
         } else {
 //NO ES ADMIN
             if (isset($_POST['newPartida'])) {
-                $partida = new Partida($user -> getId());
-                $partida -> persist();
-                $user -> getPartidas() -> add($partida);
+                $partida = new Partida($user->getId());
+                $partida->persist();
+                $user->getPartidas()->add($partida);
                 $_SESSION['partida'] = $partida;
                 $view = "partida";
                 include 'vistas/partida.php';
@@ -57,31 +57,31 @@ if (isset($_SESSION["user"])) {
                     include 'vistas/xml.php';
                 } else {
                     if (isset($_POST['recupera'])) {
-                        $partida = $user -> getPartidas() -> getByProperty("_IdPartida", $_POST['idPartida']);
+                        $partida = $user->getPartidas()->getByProperty("_IdPartida", $_POST['idPartida']);
                         $_SESSION['partida'] = $partida;
                         $view = "partida";
                         include 'vistas/partida.php';
                     } else {
                         $partida = $_SESSION['partida'];
                         if (isset($_POST['volver'])) {
-                            $partida -> persist();
+                            $partida->persist();
                             $view = "lista";
                             include 'vistas/lista.php';
                         } else {
                             if (isset($_POST['enviaLetra'])) {
-                                $partida -> compruebaJugada($_POST['letra']);
-                                $jugada = new Jugada($partida -> get_IdPartida(), $_POST["letra"]);
-                                $jugada -> persist();
-                                $partida -> getJugadas() -> add($jugada);
-                                if ($partida -> getFallos() > 10) {
-                                    $partida -> setFinalizada("1");
-                                    $partida -> persist();
+                                $partida->compruebaJugada($_POST['letra']);
+                                $jugada = new Jugada($partida->get_IdPartida(), $_POST["letra"]);
+                                $jugada->persist();
+                                $partida->getJugadas()->add($jugada);
+                                if ($partida->getFallos() > 10) {
+                                    $partida->setFinalizada("1");
+                                    $partida->persist();
                                     $view = "perdida";
                                     include 'vistas/perdida.php';
                                 } else {
-                                    if ($partida -> getPalabradescubierta() === $partida -> getPalabrasecreta()) {
-                                        $partida -> setFinalizada("1");
-                                        $partida -> persist();
+                                    if ($partida->getPalabradescubierta() === $partida->getPalabrasecreta()) {
+                                        $partida->setFinalizada("1");
+                                        $partida->persist();
                                         $view = "ganada";
                                         include 'vistas/ganada.php';
                                     } else {
@@ -111,7 +111,7 @@ if (isset($_SESSION["user"])) {
 
             $user = Usuario::getUsuario($_POST["user"], $_POST["pass"]);
             if ($user) {
-                if ($user -> getRol() === "admin") {
+                if ($user->getRol() === "admin") {
                     $_SESSION["user"] = $user;
                     $view = "admin";
                     include "vistas/admin.php";
