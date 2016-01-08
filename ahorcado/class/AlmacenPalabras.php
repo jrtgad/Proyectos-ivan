@@ -36,5 +36,7 @@ class AlmacenPalabras {
         $palabraAhorcado = $this->listaPalabras[$numeroAleatorio];
         return ($palabraAhorcado);
     }
+
 }
+
 ?>

@@ -15,8 +15,46 @@ if ($view !== "lista") {
                 <input type="submit" name="logout" value="Log out">
                 <input type="submit" name="newPartida" value="Nueva partida">
                 <?php
-                echo "<h1>Hola " . $_SESSION['user'] . "</h1>";
-                $user->recuperaPartidas();
+                echo "<h1>Hola " . $_SESSION['user']->getUser() . "</h1>";
+                $juegos = $user->getPartidas();
+
+                echo "<h2>Partidas sin acabar</h2>";
+
+                //$juegos -> sortByProperty("finalizada", 'n');
+                $actual = $juegos->iterate();
+
+                while ($actual) {
+                    if ($actual->getFinalizada() === 0 || $actual->getFinalizada() === "0") {
+                        echo "<input type=\"radio\" name=\"idPartida\" value=\"" . $actual->get_Idpartida() . "\">";
+                        echo "Partida " . $actual->get_Idpartida();
+                        echo "<br>";
+                    }
+                    $actual = $juegos->iterate();
+                }
+                if (isset($_SESSION['recupera'])) {
+                    echo "<h2>" . $_SESSION['recupera'] . "</h2>";
+                }
+                echo "<input type=\"SUBMIT\" name=\"recupera\" value=\"Continuar partida\">";
+
+                $juegos->resetIterator();
+
+                $actual = $juegos->iterate();
+
+                echo "<h2>Partidas acabadas</h2>";
+
+                while ($actual) {
+                    if ($actual->getFinalizada() === 1 || $actual->getFinalizada() === "1") {
+                        echo "<input type=\"checkbox\" name=\"checkboxes[" . $actual->get_Idpartida() . "]\" value=\"" . $actual->get_Idpartida() . "\">";
+                        echo "Partida " . $actual->get_Idpartida();
+                        echo "<br>";
+                    }
+                    $actual = $juegos->iterate();
+                }
+
+                if (isset($msgXML)) {
+                    echo "<h2>" . $msg . "</h2>";
+                }
+                echo "<input type=\"SUBMIT\" name=\"recuperaXML\" value=\"Mostrar XML\">";
                 ?>
 
             </form>
