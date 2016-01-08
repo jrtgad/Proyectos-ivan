@@ -12,7 +12,9 @@
                 <input type="submit" name="xml" value="XML">
             </div>
             <div>
-                                
+                <?php
+                    
+                ?>
             </div>
         </form>
     </body>
