@@ -31,8 +31,8 @@ if ($view !== "lista") {
                     }
                     $actual = $juegos->iterate();
                 }
-                if (isset($msgRecupera)) {
-                    echo "<h2>" . $msgRecupera . "</h2>";
+                if (isset($_SESSION['recupera'])) {
+                    echo "<h2>" . $_SESSION['recupera'] . "</h2>";
                 }
                 echo "<input type=\"SUBMIT\" name=\"recupera\" value=\"Continuar partida\">";
 
@@ -50,7 +50,7 @@ if ($view !== "lista") {
                     }
                     $actual = $juegos->iterate();
                 }
-                
+
                 if (isset($msgXML)) {
                     echo "<h2>" . $msg . "</h2>";
                 }

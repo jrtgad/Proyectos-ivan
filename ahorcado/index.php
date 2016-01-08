@@ -69,6 +69,7 @@ if (isset($_SESSION["user"])) {
                         include 'vistas/partida.php';
                         } else {
                             $msgRecupera = "No ha seleccionado ninguna partida";
+                            $_SESSION['errorRecupera'] = $msgRecupera;
                             include 'vistas/lista.php';
                         }
 
