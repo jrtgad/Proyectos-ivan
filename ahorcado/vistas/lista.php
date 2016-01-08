@@ -31,7 +31,9 @@ if ($view !== "lista") {
                     }
                     $actual = $juegos->iterate();
                 }
-
+                if (isset($msgRecupera)) {
+                    echo "<h2>" . $msgRecupera . "</h2>";
+                }
                 echo "<input type=\"SUBMIT\" name=\"recupera\" value=\"Continuar partida\">";
 
                 $juegos->resetIterator();
@@ -47,6 +49,10 @@ if ($view !== "lista") {
                         echo "<br>";
                     }
                     $actual = $juegos->iterate();
+                }
+                
+                if (isset($msgXML)) {
+                    echo "<h2>" . $msg . "</h2>";
                 }
                 echo "<input type=\"SUBMIT\" name=\"recuperaXML\" value=\"Mostrar XML\">";
                 ?>

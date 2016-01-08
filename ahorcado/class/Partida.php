@@ -6,7 +6,7 @@ require_once 'AlmacenPalabras.php';
 
 class Partida {
 
-    private $id_partida;
+    private $id;
     private $palabrasecreta;
     private $letrasusadas;
     private $palabradescubierta;
@@ -33,9 +33,7 @@ class Partida {
         return $partidas;
     }
 
-    function __construct($id_user_fk = null, $letrasusadas = null, $palabradescubierta = null, $intentos = null, $fallos = null, $finalizada = null, $palabrasecreta = null, $id_partida = null) {
-
-
+    function __construct($id_user_fk = null, $letrasusadas = null, $palabradescubierta = null, $intentos = null, $fallos = null, $finalizada = null, $palabrasecreta = null, $id = null) {
         $this->letrasusadas = "";
         $this->intentos = 0;
         $this->fallos = 0;
@@ -45,19 +43,19 @@ class Partida {
         $this->palabrasecreta = AlmacenPalabras::getInstance()->getPalabraAleatoria();
         //Reemplaza cada letra por un guion (/\w{1}/)
         $this->palabradescubierta = preg_replace("/\w{1}/", "_", $this->palabrasecreta);
-        $this->id_partida = $id_partida;
+        $this->id = $id;
     }
 
     public function persist() {
-        if ($this->id_partida !== null) {
+        if ($this->id !== null) {
             $conexion = BD::getConexion();
             $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
                     . " letrasusadas=:letrasusadas,"
                     . " palabradescubierta=:palabradescubierta,"
-                    . " intentos=:intentos, "
-                    . " fallos=:fallos, "
-                    . " finalizada=:finalizada "
-                    . " WHERE id_partida = :id_partida";
+                    . " intentos=:intentos,"
+                    . " fallos=:fallos,"
+                    . " finalizada=:finalizada"
+                    . " WHERE id = :id";
             $update = $conexion->prepare($query);
 
             $check = $update->execute(array(":palabrasecreta" => $this->getPalabrasecreta(),
@@ -66,7 +64,7 @@ class Partida {
                 ":intentos" => $this->getIntentos(),
                 ":fallos" => $this->getFallos(),
                 ":finalizada" => $this->getFinalizada(),
-                ":id_partida" => $this->get_IdPartida()));
+                ":id" => $this->get_IdPartida()));
         } else {
             $conexion = BD::getConexion();
             $query = "INSERT INTO partidas (palabrasecreta,"
@@ -76,12 +74,12 @@ class Partida {
                     . "                     id_user_fk,"
                     . "                     fallos,"
                     . "                     finalizada)"
-                    . "  VALUES(:palabrasecreta,"
+                    . " VALUES(:palabrasecreta,"
                     . "         :letrasusadas,"
                     . "         :palabradescubierta,"
                     . "         :intentos,"
                     . "         :id_user_fk,"
-                    . "         :fallos, "
+                    . "         :fallos,"
                     . "         :finalizada)";
             $inserta = $conexion->prepare($query);
 
@@ -116,7 +114,7 @@ class Partida {
     }
 
     function get_IdPartida() {
-        return $this->id_partida;
+        return $this->id;
     }
 
     function getPalabrasecreta() {
@@ -152,7 +150,7 @@ class Partida {
     }
 
     function setId_Partida($id) {
-        $this->id_partida = $id;
+        $this->id = $id;
     }
 
     function setJugadas($jugadas) {

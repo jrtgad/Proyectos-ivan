@@ -3,8 +3,8 @@
 class BD {
 
     private $basedatos = 'ahorcado';
-    private $usuario = 'root';
-    private $contrasenya = '';
+    private $usuario = 'admin';
+    private $contrasenya = 'admin';
     private $equipo = 'localhost';
     protected static $bd = null;
 

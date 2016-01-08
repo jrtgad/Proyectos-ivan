@@ -52,23 +52,36 @@ if (isset($_SESSION["user"])) {
                 include 'vistas/partida.php';
             } else {
                 if (isset($_POST['recuperaXML'])) {
-                    $arrayXml = $_POST['checkboxes'];
-                    $view = "xml";
-                    include 'vistas/xml.php';
+                    if (isset($_POST["checkboxes"])) {
+                        $arrayXml = $_POST['checkboxes'];
+                        $view = "xml";
+                        include 'vistas/xml.php';
+                    } else {
+                        $msgXML = "No hay partidas seleccionadas";
+                        include 'vistas/lista.php';
+                    }
                 } else {
                     if (isset($_POST['recupera'])) {
-                        $partida = $user->getPartidas()->getByProperty("_IdPartida", $_POST['idPartida']);
+                        if(isset($_POST['idPartida'])) {
+                            $partida = $user->getPartidas()->getByProperty("_IdPartida", $_POST['idPartida']);
                         $_SESSION['partida'] = $partida;
                         $view = "partida";
                         include 'vistas/partida.php';
+                        } else {
+                            $msgRecupera = "No ha seleccionado ninguna partida";
+                            include 'vistas/lista.php';
+                        }
+
                     } else {
-                        $partida = $_SESSION['partida'];
+
                         if (isset($_POST['volver'])) {
+                            $partida = $_SESSION['partida'];
                             $partida->persist();
                             $view = "lista";
                             include 'vistas/lista.php';
                         } else {
                             if (isset($_POST['enviaLetra'])) {
+                                $partida = $_SESSION['partida'];
                                 $partida->compruebaJugada($_POST['letra']);
                                 $jugada = new Jugada($partida->get_IdPartida(), $_POST["letra"]);
                                 $jugada->persist();
@@ -79,6 +92,7 @@ if (isset($_SESSION["user"])) {
                                     $view = "perdida";
                                     include 'vistas/perdida.php';
                                 } else {
+                                    $partida = $_SESSION['partida'];
                                     if ($partida->getPalabradescubierta() === $partida->getPalabrasecreta()) {
                                         $partida->setFinalizada("1");
                                         $partida->persist();
