@@ -1,6 +1,15 @@
-table {
+body {
+  text-align: center;
+}
+body main {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+body main table {
   display: inline-block;
   border: 1px solid orange;
   margin: 10px;
+  text-align: center;
 }
 /*# sourceMappingURL=screen.css.map */

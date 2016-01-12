@@ -6,20 +6,22 @@
         <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body>
-        <form action="/" method="POST" id="reg_user">
+        <main>
+            <form action="/" method="POST" id="reg_user">
 
-            <?php
-                if (isset($msg)) {
-                    echo "<h1>" . $msg . "</h1>";
-                }
-            ?>
+                <?php
+                    if (isset($msg)) {
+                        echo "<h1>" . $msg . "</h1>";
+                    }
+                ?>
 
-            <label for="user">Usuario:</label><br>
-            <input type="text" name="user"><br>
-            <label for="pass">Contraseña:</label><br>
-            <input type="text" name="pass"><br>
+                <label for="user">Usuario:</label><br>
+                <input type="text" name="user"><br>
+                <label for="pass">Contraseña:</label><br>
+                <input type="text" name="pass"><br>
 
-            <input type="SUBMIT" value="Log in" name="login">
-        </form>
+                <input type="SUBMIT" value="Log in" name="login">
+            </form>
+        </main>
     </body>
 </html>

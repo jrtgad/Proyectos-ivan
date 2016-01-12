@@ -62,139 +62,93 @@ if (isset($_SESSION["user"])) {
                     }
                 } else {
                     if (isset($_POST['recupera'])) {
-                        if(isset($_POST['idPartida'])) {
+                        if (isset($_POST['idPartida'])) {
                             $partida = $user->getPartidas()->getByProperty("_IdPartida", $_POST['idPartida']);
-                        $_SESSION['partida'] = $partida;
-                        $view = "partida";
-                        include 'vistas/partida.php';
+                            $_SESSION['partida'] = $partida;
+                            $view = "partida";
+                            include 'vistas/partida.php';
                         } else {
                             $msgRecupera = "No ha seleccionado ninguna partida";
                             $_SESSION['errorRecupera'] = $msgRecupera;
                             include 'vistas/lista.php';
                         }
-
                     } else {
 
-<<<<<<< HEAD
-                $_SESSION['user'] = $user;
-                if (isset($_POST['newPartida'])) {
-                    $partida = $user->nuevaPartida();
-                    $partida->persist();
-                    $view = "partida";
-                    include 'vistas/partida.php';
-                } else {
-                    if (isset($_POST['recupera'])) {
-                        /* QUE HAGA LO QUE TENGA QUE HACER */
-                        $view = "partida";
-                        include 'vistas/partida';
-                    } else {
-                        if (isset($_POST['stop'])) {
-                            /* QUE HAGA LO QUE TENGA QUE HACER */
-                            $view = "lista";
-                            include 'vistas/lista.php';
-                            /* } else { */
-                            if (isset($_POST['enviaLetra'])) {
-                                if (!isset($_POST['letra'])) {
-                                    $msg = "Introduzca una letra";
-                                } else {
-                                    $partida->compruebaJugada($_POST['letra']);
-                                }
-                                include 'vistas/partida.php';
-                            } else {
-                                if ($_POST['generaLista']) {
-
-                                } else {
-                                    if ($_POST['volver']) {
-                                        $view = "lista";
-                                        include 'vistas/lista.php';
-                                    }
-                                }
-=======
-                        if (isset($_POST['volver'])) {
-                            $partida = $_SESSION['partida'];
+                        $_SESSION['user'] = $user;
+                        if (isset($_POST['newPartida'])) {
+                            $partida = $user->nuevaPartida();
                             $partida->persist();
-                            $view = "lista";
-                            include 'vistas/lista.php';
+                            $view = "partida";
+                            include 'vistas/partida.php';
                         } else {
-                            if (isset($_POST['enviaLetra'])) {
-                                $partida = $_SESSION['partida'];
-                                $partida->compruebaJugada($_POST['letra']);
-                                $jugada = new Jugada($partida->get_IdPartida(), $_POST["letra"]);
-                                $jugada->persist();
-                                $partida->getJugadas()->add($jugada);
-                                if ($partida->getFallos() > 10) {
-                                    $partida->setFinalizada("1");
-                                    $partida->persist();
-                                    $view = "perdida";
-                                    include 'vistas/perdida.php';
-                                } else {
-                                    $partida = $_SESSION['partida'];
-                                    if ($partida->getPalabradescubierta() === $partida->getPalabrasecreta()) {
-                                        $partida->setFinalizada("1");
-                                        $partida->persist();
-                                        $view = "ganada";
-                                        include 'vistas/ganada.php';
-                                    } else {
-                                        $view = "partida";
+                            if (isset($_POST['recupera'])) {
+                                /* QUE HAGA LO QUE TENGA QUE HACER */
+                                $view = "partida";
+                                include 'vistas/partida';
+                            } else {
+                                if (isset($_POST['stop'])) {
+                                    /* QUE HAGA LO QUE TENGA QUE HACER */
+                                    $view = "lista";
+                                    include 'vistas/lista.php';
+                                    /* } else { */
+                                    if (isset($_POST['enviaLetra'])) {
+                                        if (!isset($_POST['letra'])) {
+                                            $msg = "Introduzca una letra";
+                                        } else {
+                                            $partida->compruebaJugada($_POST['letra']);
+                                        }
                                         include 'vistas/partida.php';
+                                    } else {
+                                        if ($_POST['generaLista']) {
+
+                                        } else {
+                                            if ($_POST['volver']) {
+                                                $view = "lista";
+                                                include 'vistas/lista.php';
+                                            }
+                                        }
+                                        if (isset($_POST['volver'])) {
+                                            $partida = $_SESSION['partida'];
+                                            $partida->persist();
+                                            $view = "lista";
+                                            include 'vistas/lista.php';
+                                        } else {
+                                            if (isset($_POST['enviaLetra'])) {
+                                                $partida = $_SESSION['partida'];
+                                                $partida->compruebaJugada($_POST['letra']);
+                                                $jugada = new Jugada($partida->get_IdPartida(), $_POST["letra"]);
+                                                $jugada->persist();
+                                                $partida->getJugadas()->add($jugada);
+                                                if ($partida->getFallos() > 10) {
+                                                    $partida->setFinalizada("1");
+                                                    $partida->persist();
+                                                    $view = "perdida";
+                                                    include 'vistas/perdida.php';
+                                                } else {
+                                                    $partida = $_SESSION['partida'];
+                                                    if ($partida->getPalabradescubierta() === $partida->getPalabrasecreta()) {
+                                                        $partida->setFinalizada("1");
+                                                        $partida->persist();
+                                                        $view = "ganada";
+                                                        include 'vistas/ganada.php';
+                                                    } else {
+                                                        $view = "partida";
+                                                        include 'vistas/partida.php';
+                                                    }
+                                                }
+                                            } else {
+                                                $view = "lista";
+                                                include 'vistas/lista.php';
+                                            }
+                                        }
                                     }
                                 }
-                            } else {
-                                $view = "lista";
-                                include 'vistas/lista.php';
->>>>>>> 8cc4705eb682705a7796659d1ea5ea81e171d509
                             }
                         }
                     }
                 }
             }
         }
-<<<<<<< HEAD
-    } else {
-
-        //NO REGISTRADO
-
-        if (isset($_POST['formlogin'])) {
-            include "vistas/formlogin.php";
-        } else {
-            if (isset($_POST['login'])) {
-
-                //INTENTO LOGIN
-
-                $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-                if ($user) {
-                    if ($user->getRol() === "admin") {
-                        $_SESSION['user'] = $user;
-                        $view = "admin";
-                        include "vistas/admin.php";
-                    } else {
-                        $_SESSION['user'] = $user;
-                        $view = "lista";
-                        include "vistas/lista.php";
-                    }
-                } else {
-                    $msg = "Credenciales incorrectas";
-                    include "vistas/formlogin.php";
-                }
-            } else {
-                if (isset($_POST['botonlogin'])) {
-                    $user = Usuario::getUsuario($_POST['user'], $_POST['pass']);
-                    if ($user) {
-                        $_SESSION['user'] = $user;
-                        $view = "lista";
-                        include "vistas/lista.php";
-                    } else {
-                        $msg = "Credenciales incorrectas";
-                        include "vistas/formlogin.php";
-                    }
-                } else {
-                    include "vistas/formlogin.php";
-                }
-            }
-        }
-    }
-    
-=======
     }
 } else {
 //NO REGISTRADO
@@ -239,4 +193,3 @@ if (isset($_SESSION["user"])) {
     }
 }
 ?>
->>>>>>> 8cc4705eb682705a7796659d1ea5ea81e171d509
