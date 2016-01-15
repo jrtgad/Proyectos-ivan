@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <?php
-    if ($view !== "clasificacion") {
-        header("Location: /");
-    } else {
-        $liga = $_SESSION['liga'];
-        ?>
+if ($view !== "clasificacion") {
+    header("Location: /");
+} else {
+    $liga = $_SESSION['liga'];
+    ?>
 
-        <html>
-            <head>
-                <link rel="stylesheet" href="../css/screen.css">
-            </head>
-            <body>
-                <main>
-                    <h1>Gestión liga</h1>
-                    <form action="/" method="POST">
-                        <div class="botonera">
-                            <input type="submit" name="logout" value="Log out">
-                            <input type="submit" name="menu" value="Volver">
-                        </div>
-                    </form>
-                    <form action="index.php" method="POST">
-                        <div class="partidos">
+    <html>
+        <head>
+            <link rel="stylesheet" href="../css/screen.css">
+        </head>
+        <body>
+            <main>
+                <h1>Gestión liga</h1>
+                <form action="/" method="POST">
+                    <div class="botonera">
+                        <input type="submit" name="logout" value="Log out">
+                        <input type="submit" name="menu" value="Volver">
+                    </div>
+                </form>
+                <div class="clasificacion">
+                    <table>
+                        <tr>
+                            <td>Equipo</td>
+                            <td>Puntos</td>
+                            <td>Goles a favor</td>
+                            <td>Goles en contra</td>
+                            <td>Diferencia goles</td>
+                        </tr>
+                        <?php
+                        $equipos = $liga->getEquipos();
 
-                            <table>
-                                <?php
-                                echo "<tr><td><button type=\"SUBMIT\" name=\"modificado\" value=\"" . $jornada->getId() . "\">Aceptar</button></td>";
-                                ?>
-                            </table>
-                        </div>
-                    </form>
-                </main>
-            </body>
-        </html>
-    <?php }
+                        foreach ($equipos as $equipo) {
+                            echo "<tr><td>" . $equipo['equipo'] . "</td>";
+                            echo "<tr><td>" . $equipo['puntos'] . "</td>";
+                            echo "<tr><td>" . $equipo['golesF'] . "</td>";
+                            echo "<tr><td>" . $equipo['golesC'] . "</td>";
+                            echo "<tr><td>" . abs($equipo['golesF']-$equipo['golesC']) . "</td>";
+
+                            foreach ($partidos as $partido) {
+
+                            }
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </main>
+        </body>
+    </html>
+    <?php
+}
 ?>

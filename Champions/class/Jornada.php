@@ -41,8 +41,8 @@
                 $conexion = BD::getConexion();
                 $query = "UPDATE jornadas SET state = :state where id=:id";
                 $prepara = $conexion->prepare($query);
-                $prepara->execute(array(":state" => $this->state,
-                    ":id" => $this->id));
+                $prepara->execute(array(":state" => $this->getState(),
+                    ":id" => $this->getId()));
             }
         }
 
@@ -50,7 +50,7 @@
             $this->id = $id;
             $this->fecha = $fecha;
             $this->partidos = new Collection();
-            $this->state = 0;
+            $this->state = "0";
         }
 
         function getId() {
