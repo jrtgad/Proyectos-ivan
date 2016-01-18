@@ -84,6 +84,14 @@ if (isset($_SESSION["user"])) {
                         } else {
                             if (isset($_POST['clasificacion'])) {
                                 $liga = $_SESSION['liga'];
+
+                                $equipos = $liga->getEquipos();
+                                foreach ($equipos as $eq) {
+                                    $eq->setPuntos(0);
+                                    $eq->setGolesF(0);
+                                    $eq->setGolesC(0);
+                                }
+                                
                                 $jornadas = [];
                                 $actual = $liga->getJornadas()->iterate();
                                 while ($actual) {
@@ -93,35 +101,40 @@ if (isset($_SESSION["user"])) {
 
                                 foreach ($jornadas as $jornada) {
                                     if ($jornada->getState() === "1") {
-                                        $partidos = $jornada->getPartidos();
-                                        $equipos = $liga->getEquipos();
-                                        foreach ($partidos as $partido) {
-                                            foreach ($liga->equipos as $equipo) {
-                                                if ($partido->equipoL === $equipo['equipo']) {
+                                        $partidoActual = $jornada->getPartidos()->iterate();
 
-                                                    $equipo['golesF'] += $partido->golL;
-                                                    $equipo['golesC'] += $partido->golV;
-                                                    if ($partido->golL > $partido->golV) {
-                                                        $equipo['puntos'] += 3;
+                                        while ($partidoActual) {
+                                            foreach ($liga->getEquipos() as $equipo) {
+
+                                                //$equipo es local
+                                                if ($partidoActual->getEquipoL() === $equipo->getEquipo()) {
+                                                    $equipo->setGolesF($equipo->getGolesF() + $partidoActual->getGolL());
+                                                    $equipo->setGolesC($equipo->getGolesC() + $partidoActual->getGolV());
+                                                    if ($partidoActual->getGolL() > $partidoActual->getGolV()) {
+                                                        $equipo->setPuntos($equipo->getPuntos() + 3);
                                                     } else {
-                                                        if ($partido->golL === $partido->golV) {
-                                                            $equipo['puntos'] += 1;
+                                                        if ($partidoActual->getGolL() === $partidoActual->getGolV()) {
+                                                            $equipo->setPuntos($equipo->getPuntos() + 1);
                                                         }
                                                     }
                                                 } else {
-                                                    if ($partido->equipoV === $equipo['equipo']) {
-                                                        $equipo['golesF'] += $partido->golV;
-                                                        $equipo['golesC'] += $partido->golL;
-                                                        if ($partido->golV > $partido->golL) {
-                                                            $equipo['puntos'] += 3;
+
+                                                    //$equipo es visitante
+                                                    if ($partidoActual->getEquipoV() === $equipo->getEquipo()) {
+
+                                                        $equipo->setGolesF($equipo->getGolesF() + $partidoActual->getGolV());
+                                                        $equipo->setGolesC($equipo->getGolesC() + $partidoActual->getGolL());
+                                                        if ($partidoActual->getGolV() > $partidoActual->getGolL()) {
+                                                            $equipo->setPuntos($equipo->getPuntos() + 3);
                                                         } else {
-                                                            if ($partido->golL === $partido->golV) {
-                                                                $equipo['puntos'] += 1;
+                                                            if ($partidoActual->getGolL() === $partidoActual->getGolV()) {
+                                                                $equipo->setPuntos($equipo->getPuntos() + 1);
                                                             }
                                                         }
                                                     }
                                                 }
                                             }
+                                            $partidoActual = $jornada->getPartidos()->iterate();
                                         }
                                     }
                                 }
@@ -146,7 +159,6 @@ if (isset($_SESSION["user"])) {
         if (isset($_POST["login"])) {
 
 //INTENTO LOGIN
-
 
             $user = Usuario::getUsuario($_POST["user"], $_POST["pass"]);
             if ($user) {

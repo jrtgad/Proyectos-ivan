@@ -51,7 +51,7 @@ XML;
                     <?php
                         echo htmlspecialchars($xml->asXML());
 
-                        $fp = fopen("xml/partida.xml", "+w");
+                        $fp = fopen("../xml/partida.xml", "+w");
                         fwrite($fp, $xml);
                         fclose($fp);
                     ?>

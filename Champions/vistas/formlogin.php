@@ -3,16 +3,16 @@
     <head>
         <title>Formulario de acceso ahorcado</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../css/screen.css">
     </head>
     <body>
         <main>
             <form action="/" method="POST" id="reg_user">
 
                 <?php
-                    if (isset($msg)) {
-                        echo "<h1>" . $msg . "</h1>";
-                    }
+                if (isset($msg)) {
+                    echo "<h1>" . $msg . "</h1>";
+                }
                 ?>
 
                 <label for="user">Usuario:</label><br>

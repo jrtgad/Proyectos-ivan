@@ -21,7 +21,7 @@ if ($view !== "clasificacion") {
                 </form>
                 <div class="clasificacion">
                     <table>
-                        <tr>
+                        <tr class="cabecera">
                             <td>Equipo</td>
                             <td>Puntos</td>
                             <td>Goles a favor</td>
@@ -32,15 +32,15 @@ if ($view !== "clasificacion") {
                         $equipos = $liga->getEquipos();
 
                         foreach ($equipos as $equipo) {
-                            echo "<tr><td>" . $equipo['equipo'] . "</td>";
-                            echo "<tr><td>" . $equipo['puntos'] . "</td>";
-                            echo "<tr><td>" . $equipo['golesF'] . "</td>";
-                            echo "<tr><td>" . $equipo['golesC'] . "</td>";
-                            echo "<tr><td>" . abs($equipo['golesF']-$equipo['golesC']) . "</td>";
+                            echo "<tr><td>" . $equipo->getEquipo() . "</td>";
+                            echo "<td>" . $equipo->getPuntos() . "</td>";
+                            echo "<td>" . $equipo->getGolesF() . "</td>";
+                            echo "<td>" . $equipo->getGolesC() . "</td>";
+                            echo "<td>" . abs($equipo->getGolesF() - $equipo->getGolesC()) . "</td></tr>";
 
-                            foreach ($partidos as $partido) {
+                            /*foreach ($partidos as $partido) {
 
-                            }
+                            }*/
                             echo "</tr>";
                         }
                         ?>
@@ -51,4 +51,3 @@ if ($view !== "clasificacion") {
     </html>
     <?php
 }
-?>

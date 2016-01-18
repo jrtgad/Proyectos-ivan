@@ -71,7 +71,7 @@ class Jugada {
             return $check;
         } else {
             $conexion = BD::getConexion();
-            $query = "INSERT INTO usuarios (user, pass, mail,pintor_fk) "
+            $query = "INSERT INTO jugada (user, pass, mail,pintor_fk) "
                     . "VALUES(:user, :pass, :mail, :pintor_fk)";
             $inserta = $conexion->prepare($query);
 

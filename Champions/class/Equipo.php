@@ -4,10 +4,16 @@ class Equipo {
 
     private $id;
     private $equipo;
+    private $puntos;
+    private $golesF;
+    private $golesC;
 
-    function __construct($equipo = null, $id = null) {
+    function __construct($equipo = null, $id = null, $puntos = null, $golesF = null, $golesC = null) {
         $this->id = $id;
         $this->equipo = $equipo;
+        $this->puntos = $puntos;
+        $this->golesF = $golesF;
+        $this->golesC = $golesC;
     }
 
     function persist() {
@@ -22,6 +28,7 @@ class Equipo {
         $conexion = BD::getConexion();
         $query = "SELECT * from equipos";
         $prepara = $conexion->prepare($query);
+        $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Equipo");
         $prepara->execute();
         return $prepara->fetchAll();
     }

@@ -16,9 +16,10 @@ class Liga {
       return Jornada::getJornadas();
       } */
 
-    function __construct($id = null, $jornadas = null) {
+    function __construct($id = null, $jornadas = null, $equipos = null) {
         $this->id = $id;
         $this->jornadas = new Collection();
+        $this->equipos = $equipos;
     }
 
     function generaLiga($equipos) {

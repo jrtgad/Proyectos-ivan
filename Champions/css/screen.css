@@ -8,8 +8,12 @@ body main {
 }
 body main table {
   display: inline-block;
-  border: 1px solid orange;
   margin: 10px;
   text-align: center;
+}
+body main table tr.cabecera td {
+  font-size: 1.5em;
+  width: 5em;
+  font-weight: bold;
 }
 /*# sourceMappingURL=screen.css.map */
