@@ -91,7 +91,7 @@ if (isset($_SESSION["user"])) {
                                     $eq->setGolesF(0);
                                     $eq->setGolesC(0);
                                 }
-                                
+
                                 $jornadas = [];
                                 $actual = $liga->getJornadas()->iterate();
                                 while ($actual) {
@@ -141,8 +141,15 @@ if (isset($_SESSION["user"])) {
                                 $view = "clasificacion";
                                 include 'vistas/clasificacion.php';
                             } else {
-                                $view = "formlogin";
-                                include 'vistas/formlogin.php';
+                                if (isset($_POST["xml"])) {
+                                    $liga = $_SESSION["liga"];
+                                    $equipos = $liga->getEquipos();
+                                    $view = "xml";
+                                    include "vistas/xml.php";
+                                } else {
+                                    $view = "formlogin";
+                                    include 'vistas/formlogin.php';
+                                }
                             }
                         }
                     }

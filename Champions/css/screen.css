@@ -6,6 +6,17 @@ body main {
   margin: 0 auto;
   text-align: center;
 }
+body main .espacio {
+  visibility: none;
+  display: block;
+  height: 3em;
+  width: 5em;
+  margin: 0 auto;
+}
+body main .espacio .error {
+  background-color: yellow;
+  opacity: 0.8;
+}
 body main table {
   display: inline-block;
   margin: 10px;

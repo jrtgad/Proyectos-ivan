@@ -17,40 +17,29 @@ if ($view !== "xml") {
                 <?php
                 $xmlstr = <<<XML
 <?xml version="1.0" standalone="yes" ?>
-<partidas></partidas>
+<equipos></equipos>
 XML;
 
                 $xml = new SimpleXMLElement($xmlstr);
 
                 //todas las partidas
-                foreach ($arrayXml as $key => $partida) {
-                    $arrayPartidas = $xml->addChild("partida");
-                    //addLoQSea(Nombre, valor)
-                    //id partida
-                    $arrayPartidas->addAttribute("id", $key);
-                    $currentJugadas = $user->getPartidas()->getByProperty("_IdPartida", $key)->getJugadas();
+                foreach ($equipos as $equipo) {
 
+                    $eq = $xml->addChild("equipo");
+                    $eq->addChild("id",$equipo->getId());
+                    //$currentEquipo = $equipo->getByProperty("_Id", $key)->getPuntos();
+                    $eq->addChild("puntos",$equipo->getPuntos());
+                    //$eq->addAttribute("id", $current->getId());
+                    $eq->addChild("golesF", $equipo->getGolesF());
+                    $eq->addChild("golesC", $equipo->getGolesC());
 
-                    //todas las jugadas
-                    $current = $currentJugadas->iterate();
-                    while ($current) {
-                        $jug = $arrayPartidas->addChild("jugada");
-                        //id jugada
-                        $jug->addAttribute("id", $current->getId());
-                        $jug->addChild("letra", $current->getLetra());
-                        $current = $currentJugadas->iterate();
-                    }
                 }
                 ?>
                 <code class="language-xml">
 
-                    <!--Este es el que imprime-->
-
-
-
                     <?php echo htmlspecialchars($xml->asXML()) ?>
                     <form action="/" method="POST">
-                        <input type="submit" name="volver" value="Volver">
+                        <input type="submit" name="menu" value="Volver">
                     </form>
                 </code>
             </div>

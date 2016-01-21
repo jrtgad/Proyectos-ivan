@@ -16,16 +16,16 @@ if ($view !== "menu") {
                 <form action="index.php" method="POST">
                     <div class="botonera">
                         <input type="submit" name="logout" value="Log out">
-                        <input type="submit" name="xml" value="XML">
                         <input type="submit" name="clasificacion" value="Clasificacion">
-
                     </div>
                     <div class="jornadas">
-                        <?php
-                        if (isset($msg)) {
-                            echo "<p>" . $msg . "</p>";
-                        }
-                        ?>
+                        <div class="espacio">
+                            <?php
+                            if (isset($msg)) {
+                                echo "<p class=\"error\">" . $msg . "</p>";
+                            }
+                            ?>
+                        </div>
                         <table>
                             <?php
                             $jornadas = $liga->getJornadas();
