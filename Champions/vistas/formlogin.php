@@ -10,9 +10,9 @@
             <form action="/" method="POST" id="reg_user">
 
                 <?php
-                    if (isset($msg)) {
-                        echo "<h1>" . $msg . "</h1>";
-                    }
+                if (isset($msg)) {
+                    echo "<h1>" . $msg . "</h1>";
+                }
                 ?>
 
                 <label for="user">Usuario:</label><br>
