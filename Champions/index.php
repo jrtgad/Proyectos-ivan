@@ -1,154 +1,79 @@
 <?php
 
-require_once "class/Usuario.php";
-require_once "class/Liga.php";
-session_start();
-$msg = "";
+    require_once "class/Usuario.php";
+    require_once "class/Liga.php";
 
-/* function separaEquipos($equipos) {
-  return explode(",", $equipos);
-  } */
 
-if (isset($_SESSION["user"])) {
+    session_start();
+    $msg = "";
 
-    $user = $_SESSION['user'];
+    /* function separaEquipos($equipos) {
+      return explode(",", $equipos);
+      } */
 
-    if (isset($_POST['logout'])) {
-        session_unset();
-        session_destroy();
-        include "vistas/formlogin.php";
-    } else {
-        if (isset($_POST['creaLiga'])) {
-            $liga = new Liga();
+    if (isset($_SESSION["user"])) {
 
-            $equipos = explode(",", $_POST['equiposString']);
+        $user = $_SESSION['user'];
 
-            $liga->generaLiga($equipos);
-
-            $liga->setJornadas(Jornada::getJornadas());
-
-            $_SESSION['liga'] = $liga;
-            $view = "menu";
-            include 'vistas/menu.php';
+        if (isset($_POST['logout'])) {
+            session_unset();
+            session_destroy();
+            include "vistas/formlogin.php";
         } else {
-            $liga = $_SESSION['liga'];
-            if (isset($_POST['borrar'])) {
-                $jornada = $liga->getJornadas()->getByProperty("id", $_POST['borrar']);
+            if (isset($_POST['creaLiga'])) {
+                $liga = new Liga();
 
-                $partidos = $jornada->getPartidos();
+                $equipos = explode(",", $_POST['equiposString']);
 
-                $actual = $partidos->iterate();
-                while ($actual) {
-                    $actual->setGolL(null);
-                    $actual->setGolV(null);
-                    $actual->persist();
-                    $actual = $partidos->iterate();
-                }
-                $jornada->setState("0");
-                $jornada->persist();
-                $msg = "Jornada borrada";
+                $liga->generaLiga($equipos);
+
+                $liga->setJornadas(Jornada::getJornadas());
+
+                $_SESSION['liga'] = $liga;
                 $view = "menu";
-                include "vistas/menu.php";
+                include 'vistas/menu.php';
             } else {
-                if (isset($_POST['modificar'])) {
-                    //Id jornada
-                    $jornada = $liga->getJornadas()->getByProperty("id", $_POST['modificar']);
+                $liga = $_SESSION['liga'];
+                if (isset($_POST['borrar'])) {
+                    $liga->borraJornada($_POST["borrar"]);
 
-                    $view = "partido";
-                    include 'vistas/partido.php';
+                    $msg = "Jornada borrada";
+                    $view = "menu";
+                    include "vistas/menu.php";
                 } else {
-                    if (isset($_POST['modificado'])) {
-                        //id jornada
-                        $jornada = $liga->getJornadas()->getByProperty("id", $_POST['modificado']);
+                    if (isset($_POST['modificar'])) {
+                        //Id jornada
+                        $jornada = $liga->getJornadas()->getByProperty("id", $_POST['modificar']);
 
-                        $partidos = $jornada->getPartidos();
-                        $actual = $partidos->iterate();
-                        $resultados = $_POST['resultado'];
-
-                        while ($actual) {
-                            $resultado = $resultados[$actual->getId()];
-                            $actual->setGolL($resultado['local']);
-                            $actual->setGolV($resultado['visitante']);
-                            $actual->persist();
-                            $actual = $partidos->iterate();
-                        }
-                        $jornada->setState("1");
-                        $jornada->persist();
-                        $msg = "Jornada modificada";
-                        $view = "menu";
-                        include "vistas/menu.php";
+                        $view = "partido";
+                        include 'vistas/partido.php';
                     } else {
-                        if (isset($_POST['menu'])) {
+                        if (isset($_POST['modificado'])) {
+                            $liga->modificaJornada($_POST['modificado'], $_POST["resultado"]);
+
+                            $msg = "Jornada modificada";
                             $view = "menu";
                             include "vistas/menu.php";
                         } else {
-                            if (isset($_POST['clasificacion'])) {
-                                $liga = $_SESSION['liga'];
-
-                                $equipos = $liga->getEquipos();
-                                foreach ($equipos as $eq) {
-                                    $eq->setPuntos(0);
-                                    $eq->setGolesF(0);
-                                    $eq->setGolesC(0);
-                                }
-
-                                $jornadas = [];
-                                $actual = $liga->getJornadas()->iterate();
-                                while ($actual) {
-                                    $jornadas[] = $actual;
-                                    $actual = $liga->getJornadas()->iterate();
-                                }
-
-                                foreach ($jornadas as $jornada) {
-                                    if ($jornada->getState() === "1") {
-                                        $partidoActual = $jornada->getPartidos()->iterate();
-
-                                        while ($partidoActual) {
-                                            foreach ($liga->getEquipos() as $equipo) {
-
-                                                //$equipo es local
-                                                if ($partidoActual->getEquipoL() === $equipo->getEquipo()) {
-                                                    $equipo->setGolesF($equipo->getGolesF() + $partidoActual->getGolL());
-                                                    $equipo->setGolesC($equipo->getGolesC() + $partidoActual->getGolV());
-                                                    if ($partidoActual->getGolL() > $partidoActual->getGolV()) {
-                                                        $equipo->setPuntos($equipo->getPuntos() + 3);
-                                                    } else {
-                                                        if ($partidoActual->getGolL() === $partidoActual->getGolV()) {
-                                                            $equipo->setPuntos($equipo->getPuntos() + 1);
-                                                        }
-                                                    }
-                                                } else {
-
-                                                    //$equipo es visitante
-                                                    if ($partidoActual->getEquipoV() === $equipo->getEquipo()) {
-
-                                                        $equipo->setGolesF($equipo->getGolesF() + $partidoActual->getGolV());
-                                                        $equipo->setGolesC($equipo->getGolesC() + $partidoActual->getGolL());
-                                                        if ($partidoActual->getGolV() > $partidoActual->getGolL()) {
-                                                            $equipo->setPuntos($equipo->getPuntos() + 3);
-                                                        } else {
-                                                            if ($partidoActual->getGolL() === $partidoActual->getGolV()) {
-                                                                $equipo->setPuntos($equipo->getPuntos() + 1);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            $partidoActual = $jornada->getPartidos()->iterate();
-                                        }
-                                    }
-                                }
-                                $view = "clasificacion";
-                                include 'vistas/clasificacion.php';
+                            if (isset($_POST['menu'])) {
+                                $view = "menu";
+                                include "vistas/menu.php";
                             } else {
-                                if (isset($_POST["xml"])) {
-                                    $liga = $_SESSION["liga"];
-                                    $equipos = $liga->getEquipos();
-                                    $view = "xml";
-                                    include "vistas/xml.php";
+                                if (isset($_POST['clasificacion'])) {
+                                    $liga = $_SESSION['liga'];
+                                    $liga->generaClasificacion();
+                                    $view = "clasificacion";
+                                    include 'vistas/clasificacion.php';
                                 } else {
-                                    $view = "formlogin";
-                                    include 'vistas/formlogin.php';
+                                    if (isset($_POST["xml"])) {
+                                        $liga = $_SESSION["liga"];
+                                        $equipos = $liga->getEquipos();
+                                        $view = "xml";
+                                        include "vistas/xml.php";
+                                    } else {
+                                        $view = "formlogin";
+                                        include 'vistas/formlogin.php';
+                                    }
                                 }
                             }
                         }
@@ -156,43 +81,42 @@ if (isset($_SESSION["user"])) {
                 }
             }
         }
-    }
-} else {
+    } else {
 //NO REGISTRADO
 
-    if (isset($_POST["formlogin"])) {
-        include "vistas/formlogin.php";
-    } else {
-        if (isset($_POST["login"])) {
+        if (isset($_POST["formlogin"])) {
+            include "vistas/formlogin.php";
+        } else {
+            if (isset($_POST["login"])) {
 
 //INTENTO LOGIN
 
-            $user = Usuario::getUsuario($_POST["user"], $_POST["pass"]);
-            if ($user) {
+                $user = Usuario::getUsuario($_POST["user"], $_POST["pass"]);
+                if ($user) {
 
-                $_SESSION["user"] = $user;
+                    $_SESSION["user"] = $user;
 
-                $liga = new Liga();
-                $liga->setJornadas(Jornada::getJornadas());
+                    $liga = new Liga();
+                    $liga->setJornadas(Jornada::getJornadas());
 
-                if ($liga->getJornadas()->isEmpty()) {
-                    $view = "creaLiga";
-                    include "vistas/creaLiga.php";
+                    if ($liga->getJornadas()->isEmpty()) {
+                        $view = "creaLiga";
+                        include "vistas/creaLiga.php";
+                    } else {
+                        //Array de equipos
+                        $liga->setEquipos(Equipo::getEquipos());
+
+                        $_SESSION['liga'] = $liga;
+                        $view = "menu";
+                        include "vistas/menu.php";
+                    }
                 } else {
-                    //Array de equipos
-                    $liga->setEquipos(Equipo::getEquipos());
-
-                    $_SESSION['liga'] = $liga;
-                    $view = "menu";
-                    include "vistas/menu.php";
+                    $msg = "Credenciales incorrectas";
+                    include "vistas/formlogin.php";
                 }
             } else {
-                $msg = "Credenciales incorrectas";
                 include "vistas/formlogin.php";
             }
-        } else {
-            include "vistas/formlogin.php";
         }
     }
-}
 ?>
