@@ -41,6 +41,7 @@ class Partido {
         }
     }
 
+    // Resetea los datos de un partido y los deja a NULL
     function borra() {
         $this->setGolL(null);
         $this->setGolV(null);

@@ -49,11 +49,7 @@ XML;
 
 
                     <?php
-                        echo htmlspecialchars($xml->asXML());
-
-                        $fp = fopen("../xml/partida.xml", "+w");
-                        fwrite($fp, $xml);
-                        fclose($fp);
+                    echo htmlspecialchars($xml->asXML());
                     ?>
                     <form action="/" method="POST">
 

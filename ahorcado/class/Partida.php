@@ -6,7 +6,7 @@ require_once 'AlmacenPalabras.php';
 
 class Partida {
 
-    private $id_partida;
+    private $id;
     private $palabrasecreta;
     private $letrasusadas;
     private $palabradescubierta;
@@ -14,13 +14,14 @@ class Partida {
     private $fallos;
     private $finalizada;
     private $id_user_fk;
+    private $jugadas;
 
     public static function getPartida($user) {
         $conexion = BD::getConexion();
         $query = "SELECT * from partidas where id_user_fk=:id_user_fk";
         $prepara = $conexion->prepare($query);
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Partida");
-        $prepara->execute(array(":id_user_fk" => $this->getId_user_fk(), ":id" => $this->getId()));
+        $prepara->execute(array(":id_user_fk" => $user));
         $partida = $prepara->fetchAll();
         $partidas = new Collection();
         if ($partida) {
@@ -31,21 +32,23 @@ class Partida {
         return $partidas;
     }
 
-    function __construct($letrasusadas = null, $palabradescubierta = null, $intentos = null, $fallos = null, $finalizada = null, $id_user_fk = null, $palabrasecreta = null, $id_partida = null) {
-
-
+    function __construct($letrasusadas = null, $intentos = null, $fallos = null, $finalizada = null, $id_user_fk = null, $palabrasecreta = null, $palabradescubierta = null,$jugadas= null, $id_partida = null) {
         $this->letrasusadas = "";
-        $this->palabradescubierta = "";
         $this->intentos = 0;
         $this->fallos = 0;
         $this->finalizada = false;
         $this->id_user_fk = $id_user_fk;
         $this->palabrasecreta = AlmacenPalabras::getInstance()->getPalabraAleatoria();
-        $this->id_partida = $id_partida;
+        $this->jugadas = new Collection();
+        $this->id = $id_partida;
+        //Reemplaza cada letra por un guion (/\w{1}/)
+        $this->palabradescubierta = preg_replace("/\w{1}/", "_", $this->palabrasecreta);
+        //$this->id = $id;
+        //$this->id_partida = $id_partida;
     }
 
     public function persist() {
-        if ($this->id_partida !== null) {
+        if ($this->id !== null) {
             $conexion = BD::getConexion();
             $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
                     . " letrasusadas=:letrasusadas,"
@@ -53,7 +56,7 @@ class Partida {
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
-                    . " WHERE id = :id_partida";
+                    . " WHERE id = :id";
             $update = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -68,17 +71,17 @@ class Partida {
                 ":fallos" => $this->getFallos(),
                 ":finalizada" => $this->getFinalizada(),
                 ":id_user_fk" => $this->getId_user_fk(),
-                ":id_partida" => $this->getId_Partida()));
+                ":id" => $this->getIdPartida()));
             return $check;
         } else {
             $conexion = BD::getConexion();
-            $query = "UPDATE partidas SET palabrasecreta=:palabrasecreta,"
+            $query = "INSERT INTO partidas SET palabrasecreta=:palabrasecreta,"
                     . " letrasusadas=:letrasusadas,"
                     . " palabradescubierta=:palabradescubierta,"
                     . " intentos=:intentos, "
                     . " fallos=:fallos, "
                     . " finalizada=:finalizada, "
-                    . " WHERE id = :id_partida";
+                    . " id_user_fk = :id_user_fk";
             $inserta = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -92,8 +95,8 @@ class Partida {
                         ":intentos" => $this->getIntentos(),
                         ":fallos" => $this->getFallos(),
                         ":finalizada" => $this->getFinalizada(),
-                        ":id_partida" => $this->getId_user_fk()));
-            $this->id_partida = (int) $conexion->lastInsertId();
+                        ":id_user_fk" => $this->getId_user_fk()));
+            $this->id = (int) $conexion->lastInsertId();
         }
     }
 

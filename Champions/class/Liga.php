@@ -114,16 +114,20 @@ class Liga {
     }
 
     function borraJornada($id) {
+        //Busca la jornada con id = $id, y es la clase Jornada quien borra los datos
         $jornada = $this->getJornadas()->getByProperty("id", $id);
         $jornada->borraJornada();
     }
 
     function modificaJornada($id, $resultados) {
+        //Busca la jornada con id = $id, y llama a su método modifica
         $jornada = $this->getJornadas()->getByProperty("id", $id);
         $jornada->modifica($resultados);
     }
 
     function generaClasificacion() {
+        //Saca su array de equipos, y calcula, revisando las jornadas,
+        // los datos que tiene que mostrar en la tabla
         $equipos = $this->getEquipos();
 
         foreach ($equipos as $eq) {

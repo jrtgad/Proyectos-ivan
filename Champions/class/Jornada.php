@@ -69,6 +69,9 @@ class Jornada {
     }
 
     function borraJornada() {
+        //El id de la jornada se manda con el value del boton borrar,
+        // busca los partidos que se encuentran en ese id, y llama a su método borrar,
+        // que modifica los datos a NULL
         $partidos = $this->getPartidos();
         $actual = $partidos->iterate();
 

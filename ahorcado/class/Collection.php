@@ -1,7 +1,5 @@
 <?php
 
-/* Listillo */
-
 class Collection {
 
     protected $objects; // array

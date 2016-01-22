@@ -2,22 +2,22 @@
 
 class Jugada {
 
-    private $id_jugada;
-    private $letra;
+    private $id;
+    private $letrausada;
     private $id_partida_fk;
 
-    function __construct($id_partida_fk = null, $letra = null, $id = null) {
-        $this->id_jugada = $id;
-        $this->letra = $letra;
+    function __construct($id_partida_fk = null, $letrausada = null, $id = null) {
+        $this->id = $id;
+        $this->letrausada = $letrausada;
         $this->id_partida_fk = $id_partida_fk;
     }
 
     public static function getJugadas($partida) {
         $conexion = BD::getConexion();
-        $query = "SELECT * from jugada where id_partida=:id_partida";
+        $query = "SELECT * from jugada where id_partida_fk=:id_partida_fk";
         $prepara = $conexion->prepare($query);
         $prepara->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Jugada");
-        $prepara->execute(array(":id_partida" => $partida));
+        $prepara->execute(array(":id_partida_fk" => $partida));
         $jugada = $prepara->fetchAll();
         $jugadas = new Collection();
         if ($jugada) {
@@ -29,7 +29,7 @@ class Jugada {
     }
 
     function getId() {
-        return $this->id_jugada;
+        return $this->id;
     }
 
     function getId_partida_fk() {
@@ -41,11 +41,11 @@ class Jugada {
     }
 
     function getLetra() {
-        return $this->letra;
+        return $this->letrausada;
     }
 
-    function setLetra($letra) {
-        $this->letra = $letra;
+    function setLetra($letrausada) {
+        $this->letrausada = $letrausada;
     }
 
     function setId_partida_fk($id_partida_fk) {
@@ -55,7 +55,7 @@ class Jugada {
     public function persist() {
         if ($this->id !== null) {
             $conexion = BD::getConexion();
-            $query = "UPDATE jugada SET user=:user, pass=:pass, partidas=:partidas, rol=:rol WHERE id = :id_user";
+            $query = "UPDATE jugada SET letrausada=:letrausada, id_partida_fk=:id_partida_fk";
             $update = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -63,16 +63,13 @@ class Jugada {
             $update->setFetchMode(PDO::FETCH_ASSOC);
 
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            $check = $update->execute(array(":user" => $this->getUser(),
-                ":pass" => $this->getPass(),
-                ":partidas" => $this->getPartidas(),
-                ":rol" => $this->getRol(),
-                ":id_user" => $this->getId()));
+            $check = $update->execute(array(":letrausada" => $this->getLetra(),
+                ":id_partida_fk" => $this->getId_partida_fk()));
             return $check;
         } else {
             $conexion = BD::getConexion();
-            $query = "INSERT INTO jugada (user, pass, mail,pintor_fk) "
-                    . "VALUES(:user, :pass, :mail, :pintor_fk)";
+            $query = "INSERT INTO jugada (letrausada,id_partida_fk) "
+                    . "VALUES(:letrausada, :id_partida_fk)";
             $inserta = $conexion->prepare($query);
 
             //ASSOC trae array asociativo,
@@ -80,10 +77,8 @@ class Jugada {
             $inserta->setFetchMode(PDO::FETCH_ASSOC);
 
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
-            return $inserta->execute(array(":user" => $this->getUser(),
-                        ":pass" => $this->getPass(),
-                        ":mail" => $this->getMail(),
-                        ":pintor_fk" => $this->getPintor()));
+            return $inserta->execute(array(":letrausada" => $this->getLetra(),
+                        ":id_partida_fk" => $this->getId_partida_fk()));
             $this->id = (int) $conexion->lastInsertId();
         }
     }
