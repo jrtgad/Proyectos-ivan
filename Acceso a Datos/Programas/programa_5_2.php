@@ -1,0 +1,26 @@
+<<<<<<< HEAD
+<?php
+    echo "El metodo que se ha usado para recoger los datos del formulario ha sido $_SERVER[REQUEST_METHOD] <br>";
+    echo "Nombre: ", $_GET['nombre'], "<br>";
+    echo "Clave: ", $_GET['clave'], "<br>";
+    echo "Color: ", $_GET['color'], "<br>";
+    if (isset ($_GET['acondicionado'])) echo "Extra: ", $_POST['acondicionado'], "<br>";
+    if (isset ($_GET['tapiceria'])) echo "Extra: ", $_POST['tapiceria'], "<br>";
+    if (isset ($_GET['llantas'])) echo "Extra: ", $_POST['llantas'], "<br>";
+    echo "Precio: ", $_GET['precio'], "<br>";
+    echo "Texto: ", $_GET['texto'], "<br>";
+    echo "Oculto: ", $_GET['oculto'], "<br>";
+=======
+<?php
+    echo "El metodo que se ha usado para recoger los datos del formulario ha sido $_SERVER[REQUEST_METHOD] <br>";
+    echo "Nombre: ", $_GET['nombre'], "<br>";
+    echo "Clave: ", $_GET['clave'], "<br>";
+    echo "Color: ", $_GET['color'], "<br>";
+    if (isset ($_GET['acondicionado'])) echo "Extra: ", $_POST['acondicionado'], "<br>";
+    if (isset ($_GET['tapiceria'])) echo "Extra: ", $_POST['tapiceria'], "<br>";
+    if (isset ($_GET['llantas'])) echo "Extra: ", $_POST['llantas'], "<br>";
+    echo "Precio: ", $_GET['precio'], "<br>";
+    echo "Texto: ", $_GET['texto'], "<br>";
+    echo "Oculto: ", $_GET['oculto'], "<br>";
+>>>>>>> d08ca635e88c9439c125812d69e09c071049c5c2
+?>

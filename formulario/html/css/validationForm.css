@@ -1,0 +1,11 @@
+.valid{
+    background-color: lightgreen;
+}
+
+.invalid{
+    background-color: pink !important;
+}
+
+input, textarea, select, checkbox {
+    background-color: white;
+}

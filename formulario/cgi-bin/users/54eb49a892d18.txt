@@ -1,0 +1,15 @@
+conditions => acepted
+name => adrian
+surname => fernandez chicote
+email => af@gm.es
+password => 123aaa
+confirm_password => 123aaa
+birthday => 1982-05-03
+telophon => 
+URL => 
+NIF => 
+address => 
+city => 
+CP => 
+coments => 
+codigo_de_cliente => 
