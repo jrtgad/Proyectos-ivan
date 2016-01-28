@@ -34,9 +34,10 @@ class Usuario {
     }
 
     public function nuevaPartida() {
-        $partida = new Partida();
-
-        $this->partidas->add($partida);
+        $partida = new Partida($this->getId());
+        $this->getPartidas()->add($partida);
+        $partida->persist();
+        return $partida;
     }
 
     public function persist() {

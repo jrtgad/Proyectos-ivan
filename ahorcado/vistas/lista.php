@@ -20,13 +20,12 @@ if ($view !== "lista") {
 
                 echo "<h2>Partidas sin acabar</h2>";
 
-                //$juegos -> sortByProperty("finalizada", 'n');
                 $actual = $juegos->iterate();
 
                 while ($actual) {
                     if ($actual->getFinalizada() === 0 || $actual->getFinalizada() === "0") {
-                        echo "<input type=\"radio\" name=\"idPartida\" value=\"" . $actual->get_Idpartida() . "\">";
-                        echo "Partida " . $actual->get_Idpartida();
+                        echo "<input type=\"radio\" name=\"idPartida\" value=\"" . $actual->get_IdPartida() . "\">";
+                        echo "Partida " . $actual->get_IdPartida();
                         echo "<br>";
                     }
                     $actual = $juegos->iterate();
@@ -44,8 +43,8 @@ if ($view !== "lista") {
 
                 while ($actual) {
                     if ($actual->getFinalizada() === 1 || $actual->getFinalizada() === "1") {
-                        echo "<input type=\"checkbox\" name=\"checkboxes[" . $actual->get_Idpartida() . "]\" value=\"" . $actual->get_Idpartida() . "\">";
-                        echo "Partida " . $actual->get_Idpartida();
+                        echo "<input type=\"checkbox\" name=\"checkboxes[" . $actual->get_IdPartida() . "]\" value=\"" . $actual->get_IdPartida() . "\">";
+                        echo "Partida " . $actual->get_IdPartida();
                         echo "<br>";
                     }
                     $actual = $juegos->iterate();
