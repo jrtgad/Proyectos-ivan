@@ -53,7 +53,7 @@
                         . "palabradescubierta=:palabradescubierta,"
                         . "intentos=:intentos,"
                         . "fallos=:fallos,"
-                        . "finalizada=:finalizada,"
+                        . "finalizada=:finalizada "
                         . "WHERE id=:id";
                 $update = $conexion->prepare($query);
                 $update->execute(array(":palabrasecreta" => $this->getPalabrasecreta(),
@@ -103,7 +103,6 @@
                 }
                 $this->setIntentos($this->getIntentos() + 1);
                 $this->setLetrasusadas($this->getLetrasusadas() . " " . $letra);
-                $this->persist();
             }
         }
 
