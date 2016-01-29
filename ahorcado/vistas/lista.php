@@ -17,11 +17,8 @@ if ($view !== "lista") {
                 <?php
                 echo "<h1>Hola " . $_SESSION['user']->getUser() . "</h1>";
                 echo "<h2>Partidas sin acabar</h2>";
-
                 $juegos = $user->getPartidas();
-
                 $actual = $juegos->iterate();
-
 
                 //SIN ACABAR
                 while ($actual) {
@@ -32,20 +29,16 @@ if ($view !== "lista") {
                     }
                     $actual = $juegos->iterate();
                 }
-                echo "<input type=\"SUBMIT\" name=\"recupera\" value=\"Continuar partida\">";
 
                 if (isset($_SESSION["msgRecupera"])) {
                     echo "<h2>" . $_SESSION["msgRecupera"] . "</h2>";
                 }
-
+                echo "<input type=\"SUBMIT\" name=\"recupera\" value=\"Continuar partida\">";
                 $juegos->resetIterator();
 
-
-
-                $actual = $juegos->iterate();
                 //ACABADAS
+                $actual = $juegos->iterate();
                 echo "<h2>Partidas acabadas</h2>";
-
                 while ($actual) {
                     if ((int) $actual->getFinalizada() === 1) {
                         echo "<input type=\"checkbox\" name=\"checkboxes[" . $actual->get_IdPartida() . "]\" value=\"" . $actual->get_IdPartida() . "\">";
@@ -59,11 +52,9 @@ if ($view !== "lista") {
                 }
                 echo "<input type=\"SUBMIT\" name=\"recuperaXML\" value=\"Mostrar XML\">";
                 ?>
-
             </form>
         </body>
     </html>
-
-    <?php
+<?php
 }
 ?>
