@@ -1,6 +1,8 @@
 <?php
 
 include "Contacto.php";
+include "Collection.php";
+include "BD.php";
 
 class Usuario {
 
@@ -9,26 +11,44 @@ class Usuario {
     private $pass;
     private $contactos;
 
-    function __construct($id = null, $user = null, $pass = null, $contactos = null) {
+    function __construct($user = null, $pass = null, $contactos = null, $id = null) {
         $this->id = $id;
         $this->user = $user;
         $this->pass = $pass;
         $this->contactos = new Collection();
     }
 
-    public static function getUserById($user, $pass) {
+    public static function getUserByCredentials($user, $pass) {
         $conexion = BD::getConexion();
-        $query = "SELECT * FROM usuario WHERE user=:user AND pass=:pass";
+        $query = "SELECT * FROM usuarios WHERE user=:user AND pass=:pass";
         $result = $conexion->prepare($query);
-        $result->setFechMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
+        $result->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Usuario");
         $result->execute(array(":user" => $user,
-            ":pass=>$pass"));
-        $user=$result->fetch();
-        if($user) {
-            $contactos = Contacto::getContactosById($user->getId());
+            ":pass" => $pass));
+        $usuario = $result->fetch();
+        if ($usuario) {
+            $contactos = Contacto::getContactosById($usuario->getId());
             $usuario->setContactos($contactos);
         }
-        return $user;
+        return $usuario;
+    }
+
+    public function persist() {
+        if ($this->id !== null) {
+            $conexion = BD::getConexion();
+            $query = "UPDATE usuarios SET user=:user, pass=:pass WHERE id=:id";
+            $result = $conexion->prepare($query);
+            $result->execute(array(":user" => $this->getUser(),
+                ":pass" => $this->getPass(),
+                ":id" => $this->getId()));
+        } else {
+            $conexion = BD::getConexion();
+            $query = "INSERT INTO usuarios (user,pass) VALUES (:user, :pass)";
+            $result = $conexion->prepare($query);
+            $result->execute(array(":user" => $this->getUser(),
+                ":pass" => $this->getPass()));
+            $this->id = (int)$conexion->lastInsertId();
+        }
     }
 
     function getId() {

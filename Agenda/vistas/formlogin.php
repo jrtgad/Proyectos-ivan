@@ -18,7 +18,7 @@
             <input type="text" name="user"><br>
             <label for="pass">Contraseña:</label><br>
             <input type="text" name="pass"><br>
-
+            <input type="SUBMIT" value="Registrarse" name="registrarse">
             <input type="SUBMIT" value="Log in" name="login">
         </form>
     </body>

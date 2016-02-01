@@ -63,10 +63,6 @@ class Usuario {
                     . "VALUES(:user, :pass, :rol)";
             $inserta = $conexion->prepare($query);
 
-            //ASSOC trae array asociativo,
-            //(por defecto numérico y asociativo)
-            $inserta->setFetchMode(PDO::FETCH_ASSOC);
-
             //Devuelve las líneas afectadas(0 no ha agregado, 1 si)
             $inserta->execute(array(":user" => $this->getUser(),
                 ":pass" => $this->getPass(),
