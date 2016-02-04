@@ -15,7 +15,7 @@ if ($view !== "agregar") {
 
             <form action="/">
                 <input type="SUBMIT" value="Log out" name="logout">
-                <input type="text" name="name" placeholder="Escriba nombre">
+                <input type="text" name="name" placeholder="Escriba nombre" class="data">
                 <input type="text" name="apellidos" placeholder="Escriba apellidos">
                 <input type="text" name="tfn1" placeholder="Escriba teléfono 1">
                 <input type="text" name="tfn2" placeholder="Escriba teléfono 2">

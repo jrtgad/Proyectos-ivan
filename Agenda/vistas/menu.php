@@ -14,7 +14,6 @@ if ($view !== "menu") {
             <h1><?php echo "Hola, " . $_SESSION["user"]->getUser(); ?></h1>
             <form action="/" method="POST">
                 <input type="SUBMIT" value="Log out" name="logout">
-
                 <table>
                     <tr>
                         <td>Nombre</td>
